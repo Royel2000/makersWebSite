@@ -1,0 +1,93 @@
+---
+import ".././assets/global.css";
+import portada from "../assets/Portada.jpg";
+import Logo from "../assets/Makers.svg";
+import Valores from "./Valores.astro";
+import Galeria from "./Galeria.astro";
+import Video from "./Video.astro";
+import Planes from "./Planes.astro";
+import Posters from "./Posters.astro";
+---
+
+<div>
+  <div>
+    <div
+      style={`background-image: url(${portada.src})`}
+      class="h-screen bg-cover bg-center bg-fixed"
+    >
+    </div>
+    <div class="flex relative">
+      <div class="w-1/3 absolute bottom-20 left-20 text-[#cacaca]">
+        <h1 class="text-2xl font-extrabold">MAKERS</h1>
+        <p class="sm:text-lg">
+          Cada momento es unico, nosotros lo hacemos eterno.
+        </p>
+      </div>
+    </div>
+  </div>
+  <Valores />
+  <Video />
+  <section
+    id="aboutUs"
+    class="text-center bg-[#111111] text-[#cacaca] flex flex-col justify-center items-center min-h-screen w-screen md:px-80 sm:px-20 px-10 mt-20"
+  >
+    <div class="mb-12 max-w-3xl">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">¿Quiénes somos?</h1>
+
+      <p class="text-lg leading-relaxed">
+        Somos fotógrafos apasionados por capturar momentos que cuentan
+        historias. Nos especializamos en sesiones creativas que van más allá de
+        una simple imagen, buscando reflejar la esencia, personalidad y emoción
+        de cada persona.
+        <br /><br />
+        Originarios de Felipe Carrillo Puerto, Quintana Roo, trabajamos con una visión
+        clara: transformar ideas en recuerdos visuales únicos.
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-10 max-w-4xl">
+      <div class="md:w-1/2 md:text-right">
+        <h2 class="text-2xl font-bold mb-3">Misión</h2>
+        <p class="leading-relaxed">
+          Evolucionar en cada proyecto, superándonos constantemente en
+          creatividad, técnica y calidad, ofreciendo un servicio accesible sin
+          perder el valor artístico que nos define.
+        </p>
+      </div>
+
+      <div class="md:w-1/2 md:text-left">
+        <h2 class="text-2xl font-bold mb-3">Visión</h2>
+        <ul class="space-y-2">
+          <li>Convertirnos en un estudio fotográfico consolidado.</li>
+          <li>Destacar por nuestra composición, estilo y calidad visual.</li>
+          <li>
+            Ser reconocidos como referentes de la fotografía en la península.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <Galeria />
+
+  <Posters />
+
+  <section class="text-[#cacaca] justify-center content-center">
+    <div class="flex flex-col md:flex-row md:px-20 sm:px-10 px-5">
+      <div class="md:mr-10">
+        <div class="mb-5">
+          <h1 class="text-6xl font-bold">¿Te gusta nuestro trabajo?</h1>
+        </div>
+        <div>
+          <p>
+            Contactanos para cotizar tu sessión de fotos
+            <br />y volverla inolvidable, todos merecen alguna sessión de fotos.
+          </p>
+        </div>
+      </div>
+
+      <div class="md:ml-10 mt-10">
+        <Planes />
+      </div>
+    </div>
+  </section>
+</div>

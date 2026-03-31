@@ -1,0 +1,122 @@
+---
+import ".././assets/global.css";
+import Image from "astro/components/Image.astro";
+
+import imagen1 from ".././assets/pictures/03022026DSC05939.jpg";
+import imagen2 from ".././assets/pictures/03022026DSC06218.jpg";
+import imagen3 from ".././assets/pictures/03022026DSC06237.jpg";
+import imagen4 from ".././assets/pictures/04022026DSC06476.jpg";
+import imagen5 from ".././assets/pictures/04022026DSC06649.jpg";
+import imagen6 from ".././assets/pictures/05022026DSC06687.jpg";
+import imagen7 from ".././assets/pictures/05022026DSC06689.jpg";
+import imagen8 from ".././assets/pictures/10092025_MKR7434.jpg";
+import imagen9 from ".././assets/pictures/22102025_MKR0613.jpg";
+import imagen10 from ".././assets/pictures/28122025_MG_3689.jpg";
+import imagen11 from ".././assets/pictures/29072025_MKR3759.jpg";
+import imagen12 from ".././assets/pictures/29122025_MKR6626.jpg";
+---
+
+<section class="text-[#cacaca] my-10 md:px-20">
+  <div class="columns-2 sm:columns-3 lg:columns-4 gap-x-4 gap-y-5">
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen1} alt="imagen1"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen2} alt="imagen2"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen3} alt="imagen3"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen4} alt="imagen4"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen5} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen6} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen7} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen8} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen9} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen10} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen11} alt="imagen5"/>
+    </div>
+    <div class="card mb-5 break-inside-avoid">
+      <Image src={imagen12} alt="imagen5"/>
+    </div>
+  </div>
+</section>
+
+<div id="modal" class="fixed inset-0 bg-black/70 backdrop-blur-xl hidden items-center justify-center z-50">
+  <img id="modalImg" class="max-w-[90%] max-h-[90%] rounded-xl  border border-white/10 shadow-2xl transition-transform duration-300 scale-95" />
+</div>
+
+<script is:inline>
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modalImg");
+
+  document.querySelectorAll(".card").forEach((card) => {
+    const img = card.querySelector("img");
+
+    // 👇 EFECTO 3D (lo de antes)
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = -(y - centerY) / 15;
+      const rotateY = (x - centerX) / 15;
+
+      img.style.transform = `
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        scale(0.96)
+      `;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      img.style.transform = `
+        rotateX(0deg)
+        rotateY(0deg)
+        scale(1)
+      `;
+    });
+
+    // 👇 CLICK → abrir modal
+    card.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      modalImg.src = img.src;
+
+      setTimeout(() => {
+        modalImg.classList.remove("scale-95");
+        modalImg.classList.add("scale-100");
+      }, 10);
+    });
+  });
+
+  // 👇 cerrar al hacer click fuera
+  modal.addEventListener("click", () => {
+    modalImg.classList.remove("scale-100");
+    modalImg.classList.add("scale-95");
+
+    setTimeout(() => {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }, 200);
+  });
+</script>

@@ -1,0 +1,86 @@
+---
+import ".././assets/global.css";
+import Image from "astro/components/Image.astro";
+
+import imagen1 from ".././assets/pictures/Posters/Basketball.jpg";
+import imagen2 from ".././assets/pictures/Posters/Makers Portada Post XV años.jpg";
+import imagen3 from ".././assets/pictures/Posters/Makers Portada Post.jpg";
+import imagen4 from ".././assets/pictures/Posters/22102025_MKR0613.jpg";
+---
+
+<section class="text-[#cacaca] my-10 md:px-20">
+  <div class="my-10">
+    <h1
+      class="font-bold text-6xl text-center sm:text-left relative inline-block"
+    >
+      Diseños
+      <span class="relative inline-block">
+        únicos
+
+        <!-- SVG subrayado -->
+        <svg
+          class="absolute left-0 bottom-0 w-full h-4"
+          viewBox="0 0 200 20"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M5 15 Q100 25 195 10"
+            stroke="#f95602"
+            stroke-width="6"
+            fill="none"
+            stroke-linecap="round"></path>
+        </svg>
+      </span>
+    </h1>
+  </div>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="card h-full overflow-hidden">
+      <Image src={imagen1} alt="imagen1" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="card h-full overflow-hidden">
+      <Image src={imagen2} alt="imagen2" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="card h-full overflow-hidden">
+      <Image src={imagen3} alt="imagen3" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="card h-full overflow-hidden">
+      <Image src={imagen4} alt="imagen4" class="w-full h-full object-cover" />
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll(".card").forEach((card) => {
+    const img = card.querySelector("img");
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = -(y - centerY) / 15;
+      const rotateY = (x - centerX) / 15;
+
+      img.style.transform = `
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        scale(0.96)
+      `;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      img.style.transform = `
+        rotateX(0deg)
+        rotateY(0deg)
+        scale(1)
+      `;
+    });
+  });
+</script>

@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/MK.jpg";
+---
+
+<header>
+  <nav
+    aria-label="Global"
+    class="fixed flex w-full items-center justify-center z-50 "
+  >
+    <div class="flex items-center px-1 py-0.5 gap-4 bg-[#111111] overflow-hidden rounded-b-xl">
+      <div>
+        <div class="-m-1.5">
+          <Image
+            src={logo}
+            alt="Makers"
+            loading="eager"
+            class="h-12 w-full"
+            width={100}
+            height={100}
+          />
+        </div>
+      </div>
+      <div class="lg:flex lg:gap-x-10 text-zinc-200">
+        <a
+          href="#blusas"
+          class="text-sm py-1 border-0 hover:border-b-2 hover:border-white-700 transition-all duration-100"
+          >Makers - Fotografia y Video</a
+        >
+      </div>
+      <div>
+        <a
+          href="https://www.facebook.com/makers"
+          class="text-sm font-semibold py-3 px-3 text-[#f95602] rounded-bl-lg duration-500 hover:text-[#cacaca]"
+          >Contactanos <span aria-hidden="true">&rarr;</span></a
+        >
+      </div>
+    </div>
+  </nav>
+</header>
+
+</style>

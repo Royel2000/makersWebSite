@@ -1,0 +1,45 @@
+<section class="mt-20 mb-20 overflow-hidden w-screen">
+  <div class="marquee text-[#cacaca] text-2xl font-bold">
+    <span>CEATIVIDAD</span>
+    <span>CALIDAD</span>
+    <span>VELOCIDAD</span>
+    <span>HONESTIDAD</span>
+    <span>RESPETO</span>
+    <span>RESPONSABILIDAD</span>
+    <span>HUMILDAD</span>
+    <span>RESPONSABILIDAD</span>
+
+    <!-- duplicado -->
+    <span>CEATIVIDAD</span>
+    <span>CALIDAD</span>
+    <span>VELOCIDAD</span>
+    <span>HONESTIDAD</span>
+    <span>RESPETO</span>
+    <span>RESPONSABILIDAD</span>
+    <span>HUMILDAD</span>
+    <span>RESPONSABILIDAD</span>
+  </div>
+</section>
+
+<style>
+  .marquee {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+  }
+
+  .marquee span {
+    margin: 0 3rem;
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
