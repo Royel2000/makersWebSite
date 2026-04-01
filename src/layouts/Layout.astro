@@ -1,3 +1,7 @@
+---
+import Analytics from '@vercel/analytics/astro';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -6,6 +10,7 @@
 		<link rel="icon" type="image/svg+xml" href="/MK.jpg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Makers - Fotografia y Video</title>
+		<Analytics />
 	</head>
 	<body>
 		<slot />
