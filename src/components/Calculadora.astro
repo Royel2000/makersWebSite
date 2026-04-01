@@ -1,0 +1,102 @@
+<section class="p-10 text-[#cacaca] max-w-xl mx-auto">
+  <h2 class="text-3xl font-bold mb-5">Calcule su sesión de fotos</h2>
+
+  <!-- Fotos -->
+  <label class="block mb-1">Fotos:</label>
+  <input
+    id="fotos"
+    type="number"
+    class="w-full p-2 bg-[#111111] text-[#cacaca] border border-zinc-700 mb-3 rounded"
+  />
+
+  <!-- Horas -->
+  <label class="block mb-1">Horas de sesión:</label>
+  <input
+    id="horas"
+    type="number"
+    class="w-full p-2 bg-[#111111] text-[#cacaca] border border-zinc-700 mb-3 rounded"
+  />
+
+  <!-- Ubicación -->
+  <label class="flex items-center gap-2 mb-3">
+    <input class="bg-[#111111]" type="checkbox" id="fuera" />
+    ¿Fuera de Felipe Carrillo Puerto?
+  </label>
+
+  <!-- KM -->
+  <div id="kmContainer" class="hidden mt-3">
+    <label class="block mb-1">Distancia (km):</label>
+    <input
+      id="km"
+      type="number"
+      class="w-full p-2 bg-[#111111] text-[#cacaca] border border-zinc-700 rounded"
+    />
+  </div>
+
+  <!-- Botón -->
+  <button
+    id="calcularBtn"
+    class="bg-[#f95602] text-black px-4 py-2 mt-5 rounded hover:bg-[#cacaca] hover:scale-105 transition"
+  >
+    Calcular
+  </button>
+
+  <!-- Resultado -->
+  <div id="resultado" class="mt-5 text-lg space-y-1"></div>
+</section>
+
+<script lang="ts" is:inline>
+  const fuera = document.getElementById("fuera");
+  const kmContainer = document.getElementById("kmContainer");
+  const boton = document.getElementById("calcularBtn");
+
+  const fotosInput = document.getElementById("fotos");
+  const horasInput = document.getElementById("horas");
+  const kmInput = document.getElementById("km");
+  const resultado = document.getElementById("resultado");
+
+  // Mostrar/ocultar KM
+  if (fuera && kmContainer) {
+    fuera.addEventListener("change", () => {
+      kmContainer.classList.toggle("hidden", !fuera.checked);
+    });
+  }
+
+  function calcular() {
+    if (!fotosInput || !horasInput || !kmInput || !resultado) return;
+
+    const fotos = parseInt(fotosInput.value) || 0;
+    const horas = parseInt(horasInput.value) || 0;
+    const km = parseInt(kmInput.value) || 0;
+
+    let precioFoto = 0;
+
+    if (fotos < 40) precioFoto = 22.5;
+    else if (fotos < 70) precioFoto = 21.5;
+    else if (fotos < 150) precioFoto = 22;
+    else precioFoto = 21;
+
+    const totalFotos = fotos * precioFoto;
+    const totalHoras = horas * 100;
+
+    let viaticos = 0;
+    if (fuera?.checked) {
+      viaticos = km * 10;
+    }
+
+    const total = totalFotos + totalHoras + viaticos;
+
+    resultado.innerHTML = `
+      <p>Total por fotos: $${totalFotos.toFixed(2)}</p>
+      <p>Viáticos: $${viaticos.toFixed(2)}</p>
+      <hr class="border-zinc-700 my-2"/>
+      <p class="text-2xl font-bold text-[#f95602]">Total: $${total.toFixed(2)} MXN</p>
+    `;
+  }
+
+  boton?.addEventListener("click", calcular);
+
+  [fotosInput, horasInput, kmInput].forEach((input) => {
+    input?.addEventListener("input", calcular);
+  });
+</script>
