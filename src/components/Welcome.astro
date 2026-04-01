@@ -3,11 +3,11 @@ import ".././assets/global.css";
 import portada from "../assets/Portada.jpg";
 import Logo from "../assets/Makers.svg";
 import Valores from "./Valores.astro";
-import Galeria from "./Galeria.astro";
+import Galeria from "./Galerias/Galeria.astro";
 import Video from "./Video.astro";
 import Planes from "./Planes.astro";
 import Posters from "./Posters.astro";
-
+import Boda from "./Galerias/Boda.astro";
 ---
 
 <div>
@@ -26,11 +26,14 @@ import Posters from "./Posters.astro";
       </div>
     </div>
   </div>
+
   <Valores />
+
   <Video />
+
   <section
     id="aboutUs"
-    class="text-center bg-[#111111] text-[#cacaca] flex flex-col justify-center items-center min-h-screen w-screen md:px-80 sm:px-20 px-10 mt-20"
+    class="text-center bg-[#111111] text-[#cacaca] flex flex-col justify-center items-center mb-20 md:px-80 sm:px-20 px-10 mt-20"
   >
     <div class="mb-12 max-w-3xl">
       <h1 class="text-5xl md:text-6xl font-bold mb-6">¿Quiénes somos?</h1>
@@ -68,7 +71,68 @@ import Posters from "./Posters.astro";
       </div>
     </div>
   </section>
-  <Galeria />
+
+  <section class="w-full text-[#cacaca]">
+    <!-- BOTONES -->
+    <div class="flex justify-center gap-5 mb-10">
+      <button
+        class="tab-btn active hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
+        data-tab="galeria">PRINCIPAL</button
+      >
+      <button
+        class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
+        data-tab="boda">BODA</button
+      >
+      <button
+        class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
+        data-tab="xv">XV AÑOS</button
+      >
+      <button
+        class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
+        data-tab="infantiles">INFANTILES</button
+      >
+    </div>
+
+    <!-- CONTENIDO -->
+    <div>
+      <div id="galeria" class="tab-content">
+        <Galeria />
+      </div>
+
+      <div id="boda" class="tab-content hidden">
+        <Boda />
+      </div>
+
+      <div id="xv" class="tab-content hidden">
+        <div class="text-center">
+          <h1 class="font-bold text-4xl text-[#f95602]">PROXIMAMENTE...</h1>
+          <p>
+            Si quieres ver algunos ejemplos de fotos de XV años no olvides
+            visitar nuestras redes sociales
+          </p>
+        </div>
+      </div>
+      <div id="infantiles" class="tab-content hidden">
+        <div class="text-center">
+          <h1 class="font-bold text-4xl text-[#f95602]">PROXIMAMENTE...</h1>
+          <p>
+            Si quieres ver algunos ejemplos de fotos de XV años no olvides
+            visitar nuestras redes sociales
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-xl hidden items-center justify-center z-50"
+    >
+      <img
+        id="modalImg"
+        class="max-w-[90%] max-h-[90%] rounded-xl border border-white/10 shadow-2xl transition-transform duration-300 scale-95"
+      />
+    </div>
+  </section>
 
   <Posters />
 
@@ -81,7 +145,10 @@ import Posters from "./Posters.astro";
         <div>
           <p>
             Contactanos para cotizar tu sessión de fotos
-            <br />y volverla inolvidable, todos merecen alguna sessión de fotos.
+            <br />y volverla inolvidable, todos merecen en un momento alguna
+            sessión de fotos inolvidable, <span class="font-bold"
+              >vive con nosotros la experiencia</span
+            >.
           </p>
         </div>
       </div>
@@ -91,5 +158,83 @@ import Posters from "./Posters.astro";
       </div>
     </div>
   </section>
-
 </div>
+
+<script is:inline>
+  const buttons = document.querySelectorAll(".tab-btn");
+  const contents = document.querySelectorAll(".tab-content");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.tab;
+
+      // quitar activos
+      buttons.forEach((b) => b.classList.remove("active"));
+      contents.forEach((c) => c.classList.add("hidden"));
+
+      // activar seleccionado
+      btn.classList.add("active");
+      document.getElementById(target).classList.remove("hidden");
+    });
+  });
+</script>
+
+<script is:inline>
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modalImg");
+
+  document.querySelectorAll(".card").forEach((card) => {
+    const img = card.querySelector("img");
+
+    // 👇 EFECTO 3D (lo de antes)
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = -(y - centerY) / 15;
+      const rotateY = (x - centerX) / 15;
+
+      img.style.transform = `
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        scale(0.96)
+      `;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      img.style.transform = `
+        rotateX(0deg)
+        rotateY(0deg)
+        scale(1)
+      `;
+    });
+
+    // 👇 CLICK → abrir modal
+    card.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      modalImg.src = img.src;
+
+      setTimeout(() => {
+        modalImg.classList.remove("scale-95");
+        modalImg.classList.add("scale-100");
+      }, 10);
+    });
+  });
+
+  // 👇 cerrar al hacer click fuera
+  modal.addEventListener("click", () => {
+    modalImg.classList.remove("scale-100");
+    modalImg.classList.add("scale-95");
+
+    setTimeout(() => {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }, 200);
+  });
+</script>
