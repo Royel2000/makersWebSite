@@ -1,28 +1,34 @@
 ---
 import ".././assets/global.css";
 import portada from "../assets/Portada.jpg";
-import Logo from "../assets/Makers.svg";
+import portadaMobile from "../assets/PortadaMobile.jpg";
 import Valores from "./Valores.astro";
 import Galeria from "./Galerias/Galeria.astro";
+import Boda from "./Galerias/Boda.astro";
 import Video from "./Video.astro";
 import Planes from "./Planes.astro";
 import Posters from "./Posters.astro";
-import Boda from "./Galerias/Boda.astro";
 import Calculadora from "./Calculadora.astro";
+import { Image } from "astro:assets";
 ---
 
 <div>
   <div>
-    <div
-      style={`background-image: url(${portada.src})`}
-      class="h-screen bg-cover bg-center bg-fixed"
-    >
-    </div>
+    <picture>
+      <source media="(min-width: 768px)" srcset={portada.src} />
+      <Image
+        src={portadaMobile}
+        class="h-screen w-full object-cover"
+        alt="Portada Makers"
+        loading="eager"
+        priority
+      />
+    </picture>
     <div class="flex relative">
       <div class="w-1/3 absolute bottom-20 left-20 text-[#cacaca]">
         <h1 class="text-2xl font-extrabold">MAKERS</h1>
         <p class="sm:text-lg">
-          Cada momento es unico, nosotros lo hacemos eterno.
+          Cada momento es único, nosotros lo hacemos eterno.
         </p>
       </div>
     </div>
@@ -106,19 +112,19 @@ import Calculadora from "./Calculadora.astro";
 
       <div id="xv" class="tab-content hidden">
         <div class="text-center">
-          <h1 class="font-bold text-4xl text-[#f95602]">PROXIMAMENTE...</h1>
+          <h1 class="font-bold text-4xl text-[#f95602]">PRÓXIMAMENTE...</h1>
           <p>
             Si quieres ver algunos ejemplos de fotos de XV años no olvides
-            visitar nuestras redes sociales
+            visitar nuestras redes sociales.
           </p>
         </div>
       </div>
       <div id="infantiles" class="tab-content hidden">
         <div class="text-center">
-          <h1 class="font-bold text-4xl text-[#f95602]">PROXIMAMENTE...</h1>
+          <h1 class="font-bold text-4xl text-[#f95602]">PRÓXIMAMENTE...</h1>
           <p>
-            Si quieres ver algunos ejemplos de fotos de XV años no olvides
-            visitar nuestras redes sociales
+            Si quieres ver algunos ejemplos de fotos infantiles este pendiente
+            de nuestras redes sociales.
           </p>
         </div>
       </div>
@@ -138,30 +144,29 @@ import Calculadora from "./Calculadora.astro";
   <Posters />
 
   <section class="text-[#cacaca] justify-center content-center">
-    <div class="flex flex-col md:flex-row md:px-20 sm:px-10 px-5">
-      <div class="md:mr-10">
+    <div class="flex flex-col lg:flex-row lg:px-20 md:px-10 px-5">
+      <div class="lg:mr-10">
         <div class="mb-5">
           <h1 class="text-6xl font-bold">¿Te gusta nuestro trabajo?</h1>
         </div>
         <div>
           <p>
-            Contactanos para cotizar tu sessión de fotos
-            <br />y volverla inolvidable, todos merecen en un momento alguna
-            sessión de fotos inolvidable, <span class="font-bold"
-              >vive con nosotros la experiencia</span
+            Contáctenos para cotizar tu sesión de fotos y volverla inolvidable,
+            todos merecen en un momento alguna sesión de fotos inolvidable, <span
+              class="font-bold">vive con nosotros la experiencia</span
             >.
           </p>
         </div>
       </div>
 
-      <div class="md:ml-10 mt-10">
+      <div class="lg:ml-10 mt-10">
         <Planes />
       </div>
     </div>
   </section>
 
   <section class="h-screen justify-center content-center">
-    <Calculadora/>
+    <Calculadora />
   </section>
 </div>
 
@@ -191,7 +196,7 @@ import Calculadora from "./Calculadora.astro";
   document.querySelectorAll(".card").forEach((card) => {
     const img = card.querySelector("img");
 
-    // 👇 EFECTO 3D (lo de antes)
+    // EFECTO 3D (lo de antes)
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -218,7 +223,7 @@ import Calculadora from "./Calculadora.astro";
       `;
     });
 
-    // 👇 CLICK → abrir modal
+    // CLICK → abrir modal
     card.addEventListener("click", () => {
       modal.classList.remove("hidden");
       modal.classList.add("flex");

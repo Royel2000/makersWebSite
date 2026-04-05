@@ -1,6 +1,11 @@
+---
+import imagen1 from "/src/assets/Makers.svg";
+import Image from "astro/components/Image.astro";
+---
+
 <footer class="bg-[#000000] text-white w-screen md:px-60 md:py-20 px-5 py-10 mt-20 rounded-b-lg mb-4">
     <div class="mb-5">
-        <h1 class="text-xl font-black ">Contactanos</h1>
+        <h1 class="text-xl font-black ">Contáctenos</h1>
     </div>
     <div class="flex flex-col md:flex-row justify-between gap-y-10">
         <div>
@@ -9,7 +14,7 @@
                 <li><a href="https://www.instagram.com/_makers_2">Instagram</a></li>
                 <li><a href="makers25117@gmail.com">makers25117@gmail.com</a></li>
             </ul>
-            <img src="src/assets/Makers.svg" alt="Makers Fotografia y Video" class="w-40 mt-5">
+            <Image src={imagen1} alt="MAKERS FOTOGRAFÍA Y VIDEO" class={"w-40 mt-5"}/>
         </div>
         <div class="text-wrap gap-y-4">
             <p>Momentos únicos ahora eternos.</p>
