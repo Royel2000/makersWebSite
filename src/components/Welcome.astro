@@ -165,7 +165,7 @@ import { Image } from "astro:assets";
     </div>
   </section>
 
-  <section class="h-screen justify-center content-center">
+  <section class="h-auto my-10 justify-center content-center">
     <Calculadora />
   </section>
 </div>
@@ -196,7 +196,6 @@ import { Image } from "astro:assets";
   document.querySelectorAll(".card").forEach((card) => {
     const img = card.querySelector("img");
 
-    // EFECTO 3D (lo de antes)
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -223,7 +222,7 @@ import { Image } from "astro:assets";
       `;
     });
 
-    // CLICK → abrir modal
+
     card.addEventListener("click", () => {
       modal.classList.remove("hidden");
       modal.classList.add("flex");
@@ -237,7 +236,6 @@ import { Image } from "astro:assets";
     });
   });
 
-  // 👇 cerrar al hacer click fuera
   modal.addEventListener("click", () => {
     modalImg.classList.remove("scale-100");
     modalImg.classList.add("scale-95");
