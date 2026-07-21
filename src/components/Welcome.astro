@@ -1,6 +1,7 @@
 ---
 import ".././assets/global.css";
 import portada from "../assets/Portada.jpg";
+import Logo from "../assets/Makers.svg";
 import portadaMobile from "../assets/PortadaMobile.jpg";
 import Valores from "./Valores.astro";
 import Galeria from "./Galerias/Galeria.astro";
@@ -24,11 +25,18 @@ import { Image } from "astro:assets";
         priority
       />
     </picture>
-    <div class="flex relative">
-      <div class="w-1/3 absolute bottom-20 left-20 text-[#cacaca]">
-        <h1 class="text-2xl font-extrabold">MAKERS</h1>
+    <div class="flex relative justify-center">
+      <div
+        class="w-auto m-5 absolute bottom-10 bg-transparent backdrop-blur-sm border border-neutral-800 p-5 rounded-xl text-[#cacaca]"
+      >
+        <Image
+          src={Logo}
+          class="sm:w-1/6 w-1/4 mb-2"
+          alt="Portada Makers"
+          loading="lazy"
+        />
         <p class="sm:text-lg">
-          Cada momento es único, nosotros lo hacemos eterno.
+          Momentos únicos, ahora eternos.
         </p>
       </div>
     </div>
@@ -84,7 +92,7 @@ import { Image } from "astro:assets";
     <div class="flex flex-col md:flex-row justify-center gap-5 mb-10">
       <button
         class="tab-btn active hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
-        data-tab="galeria">PRINCIPAL</button
+        data-tab="galeria">CASUAL</button
       >
       <button
         class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
@@ -221,7 +229,6 @@ import { Image } from "astro:assets";
         scale(1)
       `;
     });
-
 
     card.addEventListener("click", () => {
       modal.classList.remove("hidden");
