@@ -1,29 +1,72 @@
 ---
+import { Image } from "astro:assets";
 import imagen1 from "/src/assets/Makers.svg";
-import Image from "astro/components/Image.astro";
+import Icon from "/src/assets/MK.jpg";
 ---
+
 <section id="footer">
-<footer class="bg-[#000000] text-white w-screen md:px-60 md:py-20 px-5 py-10 mt-20 rounded-b-lg mb-4">
-    <div class="mb-5">
-        <h1 class="text-xl ">Contáctenos</h1>
+<footer class="bg-[#000000] text-[#cacaca] w-full px-6 md:px-20 lg:px-40 pt-12 pb-6 mt-20" style="font-family: 'Outfit', sans-serif;">
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-8 border-b border-white/[0.07]">
+
+    <!-- Marca -->
+    <div>
+      <!-- <Image src={Icon} alt="Makers ícono" width={48} height={48}
+        class="rounded-xl mb-3 object-cover" /> -->
+      <Image src={imagen1} alt="Makers Fotografía y Video"
+        class="w-36 mb-3" />
+      <p class="text-[#cacaca]">Momentos únicos,<br />ahora eternos.</p>
     </div>
-    <div class="flex flex-col md:flex-row justify-between gap-y-10">
-        <div>
-            <ul>
-                <li><a href="https://www.facebook.com/share/1EAGavYuJx/" class="text-xl hover:text-blue-500 transition-all duration-500">Facebook</a></li>
-                <li><a href="https://www.instagram.com/_makers_2" class="text-xl hover:text-pink-600 transition-all duration-500">Instagram</a></li>
-                <li><a href="makers25117@gmail.com" class="text-xl hover:text-[#f95602] transition-all duration-500">makers25117@gmail.com</a></li>
-            </ul>
-            <Image src={imagen1} alt="MAKERS FOTOGRAFÍA Y VIDEO" class={"w-40 mt-5"}/>
-        </div>
-        <div class="text-wrap gap-y-4">
-            <p>Momentos únicos ahora eternos.</p>
-            <p>Felipe Carrillo Puerto Quintana Roo</p>
-        </div>
-        <div>
-            <h1>Creando momentos inolvidables <span class="font-bold">desde 2025</span></h1>
-            <p>Equipo de trabajo: Angel Kau, Daniel Kau, Yassim, Henry Eli.</p>
-        </div>
+
+    <!-- Contacto -->
+    <div>
+      <p class="font-bold uppercase text-[#f95602] mb-4">Contacto</p>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a href="https://www.facebook.com/share/1EAGavYuJx/"
+            class="group inline-flex items-center gap-2.5 text-[#cacaca] hover:text-white transition-colors duration-300">
+            <i class="ti ti-brand-facebook text-lg group-hover:text-[#f95602] transition-colors duration-300"></i>
+            Facebook
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/_makers_2"
+            class="group inline-flex items-center gap-2.5 text-[#cacaca] hover:text-white transition-colors duration-300">
+            <i class="ti ti-brand-instagram text-lg group-hover:text-[#f95602] transition-colors duration-300"></i>
+            Instagram
+          </a>
+        </li>
+        <li>
+          <a href="mailto:makers25117@gmail.com"
+            class="group inline-flex items-center gap-2.5 text-[#cacaca] hover:text-white transition-colors duration-300">
+            <i class="ti ti-mail text-lg group-hover:text-[#f95602] transition-colors duration-300"></i>
+            makers25117@gmail.com
+          </a>
+        </li>
+      </ul>
     </div>
+
+    <!-- Estudio -->
+    <div>
+      <p class="font-bold uppercase text-[#f95602] mb-4">Estudio</p>
+      <div class=" text-[#cacaca] leading-loose">
+        <p class="flex items-center gap-2 text-sm">
+          <i class="ti ti-map-pin text-[#f95602]"></i>
+          Felipe Carrillo Puerto
+        </p>
+        <p class="pl-5">Quintana Roo, México</p>
+        <p class="mt-3 text-[#cacaca] font-semibold text-sm">Equipo</p>
+        <p>Angel Kau · Daniel Kau</p>
+        <p>Yassim · Henry Eli</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flex flex-col md:flex-row justify-between items-center pt-5 gap-2">
+    <p class="text-[12px] text-[#cacaca] tracking-wide">© 2025 Makers Fotografía y Video — Felipe Carrillo Puerto</p>
+    <p class="text-[12px] text-[#f95602]">desde 2025</p>
+  </div>
+
 </footer>
 </section>

@@ -1,10 +1,91 @@
-<section id="video" class=" h-s w-screen md:h-screen overflow-hidden">
+---
+const CHANNEL_ID = "UClpgO6x3-xCI8opTuWcmMUA";
+const MAIN_VIDEO = "IVYbODWOXFA";
+
+let videos: { id: string; title: string; thumb: string }[] = [];
+
+try {
+  const res = await fetch(
+    `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`
+  );
+  const xml = await res.text();
+
+  const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
+
+  videos = entries
+    .map((e) => {
+      const content = e[1];
+      const id = (content.match(/<yt:videoId>(.*?)<\/yt:videoId>/) || [])[1];
+      const title = (content.match(/<title>(.*?)<\/title>/) || [])[1];
+      return {
+        id,
+        title,
+        thumb: `https://i.ytimg.com/vi/${id}/mqdefault.jpg`,
+      };
+    })
+    .filter((v) => v.id && v.id !== MAIN_VIDEO)
+    .slice(0, 4);
+} catch (e) {
+  videos = [];
+}
+---
+
+<section id="video" class="relative w-screen overflow-hidden" style="height: 100svh;">
+
+  <!-- Video principal -->
   <iframe
-    class="w-full md:h-full"
-    src="https://www.youtube.com/embed/IVYbODWOXFA?&controls=0&loop=1&playlist=IVYbODWOXFA"
-    title="Video promocional de fotografía creativa"
+    class="w-full h-full"
+    src={`https://www.youtube.com/embed/${MAIN_VIDEO}?controls=0&loop=1&playlist=${MAIN_VIDEO}&autoplay=1&mute=1`}
+    title="Video promocional Makers"
     loading="lazy"
     allow="autoplay; fullscreen"
-    allowfullscreen>
-  </iframe>
+    allowfullscreen
+  />
+
+  <!-- Miniaturas de otros videos (solo si hay) -->
+  {videos.length > 0 && (
+    <div class="absolute bottom-6 right-6 flex gap-2 z-10">
+      {videos.map((v) => (
+        <button
+          class="video-thumb group relative rounded-lg overflow-hidden border border-white/10 hover:border-[#f95602]/60 transition-all duration-300 hover:scale-105 focus:outline-none"
+          style="width: 120px; height: 68px; backdrop-filter: blur(4px);"
+          data-id={v.id}
+          title={v.title}
+        >
+          <img
+            src={v.thumb}
+            alt={v.title}
+            class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+          />
+          <!-- Overlay oscuro -->
+          <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300"></div>
+          <!-- Ícono play -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#f95602]/80 transition-colors duration-300">
+              <i class="ti ti-player-play text-white text-xs"></i>
+            </div>
+          </div>
+        </button>
+      ))}
+    </div>
+  )}
+
 </section>
+
+<script is:inline>
+  const iframe = document.querySelector('#video iframe');
+
+  document.querySelectorAll('.video-thumb').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (iframe) {
+        iframe.src = `https://www.youtube.com/embed/${id}?controls=1&autoplay=1`;
+      }
+      // Quitar borde activo de todos
+      document.querySelectorAll('.video-thumb').forEach(b =>
+        b.classList.remove('border-[#f95602]')
+      );
+      btn.classList.add('border-[#f95602]');
+    });
+  });
+</script>

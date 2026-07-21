@@ -1,80 +1,56 @@
 ---
 import "/src/assets/global.css";
-import Image from "astro/components/Image.astro";
+import { Image } from "astro:assets";
 
+const allImages = import.meta.glob("/src/assets/pictures/*.jpg", {
+  eager: true,
+});
 
-import imagen1 from "/src/assets/pictures/03022026DSC05939.jpg";
-import imagen2 from "/src/assets/pictures/03022026DSC06237.jpg";
-import imagen3 from "/src/assets/pictures/28122025_MG_3689.jpg";
-import imagen4 from "/src/assets/pictures/20260414DSC09209.jpg";
-import imagen5 from "/src/assets/pictures/20260414MKR09248.jpg";
-import imagen6 from "/src/assets/pictures/04022026DSC06476.jpg";
-import imagen7 from "/src/assets/pictures/29122025_MKR6626.jpg";
-import imagen8 from "/src/assets/pictures/05022026DSC06687.jpg";
-import imagen9 from "/src/assets/pictures/04022026DSC06649.jpg";
-import imagen10 from "/src/assets/pictures/05022026DSC06681.jpg";
-import imagen11 from "/src/assets/pictures/03022026DSC06218.jpg";
-import imagen12 from "/src/assets/pictures/10092025_MKR7434.jpg";
-import imagen13 from "/src/assets/pictures/22102025_MKR0613.jpg";
-import imagen14 from "/src/assets/pictures/29072025_MKR3759.jpg";
-import imagen15 from "/src/assets/pictures/20260403MKR08243.jpg";
-import imagen16 from "/src/assets/pictures/20260403MKR08260.jpg";
-import imagen17 from "/src/assets/pictures/20260403MKR08271.jpg";
-
+const fotos = Object.entries(allImages)
+  .filter(([path]) => !path.includes("Posters"))
+  .map(([_, mod]) => (mod as any).default)
+  .slice(0, 17);
 ---
 
 <section class="text-[#cacaca] my-10 md:px-20">
-  <div class="columns-2 sm:columns-3 lg:columns-4 gap-x-4 gap-y-5">
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen1} alt="imagen1"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen2} alt="imagen2"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen3} alt="imagen3"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen4} alt="imagen4"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen5} alt="imagen5"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen6} alt="imagen6"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen7} alt="imagen7"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen8} alt="imagen8"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen9} alt="imagen9"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen10} alt="imagen10"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen11} alt="imagen11"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen12} alt="imagen12"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen13} alt="imagen13"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen14} alt="imagen14"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen15} alt="imagen15"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen16} alt="imagen16"/>
-    </div>
-    <div class="card mb-5 break-inside-avoid">
-      <Image src={imagen17} alt="imagen17"/>
-    </div>
+  <div class="columns-2 sm:columns-3 lg:columns-4 gap-4">
+    {
+      fotos.map((foto, i) => (
+        <div
+          class="card group relative mb-4 break-inside-avoid rounded-xl overflow-hidden cursor-pointer gallery-item opacity-0 translate-y-4 transition-all duration-500"
+          style="transform-style: preserve-3d;"
+        >
+          <Image
+            src={foto}
+            alt={`Foto ${i + 1}`}
+            class="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-500"
+          />
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="w-10 h-10 rounded-full border border-white/30 backdrop-blur-sm bg-white/10 flex items-center justify-center">
+              <i class="ti ti-zoom-in text-white text-lg" />
+            </div>
+          </div>
+        </div>
+      ))
+    }
   </div>
 </section>
+
+<script is:inline>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("opacity-0", "translate-y-4");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
+
+  document
+    .querySelectorAll(".gallery-item")
+    .forEach((el) => observer.observe(el));
+</script>

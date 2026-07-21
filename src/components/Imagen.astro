@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
-const { img, alt } = Astro.props;
+const { img, alt, width, height, class: className } = Astro.props;
 ---
 
 <Image
   src={img}
   alt={alt}
-  class={"w-full rounded-xl object-cover"}
+  class={className ?? "w-full rounded-xl object-cover"}
   loading="lazy"
-  width={270}
-  height={250}
+  width={width ?? 800}
+  height={height ?? 600}
 />

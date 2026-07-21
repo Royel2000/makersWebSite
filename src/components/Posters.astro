@@ -1,6 +1,6 @@
 ---
 import ".././assets/global.css";
-import Image from "astro/components/Image.astro";
+import { Image } from "astro:assets";
 
 import imagen1 from ".././assets/pictures/Posters/Basketball.jpg";
 import imagen2 from ".././assets/pictures/Posters/Makers Portada Post XV años.jpg";
@@ -8,18 +8,15 @@ import imagen3 from ".././assets/pictures/Posters/Makers Portada Post.jpg";
 import imagen4 from ".././assets/pictures/Posters/22102025_MKR0613.jpg";
 ---
 
-<section class="text-[#cacaca] lg:px-20 md:px-10 px-5">
-  <div class="my-10">
-    <h1
-      class="font-bold text-6xl text-center px-5 md:px-0 sm:text-left relative inline-block"
-    >
-      Diseños
-      <span class="relative inline-block">
-        únicos
+<section class="text-[#cacaca] lg:px-20 md:px-10 px-5 my-20">
 
-        <!-- SVG subrayado -->
+  <!-- Título -->
+  <div class="mb-10">
+    <h2 class="font-bold text-5xl md:text-6xl text-left">
+      Diseños
+      <span class="relative inline-block ml-3">únicos
         <svg
-          class="absolute left-0 bottom-0 w-full h-4"
+          class="absolute left-0 -bottom-1 w-full h-4"
           viewBox="0 0 200 20"
           preserveAspectRatio="none"
         >
@@ -28,59 +25,67 @@ import imagen4 from ".././assets/pictures/Posters/22102025_MKR0613.jpg";
             stroke="#f95602"
             stroke-width="6"
             fill="none"
-            stroke-linecap="round"></path>
+            stroke-linecap="round"
+          />
         </svg>
       </span>
-    </h1>
+    </h2>
+    <p class="text-sm text-[#cacaca] mt-4 tracking-wide">
+      Identidad visual, posters y contenido para redes.
+    </p>
   </div>
 
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-    <div class="card h-full overflow-hidden">
-      <Image src={imagen1} alt="imagen1" class="w-full h-full object-cover" />
-    </div>
-
-    <div class="card h-full overflow-hidden">
-      <Image src={imagen2} alt="imagen2" class="w-full h-full object-cover" />
-    </div>
-
-    <div class="card h-full overflow-hidden">
-      <Image src={imagen3} alt="imagen3" class="w-full h-full object-cover" />
-    </div>
-
-    <div class="card h-full overflow-hidden">
-      <Image src={imagen4} alt="imagen4" class="w-full h-full object-cover" />
-    </div>
+  <!-- Grid -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+    {[imagen1, imagen2, imagen3, imagen4].map((img, i) => (
+      <div class="poster-card group relative rounded-xl overflow-hidden aspect-square cursor-pointer"
+           style="transform-style: preserve-3d;">
+        <Image
+          src={img}
+          alt={`Diseño ${i + 1}`}
+          class="w-full h-full object-cover transition-transform duration-300 ease-out"
+        />
+        <!-- Overlay al hover -->
+        <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+        <!-- Ícono centrado -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center backdrop-blur-sm bg-white/10">
+            <i class="ti ti-zoom-in text-white text-lg"></i>
+          </div>
+        </div>
+      </div>
+    ))}
   </div>
+
 </section>
 
 <script is:inline>
-  document.querySelectorAll(".card").forEach((card) => {
+  document.querySelectorAll(".poster-card").forEach((card) => {
     const img = card.querySelector("img");
 
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = -(y - centerY) / 15;
-      const rotateY = (x - centerX) / 15;
-
-      img.style.transform = `
-        rotateX(${rotateX}deg)
-        rotateY(${rotateY}deg)
-        scale(0.96)
-      `;
+      card.style.transform = `perspective(600px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
+      img.style.transform = `scale(1.05)`;
     });
 
     card.addEventListener("mouseleave", () => {
-      img.style.transform = `
-        rotateX(0deg)
-        rotateY(0deg)
-        scale(1)
-      `;
+      card.style.transform = `perspective(600px) rotateX(0deg) rotateY(0deg)`;
+      img.style.transform = `scale(1)`;
+    });
+
+    card.addEventListener("click", () => {
+      const modal = document.getElementById("modal");
+      const modalImg = document.getElementById("modalImg");
+      if (modal && modalImg) {
+        modalImg.src = img.src;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        setTimeout(() => modalImg.classList.replace("scale-95", "scale-100"), 10);
+      }
     });
   });
 </script>

@@ -1,45 +1,22 @@
-<section class="mt-20 mb-20 overflow-hidden w-screen">
-  <div class="marquee text-[#cacaca] text-2xl font-bold">
-    <span>CREATIVIDAD</span>
-    <span>CALIDAD</span>
-    <span>VELOCIDAD</span>
-    <span>HONESTIDAD</span>
-    <span>RESPETO</span>
-    <span>RESPONSABILIDAD</span>
-    <span>HUMILDAD</span>
-    <span>RESPONSABILIDAD</span>
+---
+---
+<section class="relative overflow-hidden my-16">
+  <div class="marquee-wrap relative overflow-hidden py-6">
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-20 z-10" style="background: linear-gradient(to right, #111111, transparent);"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-20 z-10" style="background: linear-gradient(to left, #111111, transparent);"></div>
 
-    <!-- duplicado -->
-    <span>CREATIVIDAD</span>
-    <span>CALIDAD</span>
-    <span>VELOCIDAD</span>
-    <span>HONESTIDAD</span>
-    <span>RESPETO</span>
-    <span>RESPONSABILIDAD</span>
-    <span>HUMILDAD</span>
-    <span>RESPONSABILIDAD</span>
+    <div class="marquee-track flex w-max whitespace-nowrap hover:[animation-play-state:paused]">
+      {["Creatividad","Calidad","Velocidad","Honestidad","Respeto","Responsabilidad","Humildad","Creatividad","Calidad","Velocidad","Honestidad","Respeto","Responsabilidad","Humildad"].map(v => (
+        <span class="inline-flex items-center gap-3 mx-6 text-md font-bold uppercase text-[#cacaca] hover:text-[#f95602] transition-colors duration-300">
+          <span class="w-1 h-1 rounded-full bg-[#f95602] opacity-60 shrink-0"></span>
+          {v}
+        </span>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
-  .marquee {
-    display: flex;
-    width: max-content;
-    white-space: nowrap;
-    animation: scroll 20s linear infinite;
-  }
-
-  .marquee span {
-    margin: 0 3rem;
-  }
-
-  @keyframes scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
+  .marquee-track { animation: scroll 25s linear infinite; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 </style>
-
