@@ -10,7 +10,7 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
   <div class="columns-2 sm:columns-3 lg:columns-4 gap-4">
     {fotos.map((foto, i) => (
       <div
-        class="boda-card group relative mb-4 break-inside-avoid rounded-xl overflow-hidden cursor-pointer"
+        class="card group relative mb-4 break-inside-avoid rounded-xl overflow-hidden cursor-pointer gallery-item"
         style="transform-style: preserve-3d;"
       >
         <Image
@@ -30,7 +30,7 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
 </section>
 
 <script is:inline>
-  document.querySelectorAll('.boda-card').forEach((card) => {
+  document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -44,4 +44,20 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
       card.style.transition = 'transform 0.4s ease-out';
     });
   });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("opacity-0", "translate-y-4");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
+
+  document
+    .querySelectorAll(".gallery-item")
+    .forEach((el) => observer.observe(el));
 </script>
