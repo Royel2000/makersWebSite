@@ -1,0 +1,93 @@
+---
+
+---
+
+<section
+  class="py-16 px-5 text-[#cacaca]"
+  style="font-family: 'Outfit', sans-serif;"
+>
+  <div class="max-w-lg mx-auto">
+    <p
+      class="text-[11px] font-bold tracking-[0.2em] uppercase text-[#f95602]/80 mb-2"
+    >
+      Lo que debes saber
+    </p>
+    <h2 class="text-4xl font-extrabold text-white mb-8">
+      ¿Por qué <span class="text-[#f95602]">estos precios</span>?
+    </h2>
+
+    <div id="faq-list"></div>
+  </div>
+</section>
+
+<script is:inline>
+  const faqs = [
+    {
+      q: "¿Por qué las fotos tienen diferentes precios según la cantidad?",
+      a: "A mayor volumen de fotos el costo por unidad baja ligeramente porque el proceso de selección y edición se optimiza en una sola sesión. Sin embargo el equipo, el tiempo en locación y la postproducción siempre tienen un costo base que se refleja en el precio mínimo.",
+    },
+    {
+      q: "¿Qué incluye el precio de fotografía?",
+      a: "Incluye la sesión en locación con equipo profesional Nikon D750, flash Godox AD200 Pro II con difusor y disparador inalámbrico para la Sony. También la selección, edición y entrega en enlace de nube. La entrega en USB tiene un costo adicional de $100.",
+    },
+    {
+      q: "¿Por qué cobran $800 por 2 horas de grabación de video?",
+      a: "El precio cubre el uso de dos cámaras Sony (a6700 y a6400), estabilizador gimbal, micrófonos Hollyland para audio profesional, iluminación continua y el desplazamiento al lugar. Grabamos con equipo de nivel cinematográfico.",
+    },
+    {
+      q: "¿Qué incluye la edición de video?",
+      a: "La edición se realiza en DaVinci Resolve e incluye corrección de color, sincronización de audio, corte narrativo, transiciones y música licenciada con Artlist — el video puede publicarse en cualquier red sin problemas de derechos de autor.",
+    },
+    {
+      q: "¿Por qué cobran por minuto de video entregado?",
+      a: "Cada minuto de video final representa 1-2 horas de trabajo de edición: revisión de tomas, sincronización, colorización y ajuste de audio. El precio por minuto adicional refleja ese tiempo real invertido.",
+    },
+    {
+      q: "¿Qué es el paquete Reel y cuándo conviene?",
+      a: "El Reel es un video corto de hasta 60 segundos optimizado para redes sociales. A $600 todo incluido es la opción más accesible para tener presencia audiovisual profesional en Instagram, TikTok o Facebook.",
+    },
+    {
+      q: "¿Por qué se cobran los viáticos por separado?",
+      a: "Los viáticos cubren combustible, tiempo de traslado y desgaste del equipo en rutas largas. Se calculan por kilómetro desde Felipe Carrillo Puerto de forma transparente.",
+    },
+    {
+      q: "¿Puedo contratar foto y video al mismo tiempo?",
+      a: "Sí, es la opción más completa para bodas o quinceañeras. Al combinar ambos servicios tienes cobertura total del evento. Contáctanos para cotizar paquetes combinados con descuento.",
+    },
+  ];
+
+  const list = document.getElementById("faq-list");
+  faqs.forEach((item) => {
+    const div = document.createElement("div");
+    div.className = "faq-item border-b border-white/[0.06] overflow-hidden";
+    div.innerHTML = `
+      <button class="faq-btn w-full text-left py-4 flex justify-between items-center gap-4 bg-transparent border-none text-[#cacaca] cursor-pointer hover:text-white transition-colors" style="font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;">
+        <span>${item.q}</span>
+        <span class="faq-icon w-5 h-5 rounded-full border border-white/15 flex items-center justify-center flex-shrink-0 text-[#f95602]/80 text-xs transition-all duration-300" style="min-width:20px;">+</span>
+      </button>
+      <div class="faq-body overflow-hidden transition-all duration-350" style="max-height:0;">
+        <p style="font-size:14px;color:rgba(202,202,202,0.5);line-height:1.8;padding-bottom:1rem;">${item.a}</p>
+      </div>
+    `;
+    list.appendChild(div);
+
+    const btn = div.querySelector(".faq-btn");
+    const body = div.querySelector(".faq-body");
+    const icon = div.querySelector(".faq-icon");
+    btn.addEventListener("click", () => {
+      const isOpen = div.classList.contains("open");
+      document.querySelectorAll(".faq-item.open").forEach((el) => {
+        el.classList.remove("open");
+        el.querySelector(".faq-body").style.maxHeight = "0";
+        el.querySelector(".faq-icon").style.transform = "rotate(0deg)";
+        el.querySelector(".faq-icon").style.background = "transparent";
+      });
+      if (!isOpen) {
+        div.classList.add("open");
+        body.style.maxHeight = body.scrollHeight + "px";
+        icon.style.transform = "rotate(45deg)";
+        icon.style.background = "rgba(249,86,2,0.1)";
+      }
+    });
+  });
+</script>
