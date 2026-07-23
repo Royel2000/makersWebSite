@@ -30,9 +30,8 @@ try {
 }
 ---
 
-<section id="video" class="relative w-screen overflow-hidden" style="height: 100svh;">
+<section id="video" class="relative w-full overflow-hidden h-[50vh] min-h-75 sm:h-[60vh] md:h-svh">
 
-  <!-- Video principal -->
   <iframe
     class="w-full h-full"
     src={`https://www.youtube.com/embed/${MAIN_VIDEO}?controls=0&loop=1&playlist=${MAIN_VIDEO}&autoplay=1&mute=1`}
@@ -42,13 +41,12 @@ try {
     allowfullscreen
   />
 
-  <!-- Miniaturas de otros videos (solo si hay) -->
   {videos.length > 0 && (
-    <div class="absolute bottom-6 right-6 flex gap-2 z-10">
+    <div class="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 flex gap-1.5 sm:gap-2 z-10 max-w-[calc(100%-1.5rem)] overflow-x-auto pb-1">
       {videos.map((v) => (
         <button
-          class="video-thumb group relative rounded-lg overflow-hidden border border-white/10 hover:border-[#f95602]/60 transition-all duration-300 hover:scale-105 focus:outline-none"
-          style="width: 120px; height: 68px; backdrop-filter: blur(4px);"
+          class="video-thumb group relative rounded-lg overflow-hidden border border-white/10 hover:border-[#f95602]/60 transition-all duration-300 hover:scale-105 focus:outline-none shrink-0"
+          style="width: 90px; height: 50px; backdrop-filter: blur(4px);"
           data-id={v.id}
           title={v.title}
         >
@@ -57,12 +55,10 @@ try {
             alt={v.title}
             class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
           />
-          <!-- Overlay oscuro -->
           <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300"></div>
-          <!-- Ícono play -->
           <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-7 h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#f95602]/80 transition-colors duration-300">
-              <i class="ti ti-player-play text-white text-xs"></i>
+            <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#f95602]/80 transition-colors duration-300">
+              <i class="ti ti-player-play text-white text-[10px] sm:text-xs"></i>
             </div>
           </div>
         </button>
@@ -81,7 +77,6 @@ try {
       if (iframe) {
         iframe.src = `https://www.youtube.com/embed/${id}?controls=1&autoplay=1`;
       }
-      // Quitar borde activo de todos
       document.querySelectorAll('.video-thumb').forEach(b =>
         b.classList.remove('border-[#f95602]')
       );

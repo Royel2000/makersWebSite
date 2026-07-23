@@ -19,6 +19,7 @@
     <!-- Servicios -->
     <div class="grid grid-cols-2 gap-3 mb-4">
       <label
+        for="chk-foto"
         class="servicio-card relative border border-white/[0.07] rounded-2xl p-4 cursor-pointer transition-all duration-200 bg-[#181818] hover:border-[#f95602]/25"
         id="card-foto"
       >
@@ -46,6 +47,7 @@
         </p>
       </label>
       <label
+        for="chk-video"
         class="servicio-card relative border border-white/[0.07] rounded-2xl p-4 cursor-pointer transition-all duration-200 bg-[#181818] hover:border-[#f95602]/25"
         id="card-video"
       >
@@ -87,6 +89,7 @@
         <div class="p-3.5 bg-[#1a1a1a] grid grid-cols-2 gap-3">
           <div>
             <label
+              for="fotos"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Núm. de fotos</label
             >
@@ -100,6 +103,7 @@
           </div>
           <div>
             <label
+              for="horas-foto"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Horas de sesión</label
             >
@@ -113,6 +117,7 @@
           </div>
           <div class="col-span-2">
             <label
+              for="fuera"
               class="flex items-center gap-2.5 px-3 py-2.5 bg-[#111111] border border-white/[0.07] rounded-xl cursor-pointer hover:border-[#f95602]/30 transition-colors"
             >
               <input
@@ -131,6 +136,7 @@
             >
               <div class="mt-2">
                 <label
+                  for="km"
                   class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
                   >Distancia en km</label
                 >
@@ -163,6 +169,7 @@
         <div class="p-3.5 bg-[#1a1a1a] grid grid-cols-2 gap-3">
           <div>
             <label
+              for="horas-video"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Horas de grabación</label
             >
@@ -176,6 +183,7 @@
           </div>
           <div>
             <label
+              for="minutos-video"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Minutos entregados</label
             >
@@ -189,6 +197,7 @@
           </div>
           <div class="col-span-2">
             <label
+              for="reel"
               class="flex items-center gap-2.5 px-3 py-2.5 bg-[#111111] border border-white/[0.07] rounded-xl cursor-pointer hover:border-[#f95602]/30 transition-colors"
             >
               <input
@@ -214,12 +223,11 @@
     >
       <div id="res-bloques"></div>
 
-      <!-- Dentro del div#resultado, después del res-pie -->
       <div
         id="contacto-wrap"
         class="hidden px-5 py-4 bg-[#111111] border-t border-white/4"
       >
-        <label class="flex items-center gap-3 cursor-pointer group">
+        <label for="chk-contacto" class="flex items-center gap-3 cursor-pointer group">
           <input
             type="checkbox"
             id="chk-contacto"
@@ -235,6 +243,7 @@
         <div id="form-contacto" class="hidden mt-4 flex-col gap-3">
           <div>
             <label
+              for="c-nombre"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Tu nombre</label
             >
@@ -247,6 +256,7 @@
           </div>
           <div>
             <label
+              for="c-email"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Tu correo (opcional)</label
             >
@@ -259,6 +269,7 @@
           </div>
           <div>
             <label
+              for="c-fecha"
               class="block text-[10px] font-bold tracking-widest uppercase text-[#cacaca]/35 mb-1.5"
               >Fecha tentativa (opcional)</label
             >

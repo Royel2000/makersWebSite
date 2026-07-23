@@ -3,40 +3,72 @@ import { Image } from "astro:assets";
 import logo from "../assets/MK.jpg";
 ---
 
-<header>
-  <nav
-    aria-label="Global"
-    class="fixed flex w-full items-center justify-center z-50"
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
+  <div
+    id="notch-container"
+    class="relative pointer-events-auto flex items-start transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
   >
-    <div
-      class="flex items-center px-1 py-0.5 gap-4 bg-[#111111] overflow-hidden rounded-b-xl"
+    <svg class="w-5 h-5 text-[#111111] fill-current -mr-px shrink-0 self-start" viewBox="0 0 20 20">
+      <path d="M20 0H0C11.0457 0 20 8.95431 20 20V0Z" />
+    </svg>
+
+    <nav
+      id="dynamic-notch"
+      aria-label="Global"
+      class="flex items-center gap-4 px-4 py-1.5 bg-[#111111] rounded-b-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
     >
-      <div>
-        <div class="-m-1.5">
+      <a href="#aboutUs" class="flex items-center gap-2.5 group">
+        <div class="relative flex items-center justify-center overflow-hidden rounded-full h-8 w-8 shrink-0 border border-white/20 group-hover:border-[#f95602] transition-colors duration-300">
           <Image
             src={logo}
-            alt="Makers"
+            alt="Makers Logo"
             loading="eager"
-            class="h-12 w-full"
-            width={100}
-            height={100}
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+            width={60}
+            height={60}
           />
         </div>
-      </div>
-      <div class="lg:flex lg:gap-x-10 text-zinc-200">
-        <a
-          href="#aboutUs"
-          class="text-sm py-1 border-0 hover:border-b-2 hover:border-white-700 transition-all duration-100"
-          >Makers - Fotografía y Video</a
-        >
-      </div>
-      <div>
-        <a
-          href="#footer"
-          class="text-sm font-semibold py-3 px-3 text-[#f95602] rounded-bl-lg duration-500 hover:text-[#cacaca] transition-all"
-          >Contáctenos <span aria-hidden="true">&rarr;</span></a
-        >
-      </div>
-    </div>
-  </nav>
+
+        <div class="flex items-center gap-1.5">
+          <span class="font-bold tracking-wider text-white">
+            MAKERS
+          </span>
+          <span class="hidden sm:inline font-medium text-zinc-400">
+            • FOTO & VIDEO
+          </span>
+        </div>
+      </a>
+
+      <div class="h-4 w-px bg-white/15"></div>
+
+      <a
+        href="#footer"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1 text-[#f95602] hover:text-white bg-[#f95602]/10 hover:bg-[#f95602] rounded-full border border-[#f95602]/40 hover:border-[#f95602] transition-all duration-300 active:scale-95"
+      >
+        <span>Contacto</span>
+        <span aria-hidden="true" class="text-[11px] transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+      </a>
+    </nav>
+
+    <svg class="w-5 h-5 text-[#111111] fill-current -ml-px shrink-0 self-start" viewBox="0 0 20 20">
+      <path d="M0 0H20C8.95431 0 0 8.95431 0 20V0Z" />
+    </svg>
+  </div>
 </header>
+
+<script>
+  const notchContainer = document.getElementById("notch-container");
+  let lastScrollY = window.scrollY;
+
+  window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 60) {
+      notchContainer?.classList.add("-translate-y-full");
+    } else if (currentScrollY < lastScrollY) {
+      notchContainer?.classList.remove("-translate-y-full");
+    }
+
+    lastScrollY = currentScrollY;
+  });
+</script>

@@ -8,7 +8,7 @@ import Galeria from "./Galerias/Galeria.astro";
 import Boda from "./Galerias/Boda.astro";
 import Video from "./Video.astro";
 import Planes from "./Planes.astro";
-import Posters from "./Posters.astro";
+import Posters from "./Galerias/Posters.astro";
 import Calculadora from "./Calculadora.astro";
 import { Image } from "astro:assets";
 import FAQ from "./FAQ.astro";
@@ -34,32 +34,39 @@ import FAQ from "./FAQ.astro";
       </picture>
     </div>
 
-    <!-- Overlay -->
+    <!-- Overlay (Gradiente Original Restaurado) -->
     <div
       class="absolute inset-0"
       style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgb(17, 17, 17) 100%);"
     >
     </div>
 
-    <!-- Tarjeta glassmorphism -->
+    <!-- Tarjeta glassmorphism minimalista -->
     <div class="absolute inset-0 flex items-end justify-center p-8 md:p-12">
       <div
         id="glassCard"
         class="w-auto max-w-md rounded-2xl p-6 text-[#cacaca] hover:scale-105 transition-all duration-300"
         style="
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255,255,255,0.1);
-      "
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+  "
       >
         <Image
           src={Logo}
-          class="w-1/4 sm:w-1/6 mb-3"
+          class="w-1/3 mb-3"
           alt="Makers"
-          loading="lazy"
+          loading="eager"
         />
-        <p class="text-xl sm:text-2xl font-bold leading-snug">
-          Momentos únicos, <span class="text-[#f95602]">ahora eternos.</span>
+        <p class="text-xl leading-snug text-white">
+          Momentos únicos, <br class="sm:hidden" />
+          <span class="inline-flex items-center min-h-[1.5em]">
+            <span id="typewriter" class="transition-colors duration-300"></span>
+            <span
+              id="typewriter-cursor"
+              class="animate-pulse ml-0.5 font-normal">|</span
+            >
+          </span>
         </p>
         <p class="text-sm mt-1 text-zinc-500">
           Felipe Carrillo Puerto, Quintana Roo
@@ -73,7 +80,6 @@ import FAQ from "./FAQ.astro";
     >
       <div
         class="w-px h-8 origin-top animate-[scrollLine_1.8s_ease-in-out_infinite]"
-        style="background: linear-gradient(to bottom, transparent, #f95602);"
       >
       </div>
     </div>
@@ -92,11 +98,7 @@ import FAQ from "./FAQ.astro";
     >
       <!-- Texto principal -->
       <div>
-        <p
-          class="font-bold uppercase text-[#f95602] mb-3"
-        >
-          ¿Quiénes somos?
-        </p>
+        <p class="font-bold uppercase text-[#f95602] mb-3">¿Quiénes somos?</p>
         <h2
           class="text-4xl md:text-5xl font-extrabold leading-tight text-white mb-3"
         >
@@ -129,7 +131,7 @@ import FAQ from "./FAQ.astro";
           class="relative rounded-xl border border-white/[0.07] bg-white/2 p-6 overflow-hidden"
         >
           <p class="text-2xl font-bold uppercase text-[#f95602] mb-2">Visión</p>
-          <p class=" leading-relaxed text-[#cacaca]/80">
+          <p class="leading-relaxed text-[#cacaca]/80">
             Convertirnos en un estudio fotográfico consolidado, destacando por
             nuestra composición, estilo y calidad visual, hasta ser reconocidos
             como referentes de la fotografía en la península.
@@ -139,32 +141,62 @@ import FAQ from "./FAQ.astro";
     </div>
   </section>
 
-  <section class="w-full text-[#cacaca]">
-    <!-- BOTONES -->
-    <div class="flex flex-col md:flex-row justify-center gap-5 mb-10">
-      <button
-        class="tab-btn active hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
-        data-tab="galeria">CASUAL</button
+  <section class="w-full text-[#cacaca] py-8">
+    <div class="flex justify-center px-4 mb-12">
+      <div
+        class="inline-flex flex-wrap items-center justify-center gap-2 bg-[#111111]"
       >
-      <button
-        class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500"
-        data-tab="boda">BODA</button
-      >
-      <button
-        class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500 opacity-40 cursor-not-allowed"
-        data-tab="xv"
-        disabled
-        title="Próximamente">XV AÑOS</button
-      >
-      <button
-        class="tab-btn hover:border-b-2 hover:border-[#f95602] text-3xl font-bold transition-all duration-500 opacity-40 cursor-not-allowed"
-        data-tab="infantiles"
-        disabled
-        title="Próximamente">INFANTILES</button
-      >
+        <!-- Pestaña: Casual -->
+        <button
+          class="tab-btn active relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-white cursor-pointer select-none overflow-hidden group"
+          data-tab="galeria"
+        >
+          <span
+            class="tab-bg absolute inset-0 bg-[#f95602] rounded-full transition-opacity duration-500 ease-in-out opacity-100"
+          ></span>
+          <span class="relative z-10">CASUAL</span>
+        </button>
+
+        <!-- Pestaña: Boda -->
+        <button
+          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-[#cacaca] hover:text-white cursor-pointer select-none overflow-hidden group"
+          data-tab="boda"
+        >
+          <span
+            class="tab-bg absolute inset-0 bg-[#f95602] rounded-full transition-opacity duration-500 ease-in-out opacity-0"
+          ></span>
+          <span class="relative z-10">BODA</span>
+        </button>
+
+        <!-- Pestaña: XV Años (Deshabilitada) -->
+        <button
+          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[#cacaca]/40 cursor-not-allowed flex items-center gap-2 select-none"
+          data-tab="xv"
+          disabled
+        >
+          <span>XV AÑOS</span>
+          <span
+            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-white/5 text-[#cacaca]/40 border border-white/5"
+            >Próx</span
+          >
+        </button>
+
+        <!-- Pestaña: Infantiles (Deshabilitada) -->
+        <button
+          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[#cacaca]/40 cursor-not-allowed flex items-center gap-2 select-none"
+          data-tab="infantiles"
+          disabled
+        >
+          <span>INFANTILES</span>
+          <span
+            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-white/5 text-[#cacaca]/40 border border-white/5"
+            >Próx</span
+          >
+        </button>
+      </div>
     </div>
 
-    <!-- CONTENIDO -->
+    <!-- CONTENIDO DE LAS PESTAÑAS -->
     <div>
       <div id="galeria" class="tab-content">
         <Galeria />
@@ -175,32 +207,38 @@ import FAQ from "./FAQ.astro";
       </div>
 
       <div id="xv" class="tab-content hidden">
-        <div class="text-center">
-          <h1 class="font-bold text-4xl text-[#f95602]">PRÓXIMAMENTE...</h1>
-          <p>
-            Si quieres ver algunos ejemplos de fotos de XV años no olvides
-            visitar nuestras redes sociales.
+        <div
+          class="text-center py-16 px-4 max-w-md mx-auto border border-white/10 rounded-2xl bg-[#111111]"
+        >
+          <h3 class="font-bold text-2xl text-[#f95602] mb-2">PRÓXIMAMENTE</h3>
+          <p class="text-sm text-[#cacaca] leading-relaxed">
+            Estamos preparando la galería de XV años. Visita nuestras redes
+            sociales para ver adelantos de nuestras sesiones.
           </p>
         </div>
       </div>
+
       <div id="infantiles" class="tab-content hidden">
-        <div class="text-center">
-          <h1 class="font-bold text-4xl text-[#f95602]">PRÓXIMAMENTE...</h1>
-          <p>
-            Si quieres ver algunos ejemplos de fotos infantiles este pendiente
-            de nuestras redes sociales.
+        <div
+          class="text-center py-16 px-4 max-w-md mx-auto border border-white/10 rounded-2xl bg-[#111111]"
+        >
+          <h3 class="font-bold text-2xl text-[#f95602] mb-2">PRÓXIMAMENTE</h3>
+          <p class="text-sm text-[#cacaca] leading-relaxed">
+            Pronto compartiremos nuestro trabajo en fotografía infantil.
+            Síguenos en redes para no perdértelo.
           </p>
         </div>
       </div>
     </div>
 
+    <!-- MODAL -->
     <div
       id="modal"
-      class="fixed inset-0 bg-black/70 backdrop-blur-xl hidden items-center justify-center z-50"
+      class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50 p-4"
     >
       <img
         id="modalImg"
-        class="max-w-[90%] max-h-[90%] rounded-xl border border-white/10 shadow-2xl transition-transform duration-300 scale-95"
+        class="max-w-[90%] max-h-[90%] rounded-2xl border border-white/10 transition-transform duration-300 scale-95 object-contain"
       />
     </div>
   </section>
@@ -231,28 +269,53 @@ import FAQ from "./FAQ.astro";
 
   <section class="h-auto my-10 content-center md:flex md:justify-evenly">
     <Calculadora />
-    <FAQ/>
+    <FAQ />
   </section>
 </div>
 
 <script is:inline>
+  // Tabs Script
   const buttons = document.querySelectorAll(".tab-btn");
   const contents = document.querySelectorAll(".tab-content");
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
+      if (btn.hasAttribute("disabled")) return;
+
       const target = btn.dataset.tab;
 
-      // quitar activos
-      buttons.forEach((b) => b.classList.remove("active"));
+      // Desactivar todos los botones con transición de opacidad
+      buttons.forEach((b) => {
+        b.classList.remove("active", "text-white");
+        if (!b.hasAttribute("disabled")) {
+          b.classList.add("text-[#cacaca]");
+        }
+        const bg = b.querySelector(".tab-bg");
+        if (bg) {
+          bg.classList.remove("opacity-100");
+          bg.classList.add("opacity-0");
+        }
+      });
+
+      // Ocultar contenidos
       contents.forEach((c) => c.classList.add("hidden"));
 
-      // activar seleccionado
-      btn.classList.add("active");
-      document.getElementById(target).classList.remove("hidden");
+      // Activar botón seleccionado
+      btn.classList.add("active", "text-white");
+      btn.classList.remove("text-[#cacaca]");
+
+      const activeBg = btn.querySelector(".tab-bg");
+      if (activeBg) {
+        activeBg.classList.remove("opacity-0");
+        activeBg.classList.add("opacity-100");
+      }
+
+      // Mostrar contenido activo
+      document.getElementById(target)?.classList.remove("hidden");
     });
   });
 
+  // Modal Script
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modalImg");
 
@@ -296,9 +359,9 @@ import FAQ from "./FAQ.astro";
     }, 200);
   });
 
+  // Parallax Script
   const heroBg = document.getElementById("heroBg");
 
-  // Parallax al hacer scroll
   window.addEventListener(
     "scroll",
     () => {
@@ -307,4 +370,62 @@ import FAQ from "./FAQ.astro";
     },
     { passive: true },
   );
+
+  // Typewriter Script con color condicional
+  const words = [
+    "ahora eternos.",
+    "ahora vivos.",
+    "ahora memorables.",
+    "ahora inolvidables.",
+  ];
+
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const target = document.getElementById("typewriter");
+  const cursor = document.getElementById("typewriter-cursor");
+
+  const typingSpeed = 100;
+  const deletingSpeed = 50;
+  const delayBetweenWords = 2000;
+
+  function typeEffect() {
+    if (!target) return;
+
+    const currentWord = words[wordIndex];
+
+    // Cambiar color a naranja SOLO si la palabra actual es "ahora eternos."
+    if (currentWord === "ahora eternos.") {
+      target.className = "text-[#f95602] transition-colors duration-300";
+      if (cursor)
+        cursor.className = "animate-pulse ml-0.5 font-normal text-[#f95602]";
+    } else {
+      target.className = "text-white transition-colors duration-300";
+      if (cursor)
+        cursor.className = "animate-pulse ml-0.5 font-normal text-white";
+    }
+
+    if (isDeleting) {
+      target.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      target.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+    }
+
+    let nextSpeed = isDeleting ? deletingSpeed : typingSpeed;
+
+    if (!isDeleting && charIndex === currentWord.length) {
+      nextSpeed = delayBetweenWords;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      nextSpeed = 300;
+    }
+
+    setTimeout(typeEffect, nextSpeed);
+  }
+
+  typeEffect();
 </script>
