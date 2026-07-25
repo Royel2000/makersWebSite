@@ -17,6 +17,7 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
           src={foto}
           alt={`Boda ${i + 1}`}
           class="w-full h-auto object-cover"
+          data-original={foto.src}
         />
         <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300"></div>
         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

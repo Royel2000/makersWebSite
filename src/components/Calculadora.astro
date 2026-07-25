@@ -227,7 +227,10 @@
         id="contacto-wrap"
         class="hidden px-5 py-4 bg-[#111111] border-t border-white/4"
       >
-        <label for="chk-contacto" class="flex items-center gap-3 cursor-pointer group">
+        <label
+          for="chk-contacto"
+          class="flex items-center gap-3 cursor-pointer group"
+        >
           <input
             type="checkbox"
             id="chk-contacto"
@@ -499,6 +502,9 @@
       resultado.style.opacity = "0";
       resultado.style.transform = "translateY(10px)";
       resultado.style.pointerEvents = "none";
+      document.getElementById("contacto-wrap").classList.add("hidden");
+      document.getElementById("chk-contacto").checked = false;
+      document.getElementById("form-contacto").classList.add("hidden");
       return;
     }
 

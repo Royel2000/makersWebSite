@@ -1,26 +1,49 @@
+---
+---
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/src/assets/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Makers - Fotografía y Video</title>
 
+		<title>Makers - Fotografía y Video | Felipe Carrillo Puerto, Q. Roo</title>
+		<meta name="description" content="Fotografía y video profesional en Felipe Carrillo Puerto, Quintana Roo. Bodas, quinceañeras, sesiones casuales y contenido para redes sociales." />
+		<meta name="theme-color" content="#f95602" />
+
+		<!-- Open Graph para WhatsApp, Facebook, Instagram -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://makersfotoyvideo.vercel.app/" />
+		<meta property="og:title" content="Makers - Fotografía y Video" />
+		<meta property="og:description" content="Fotografía y video profesional en Felipe Carrillo Puerto, Quintana Roo. Bodas, quinceañeras, sesiones casuales y contenido para redes." />
+		<meta property="og:image" content="https://makersfotoyvideo.vercel.app/og-image.jpg" />		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content="es_MX" />
+		<meta property="og:site_name" content="Makers Fotografía y Video" />
+
+		<!-- Twitter/X Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Makers - Fotografía y Video" />
+		<meta name="twitter:description" content="Fotografía y video profesional en Felipe Carrillo Puerto, Quintana Roo." />
+		<meta name="twitter:image" content="https://makersfotoyvideo.vercel.app/og-image.jpg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
-		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 	</head>
+
 	<body>
 		<slot />
 	</body>
 </html>
 
 <style>
-	html,
-	body {
+	html, body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
 		background: #111111;
+		font-family: 'Outfit', sans-serif;
 	}
 </style>

@@ -6,7 +6,7 @@ let videos: { id: string; title: string; thumb: string }[] = [];
 
 try {
   const res = await fetch(
-    `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`
+    `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`,
   );
   const xml = await res.text();
 
@@ -30,57 +30,77 @@ try {
 }
 ---
 
-<section id="video" class="relative w-full overflow-hidden h-[50vh] min-h-75 sm:h-[60vh] md:h-svh">
+<section id="video" class="relative h-screen w-screen overflow-hidden bg-[#0a0a0a]">
+  <!-- Poster de respaldo si el autoplay falla -->
+  <div id="video-poster" class="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
+    style="background:#0a0a0a;">
+    <div class="absolute inset-0">
+      <!-- Usa tu portada como imagen de fondo -->
+      <img src="/_astro/PortadaMobile.DIMvnp0z_2lDROJ.webp"
+        class="w-full h-full object-cover opacity-60" alt="Video Makers" />
+    </div>
+    <div class="relative z-10 flex flex-col items-center gap-4">
+      <div class="w-16 h-16 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"
+        style="background:rgba(249,86,2,0.9);border:2px solid rgba(255,255,255,0.2);">
+        <i class="ti ti-player-play text-white" style="font-size:28px;margin-left:3px;"></i>
+      </div>
+      <p class="text-white text-sm font-semibold tracking-widest uppercase opacity-70">Ver video</p>
+    </div>
+  </div>
 
   <iframe
-    class="w-full h-full"
-    src={`https://www.youtube.com/embed/${MAIN_VIDEO}?controls=0&loop=1&playlist=${MAIN_VIDEO}&autoplay=1&mute=1`}
+    id="video-iframe"
+    class="w-full h-full opacity-0 transition-opacity duration-700"
+    src="https://www.youtube.com/embed/IVYbODWOXFA?controls=0&loop=1&playlist=IVYbODWOXFA&enablejsapi=1"
     title="Video promocional Makers"
     loading="lazy"
     allow="autoplay; fullscreen"
-    allowfullscreen
-  />
+    allowfullscreen></iframe>
 
-  {videos.length > 0 && (
-    <div class="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 flex gap-1.5 sm:gap-2 z-10 max-w-[calc(100%-1.5rem)] overflow-x-auto pb-1">
-      {videos.map((v) => (
-        <button
-          class="video-thumb group relative rounded-lg overflow-hidden border border-white/10 hover:border-[#f95602]/60 transition-all duration-300 hover:scale-105 focus:outline-none shrink-0"
-          style="width: 90px; height: 50px; backdrop-filter: blur(4px);"
-          data-id={v.id}
-          title={v.title}
-        >
-          <img
-            src={v.thumb}
-            alt={v.title}
-            class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-          />
-          <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#f95602]/80 transition-colors duration-300">
-              <i class="ti ti-player-play text-white text-[10px] sm:text-xs"></i>
+  {
+    videos.length > 0 && (
+      <div class="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 flex gap-1.5 sm:gap-2 z-10 max-w-[calc(100%-1.5rem)] overflow-x-auto pb-1">
+        {videos.map((v) => (
+          <button
+            class="video-thumb group relative rounded-lg overflow-hidden border border-white/10 hover:border-[#f95602]/60 transition-all duration-300 hover:scale-105 focus:outline-none shrink-0"
+            style="width: 90px; height: 50px; backdrop-filter: blur(4px);"
+            data-id={v.id}
+            title={v.title}
+          >
+            <img
+              src={v.thumb}
+              alt={v.title}
+              class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#f95602]/80 transition-colors duration-300">
+                <i class="ti ti-player-play text-white text-[10px] sm:text-xs" />
+              </div>
             </div>
-          </div>
-        </button>
-      ))}
-    </div>
-  )}
-
+          </button>
+        ))}
+      </div>
+    )
+  }
 </section>
 
 <script is:inline>
-  const iframe = document.querySelector('#video iframe');
+  const iframe = document.getElementById('video-iframe');
+  const poster = document.getElementById('video-poster');
 
-  document.querySelectorAll('.video-thumb').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.id;
-      if (iframe) {
-        iframe.src = `https://www.youtube.com/embed/${id}?controls=1&autoplay=1`;
-      }
-      document.querySelectorAll('.video-thumb').forEach(b =>
-        b.classList.remove('border-[#f95602]')
-      );
-      btn.classList.add('border-[#f95602]');
-    });
+  // Intentar autoplay — si funciona, ocultar el poster
+  setTimeout(() => {
+    iframe.style.opacity = '1';
+    poster.style.opacity = '0';
+    poster.style.pointerEvents = 'none';
+  }, 2000);
+
+  // Si el usuario hace click en el poster, forzar reproducción
+  poster.addEventListener('click', () => {
+    iframe.src = 'https://www.youtube.com/embed/IVYbODWOXFA?controls=1&autoplay=1&mute=0';
+    iframe.style.opacity = '1';
+    poster.style.opacity = '0';
+    poster.style.pointerEvents = 'none';
   });
 </script>
