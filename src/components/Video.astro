@@ -9,9 +9,7 @@ try {
     `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`,
   );
   const xml = await res.text();
-
   const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
-
   videos = entries
     .map((e) => {
       const content = e[1];
@@ -23,84 +21,191 @@ try {
         thumb: `https://i.ytimg.com/vi/${id}/mqdefault.jpg`,
       };
     })
-    .filter((v) => v.id && v.id !== MAIN_VIDEO)
-    .slice(0, 4);
+    .filter((v) => v.id)
+    .slice(0, 20);
 } catch (e) {
   videos = [];
 }
+
+const mainVideo =
+  videos.length > 0
+    ? videos[0]
+    : {
+        id: MAIN_VIDEO,
+        title: "Video promocional Makers",
+        thumb: `https://i.ytimg.com/vi/${MAIN_VIDEO}/mqdefault.jpg`,
+      };
+const carouselVideos = videos;
 ---
 
-<section id="video" class="relative h-screen w-screen overflow-hidden bg-[#0a0a0a]">
-  <!-- Poster de respaldo si el autoplay falla -->
-  <div id="video-poster" class="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
-    style="background:#0a0a0a;">
-    <div class="absolute inset-0">
-      <!-- Usa tu portada como imagen de fondo -->
-      <img src="/_astro/PortadaMobile.DIMvnp0z_2lDROJ.webp"
-        class="w-full h-full object-cover opacity-60" alt="Video Makers" />
+<section
+  id="video"
+  class="w-full py-16 px-5 md:px-10 lg:px-20"
+  style="font-family:'Outfit',sans-serif;"
+>
+  <!-- Eyebrow -->
+  <div
+    class="flex flex-col md:flex-row items-start md:items-end justify-center gap-6 mb-10"
+  >
+    <!-- Título izquierda -->
+    <div class="text-left">
+      <p
+        class="text-[10px] font-bold uppercase text-[#f95602]/70 mb-1"
+      >
+        Nuestro trabajo
+      </p>
+      <h2 class="text-4xl md:text-5xl font-extrabold text-white">
+        En <span class="text-[#f95602]">movimiento</span>
+      </h2>
     </div>
-    <div class="relative z-10 flex flex-col items-center gap-4">
-      <div class="w-16 h-16 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"
-        style="background:rgba(249,86,2,0.9);border:2px solid rgba(255,255,255,0.2);">
-        <i class="ti ti-player-play text-white" style="font-size:28px;margin-left:3px;"></i>
-      </div>
-      <p class="text-white text-sm font-semibold tracking-widest uppercase opacity-70">Ver video</p>
+
+    <!-- Frase derecha -->
+    <div class="text-left md:text-right max-w-xs">
+      <p
+        class="text-sm md:text-base leading-relaxed text-neutral-500 italic"
+      >
+        "Capturamos el instante.<br />
+        Lo devolvemos en movimiento."
+      </p>
     </div>
   </div>
 
-  <iframe
-    id="video-iframe"
-    class="w-full h-full opacity-0 transition-opacity duration-700"
-    src="https://www.youtube.com/embed/IVYbODWOXFA?controls=0&loop=1&playlist=IVYbODWOXFA&enablejsapi=1"
-    title="Video promocional Makers"
-    loading="lazy"
-    allow="autoplay; fullscreen"
-    allowfullscreen></iframe>
+  <!-- Video principal -->
+  <div
+    class="relative w-full rounded-2xl overflow-hidden bg-black mx-auto"
+    style="aspect-ratio:16/9;max-width:780px;"
+    id="main-player-wrap"
+    data-video-id={mainVideo.id}
+  >
+    <!-- Poster -->
+    <div id="main-poster" class="absolute inset-0 z-10 cursor-pointer group">
+      <img
+        id="main-thumb"
+        src={mainVideo.thumb.replace("mqdefault", "maxresdefault")}
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        alt={mainVideo.title}
+      />
+      <div
+        class="absolute inset-0"
+        style="background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);"
+      >
+      </div>
+      <div
+        class="absolute inset-0 flex flex-col items-center justify-center gap-4"
+      >
+        <div
+          class="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+          style="background:rgba(1,1,1,0.95);border:2px solid rgba(255,255,255,0.15);box-shadow:0 0 40px rgba(1,1,1,0.4);"
+        >
+          <i
+            class="ti ti-player-play text-white"
+            style="font-size:28px;margin-left:4px;"></i>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 p-5">
+        <p class="text-[10px] font-bold uppercase text-[#f95602]/80 mb-1">
+          Video promocional
+        </p>
+        <p id="main-title" class="text-white font-bold text-lg leading-tight">
+          {mainVideo.title}
+        </p>
+      </div>
+    </div>
 
+    <!-- iframe -->
+    <iframe
+      id="main-iframe"
+      class="w-full h-full opacity-0 transition-opacity duration-500"
+      src=""
+      title="Video Makers"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      style="position:absolute;inset:0;"></iframe>
+  </div>
+
+  <!-- Carrusel de videos -->
   {
-    videos.length > 0 && (
-      <div class="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 flex gap-1.5 sm:gap-2 z-10 max-w-[calc(100%-1.5rem)] overflow-x-auto pb-1">
-        {videos.map((v) => (
-          <button
-            class="video-thumb group relative rounded-lg overflow-hidden border border-white/10 hover:border-[#f95602]/60 transition-all duration-300 hover:scale-105 focus:outline-none shrink-0"
-            style="width: 90px; height: 50px; backdrop-filter: blur(4px);"
-            data-id={v.id}
-            title={v.title}
-          >
-            <img
-              src={v.thumb}
-              alt={v.title}
-              class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-            />
-            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-300" />
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#f95602]/80 transition-colors duration-300">
-                <i class="ti ti-player-play text-white text-[10px] sm:text-xs" />
+    carouselVideos.length > 0 && (
+      <div class="mt-5 relative">
+        <div
+          class="flex gap-3 overflow-x-auto pb-2 scroll-smooth justify-start md:justify-center"
+          id="video-carousel"
+          style="scrollbar-width:none;-ms-overflow-style:none;"
+        >
+          {carouselVideos.map((v) => (
+            <button
+              class="video-thumb-btn group relative rounded-xl overflow-hidden flex-shrink-0 border border-white/[0.08] transition-all duration-300 hover:border-[#f95602]/60 focus:outline-none"
+              style="width:200px;height:112px;"
+              data-id={v.id}
+              data-title={v.title}
+            >
+              <img
+                src={v.thumb}
+                alt={v.title}
+                class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-300"
+              />
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
+              <div
+                class="absolute bottom-0 left-0 right-0 p-2"
+                style="background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);"
+              >
+                <p class="text-white text-[10px] font-semibold leading-tight line-clamp-2 text-left">
+                  {v.title}
+                </p>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          ))}
+        </div>
       </div>
     )
   }
 </section>
 
 <script is:inline>
-  const iframe = document.getElementById('video-iframe');
-  const poster = document.getElementById('video-poster');
+  const mainPoster = document.getElementById("main-poster");
+  const mainIframe = document.getElementById("main-iframe");
+  const mainThumb = document.getElementById("main-thumb");
+  const mainTitle = document.getElementById("main-title");
+  const MAIN_ID = document.getElementById("main-player-wrap").dataset.videoId;
 
-  // Intentar autoplay — si funciona, ocultar el poster
-  setTimeout(() => {
-    iframe.style.opacity = '1';
-    poster.style.opacity = '0';
-    poster.style.pointerEvents = 'none';
-  }, 2000);
+  function playVideo(id, title, thumbSrc) {
+    mainThumb.src = thumbSrc.replace("mqdefault", "maxresdefault");
+    if (mainTitle) mainTitle.textContent = title;
 
-  // Si el usuario hace click en el poster, forzar reproducción
-  poster.addEventListener('click', () => {
-    iframe.src = 'https://www.youtube.com/embed/IVYbODWOXFA?controls=1&autoplay=1&mute=0';
-    iframe.style.opacity = '1';
-    poster.style.opacity = '0';
-    poster.style.pointerEvents = 'none';
+    document.querySelectorAll(".video-thumb-btn").forEach((btn) => {
+      btn.style.borderColor =
+        btn.dataset.id === id ? "#f95602" : "rgba(255,255,255,0.08)";
+    });
+
+    mainIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&controls=1&rel=0`;
+    mainIframe.style.opacity = "1";
+    mainPoster.style.opacity = "0";
+    mainPoster.style.pointerEvents = "none";
+
+    document
+      .getElementById("main-player-wrap")
+      .scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Click en poster — siempre reproduce el video principal hardcoded
+  mainPoster.addEventListener("click", () => {
+    playVideo(MAIN_ID, mainTitle?.textContent || "", mainThumb?.src || "");
+  });
+
+  // Click en miniaturas del carrusel
+  document.querySelectorAll(".video-thumb-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      playVideo(
+        btn.dataset.id,
+        btn.dataset.title,
+        btn.querySelector("img").src,
+      );
+    });
   });
 </script>
+
+<style is:global>
+  #video-carousel::-webkit-scrollbar {
+    display: none;
+  }
+</style>

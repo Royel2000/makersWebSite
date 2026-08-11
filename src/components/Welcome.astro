@@ -19,7 +19,7 @@ import FAQ from "./FAQ.astro";
     <!-- Fondo con parallax -->
     <div
       id="heroBg"
-      class="absolute inset-0 will-change-transform transition-transform duration-75 ease-linear"
+      class="absolute inset-0 will-change-transform"
       style="margin: -60px 0;"
     >
       <Image
@@ -243,8 +243,10 @@ import FAQ from "./FAQ.astro";
   <Posters />
 
   <section class="text-[#cacaca] justify-center content-center">
-    <div class="flex flex-col lg:flex-row lg:px-20 md:px-10 px-5">
-      <div class="lg:mr-10">
+    <div
+      class="flex flex-col justify-evenly lg:flex-row lg:px-20 md:px-10 px-5"
+    >
+      <div>
         <div class="mb-5">
           <h1 class="text-6xl font-bold">¿Te gusta nuestro trabajo?</h1>
         </div>
@@ -257,8 +259,7 @@ import FAQ from "./FAQ.astro";
           </p>
         </div>
       </div>
-
-      <div class="lg:ml-10 mt-10">
+      <div class="mt-10">
         <Planes />
       </div>
     </div>
@@ -362,12 +363,22 @@ import FAQ from "./FAQ.astro";
 
   // Parallax Script
   const heroBg = document.getElementById("heroBg");
+  let ticking = false;
+  let lastScrollY = 0;
 
   window.addEventListener(
     "scroll",
     () => {
-      const scrollY = window.scrollY;
-      if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+      lastScrollY = window.scrollY;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (heroBg) {
+            heroBg.style.transform = `translateY(${lastScrollY * 0.4}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     },
     { passive: true },
   );
