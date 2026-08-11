@@ -259,18 +259,23 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
         const modal = document.getElementById("modal");
         const modalImg = document.getElementById("modalImg");
         if (modal && modalImg) {
-          modalImg.src = slide.querySelector("img").dataset.original;
-          modal.classList.remove("hidden");
-          modal.classList.add("flex");
+          const src = slide.querySelector("img").dataset.original;
 
-          modalImg.addEventListener("click", (e) => e.stopPropagation(), {
-            once: true,
-          });
-
-          setTimeout(
-            () => modalImg.classList.replace("scale-95", "scale-100"),
-            10,
-          );
+          // Precargar antes de mostrar
+          const preloader = new Image();
+          preloader.onload = () => {
+            modalImg.src = src;
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            modalImg.addEventListener("click", (e) => e.stopPropagation(), {
+              once: true,
+            });
+            setTimeout(
+              () => modalImg.classList.replace("scale-95", "scale-100"),
+              10,
+            );
+          };
+          preloader.src = src;
         }
       } else {
         goTo(i);
@@ -324,24 +329,28 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
   window.addEventListener("resize", () => update());
 
   // Parallax al hacer scroll
-  window.addEventListener('scroll', () => {
-  const wrap = document.getElementById('carousel-wrap');
-  if (!wrap) return;
+  window.addEventListener(
+    "scroll",
+    () => {
+      const wrap = document.getElementById("carousel-wrap");
+      if (!wrap) return;
 
-  const rect = wrap.getBoundingClientRect();
-  const windowH = window.innerHeight;
+      const rect = wrap.getBoundingClientRect();
+      const windowH = window.innerHeight;
 
-  if (rect.bottom < 0 || rect.top > windowH) return;
+      if (rect.bottom < 0 || rect.top > windowH) return;
 
-  const progress = 1 - rect.bottom / (windowH + rect.height);
-  const offset = (progress - 0.5) * 80;
+      const progress = 1 - rect.bottom / (windowH + rect.height);
+      const offset = (progress - 0.5) * 80;
 
-  slides.forEach((slide, i) => {
-    const pos = getPos(i);
-    const depth = Math.abs(pos) === 0 ? 1 : Math.abs(pos) === 1 ? 0.5 : 0.2;
-    slide.style.setProperty('--parallax-y', `${offset * depth}px`);
-  });
-}, { passive: true });
+      slides.forEach((slide, i) => {
+        const pos = getPos(i);
+        const depth = Math.abs(pos) === 0 ? 1 : Math.abs(pos) === 1 ? 0.5 : 0.2;
+        slide.style.setProperty("--parallax-y", `${offset * depth}px`);
+      });
+    },
+    { passive: true },
+  );
 
   update();
 </script>

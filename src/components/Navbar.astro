@@ -3,22 +3,30 @@ import { Image } from "astro:assets";
 import logo from "../assets/MK.jpg";
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
+<header
+  class="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none overflow-hidden pb-2"
+>
   <div
     id="notch-container"
     class="relative pointer-events-auto flex items-start transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
+    style="transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), scale 0.3s ease;"
   >
-    <svg class="w-5 h-5 text-[#111111] fill-current -mr-px shrink-0 self-start" viewBox="0 0 20 20">
-      <path d="M20 0H0C11.0457 0 20 8.95431 20 20V0Z" />
+    <svg
+      class="w-5 h-5 text-[#111111] fill-current -mr-px shrink-0 self-start"
+      viewBox="0 0 20 20"
+    >
+      <path d="M20 0H0C11.0457 0 20 8.95431 20 20V0Z"></path>
     </svg>
 
     <nav
       id="dynamic-notch"
       aria-label="Global"
-      class="flex items-center gap-4 px-4 py-1.5 bg-[#111111] rounded-b-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      class="flex items-center gap-4 p-1.5 bg-[#111111] rounded-b-[20px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
     >
       <a href="#aboutUs" class="flex items-center gap-2.5 group">
-        <div class="relative flex items-center justify-center overflow-hidden rounded-full h-8 w-8 shrink-0 border border-white/20 group-hover:border-[#f95602] transition-colors duration-300">
+        <div
+          class="relative flex items-center justify-center overflow-hidden rounded-full h-8 w-8 shrink-0 border border-white/20 group-hover:border-[#f95602] transition-colors duration-300"
+        >
           <Image
             src={logo}
             alt="Makers Logo"
@@ -30,9 +38,7 @@ import logo from "../assets/MK.jpg";
         </div>
 
         <div class="flex items-center gap-1.5">
-          <span class="font-bold tracking-wider text-white">
-            MAKERS
-          </span>
+          <span class="font-bold tracking-wider text-white"> MAKERS </span>
           <span class="hidden sm:inline font-medium text-zinc-400">
             • FOTO & VIDEO
           </span>
@@ -46,12 +52,19 @@ import logo from "../assets/MK.jpg";
         class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1 text-[#f95602] hover:text-white bg-[#f95602]/10 hover:bg-[#f95602] rounded-full border border-[#f95602]/40 hover:border-[#f95602] transition-all duration-300 active:scale-95"
       >
         <span>Contacto</span>
-        <span aria-hidden="true" class="text-[11px] transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+        <span
+          aria-hidden="true"
+          class="text-[11px] transition-transform duration-300 group-hover:translate-x-0.5"
+          >&rarr;</span
+        >
       </a>
     </nav>
 
-    <svg class="w-5 h-5 text-[#111111] fill-current -ml-px shrink-0 self-start" viewBox="0 0 20 20">
-      <path d="M0 0H20C8.95431 0 0 8.95431 0 20V0Z" />
+    <svg
+      class="w-5 h-5 text-[#111111] fill-current -ml-px shrink-0 self-start"
+      viewBox="0 0 20 20"
+    >
+      <path d="M0 0H20C8.95431 0 0 8.95431 0 20V0Z"></path>
     </svg>
   </div>
 </header>

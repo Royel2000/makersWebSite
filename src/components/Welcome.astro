@@ -138,7 +138,7 @@ import FAQ from "./FAQ.astro";
     </div>
   </section>
 
-  <section class="w-full text-[#cacaca] py-8">
+  <section id="Galeria" class="w-full text-[#cacaca] py-8">
     <div class="flex justify-center px-4 mb-12">
       <div
         class="inline-flex flex-wrap items-center justify-center gap-2 bg-[#111111]"
@@ -339,15 +339,20 @@ import FAQ from "./FAQ.astro";
     });
 
     card.addEventListener("click", () => {
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
+      const src = img.dataset.original || img.src;
 
-      modalImg.src = img.dataset.original || img.src;
-
-      setTimeout(() => {
-        modalImg.classList.remove("scale-95");
-        modalImg.classList.add("scale-100");
-      }, 10);
+      // Precargar la imagen antes de mostrar el modal
+      const preloader = new Image();
+      preloader.onload = () => {
+        modalImg.src = src;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        setTimeout(() => {
+          modalImg.classList.remove("scale-95");
+          modalImg.classList.add("scale-100");
+        }, 10);
+      };
+      preloader.src = src;
     });
   });
 
