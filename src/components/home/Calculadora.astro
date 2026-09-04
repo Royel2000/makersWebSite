@@ -1,24 +1,20 @@
 ---
 import logo from "../../assets/MakersDark.svg?inline";
-
 ---
 
-
-<section class="py-16 px-5 text-[#cacaca]" style="font-family: 'Outfit', sans-serif;">
+<section class="py-16 px-5 text-[var(--text-secondary)]">
   <div data-reveal class="max-w-lg mx-auto">
 
-    <!-- Encabezado -->
-    <p class="text-[10px] font-bold tracking-[0.22em] uppercase text-[#f95602]/70 mb-2">
+    <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--accent)] opacity-70 mb-2">
       Cotización rápida
     </p>
-    <h2 class="text-4xl font-extrabold text-white mb-2">
-      ¿Qué <span class="text-[#f95602]">necesitas</span>?
+    <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-[var(--text-primary)] mb-2">
+      ¿Qué <span class="text-[var(--accent)]">necesitas</span>?
     </h2>
-    <p class="text-sm text-[#cacaca]/70 mb-8">
+    <p class="text-sm text-[var(--text-muted)] mb-8">
       Elige los servicios y ajusta los detalles. El precio se actualiza solo.
     </p>
 
-    <!-- Banner de promoción de temporada (lo rellena main.js) -->
     <div
       id="banner-promo"
       role="status"
@@ -29,29 +25,29 @@ import logo from "../../assets/MakersDark.svg?inline";
     <div class="flex gap-3 mb-5">
       <label
         for="chk-foto"
-        class="servicio-card flex-1 relative rounded-2xl p-5 cursor-pointer transition-all duration-300 bg-[#1a1a1a] border-2 border-white/[0.06] hover:border-white/[0.12]"
+        class="servicio-card flex-1 relative rounded-2xl p-5 cursor-pointer transition-all duration-300 bg-[var(--bg-secondary)] border-2 border-[var(--border-default)] hover:border-[var(--border-strong)]"
         id="card-foto"
       >
         <input type="checkbox" id="chk-foto" class="absolute opacity-0 w-0 h-0" checked />
-        <div class="s-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full border-2 border-white/10 flex items-center justify-center transition-all duration-300">
+        <div class="s-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full border-2 border-[var(--border-strong)] flex items-center justify-center transition-all duration-300">
           <span class="s-check-mark text-white opacity-0 transition-opacity duration-300" style="font-size:10px;">✓</span>
         </div>
-        <p class="text-[11px] font-bold tracking-widest uppercase text-[#cacaca]/60 mb-1">Servicio</p>
-        <p class="text-lg font-bold text-white leading-tight">Fotografía</p>
-        <p class="text-[12px] text-[#cacaca]/60 mt-1">Fotos editadas + sesión</p>
+        <p class="text-[11px] font-bold tracking-widest uppercase text-[var(--text-muted)] mb-1">Servicio</p>
+        <p class="text-lg font-bold text-[var(--text-primary)] leading-tight">Fotografía</p>
+        <p class="text-[12px] text-[var(--text-muted)] mt-1">Fotos editadas + sesión</p>
       </label>
       <label
         for="chk-video"
-        class="servicio-card flex-1 relative rounded-2xl p-5 cursor-pointer transition-all duration-300 bg-[#1a1a1a] border-2 border-white/[0.06] hover:border-white/[0.12]"
+        class="servicio-card flex-1 relative rounded-2xl p-5 cursor-pointer transition-all duration-300 bg-[var(--bg-secondary)] border-2 border-[var(--border-default)] hover:border-[var(--border-strong)]"
         id="card-video"
       >
         <input type="checkbox" id="chk-video" class="absolute opacity-0 w-0 h-0" />
-        <div class="s-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full border-2 border-white/10 flex items-center justify-center transition-all duration-300">
+        <div class="s-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full border-2 border-[var(--border-strong)] flex items-center justify-center transition-all duration-300">
           <span class="s-check-mark text-white opacity-0 transition-opacity duration-300" style="font-size:10px;">✓</span>
         </div>
-        <p class="text-[11px] font-bold tracking-widest uppercase text-[#cacaca]/60 mb-1">Servicio</p>
-        <p class="text-lg font-bold text-white leading-tight">Video</p>
-        <p class="text-[12px] text-[#cacaca]/60 mt-1">Grabación + edición</p>
+        <p class="text-[11px] font-bold tracking-widest uppercase text-[var(--text-muted)] mb-1">Servicio</p>
+        <p class="text-lg font-bold text-[var(--text-primary)] leading-tight">Video</p>
+        <p class="text-[12px] text-[var(--text-muted)] mt-1">Grabación + edición</p>
       </label>
     </div>
 
@@ -64,11 +60,11 @@ import logo from "../../assets/MakersDark.svg?inline";
         class="calc-group rounded-2xl overflow-hidden transition-all duration-500"
         style="opacity:1; transform:translateY(0);"
       >
-        <div class="px-4 py-3 bg-[#161616] border-b border-white/5 flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#f95602]/60"></span>
-          <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-[#cacaca]/75">Fotografía</p>
+        <div class="px-4 py-3 bg-[var(--bg-tertiary)] border-b border-[var(--border-subtle)] flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] opacity-60"></span>
+          <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-[var(--text-tertiary)]">Fotografía</p>
         </div>
-        <div class="p-4 bg-[#1a1a1a] flex flex-col gap-4">
+        <div class="p-4 bg-[var(--bg-secondary)] flex flex-col gap-4">
           <div class="grid grid-cols-2 gap-4">
             <div class="calc-field">
               <label for="fotos" class="calc-label">¿Cuántas fotos?</label>
@@ -85,7 +81,7 @@ import logo from "../../assets/MakersDark.svg?inline";
           </div>
           <div>
             <label for="fuera" class="calc-toggle">
-              <input type="checkbox" id="fuera" class="w-4 h-4 accent-[#f95602]" />
+              <input type="checkbox" id="fuera" class="w-4 h-4 accent-[var(--accent)]" />
               <span>¿Viajamos fuera de la ciudad?</span>
             </label>
             <p class="calc-hint mt-2 ml-1">Se suma un costo por cada km recorrido.</p>
@@ -109,11 +105,11 @@ import logo from "../../assets/MakersDark.svg?inline";
         class="calc-group rounded-2xl overflow-hidden transition-all duration-500"
         style="display:none;opacity:0;transform:translateY(20px);"
       >
-        <div class="px-4 py-3 bg-[#161616] border-b border-white/5 flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#f95602]/60"></span>
-          <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-[#cacaca]/75">Video</p>
+        <div class="px-4 py-3 bg-[var(--bg-tertiary)] border-b border-[var(--border-subtle)] flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] opacity-60"></span>
+          <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-[var(--text-tertiary)]">Video</p>
         </div>
-        <div class="p-4 bg-[#1a1a1a] flex flex-col gap-4">
+        <div class="p-4 bg-[var(--bg-secondary)] flex flex-col gap-4">
           <div class="grid grid-cols-2 gap-4">
             <div class="calc-field">
               <label for="horas-video" class="calc-label">¿Cuántas horas?</label>
@@ -129,7 +125,7 @@ import logo from "../../assets/MakersDark.svg?inline";
             </div>
           </div>
           <label for="reel" class="calc-toggle">
-            <input type="checkbox" id="reel" class="w-4 h-4 accent-[#f95602]" />
+            <input type="checkbox" id="reel" class="w-4 h-4 accent-[var(--accent)]" />
             <span>Solo un reel (hasta 60 seg.)</span>
           </label>
           <p class="calc-hint mt-2 ml-1">Ideal para redes sociales. Precio fijo de $600.</p>
@@ -140,84 +136,87 @@ import logo from "../../assets/MakersDark.svg?inline";
     <!-- Resultado -->
     <div
       id="resultado"
-      class="mt-5 rounded-2xl border-2 border-white/[0.06] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      class="mt-5 rounded-2xl border-2 border-[var(--border-default)] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
       style="opacity:0;transform:translateY(20px);pointer-events:none;"
     >
       <div id="res-bloques"></div>
 
       <div id="contacto-wrap"
-        class="hidden px-5 py-4 bg-[#111111] border-t border-white/5"
+        class="hidden px-5 py-4 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)]"
       >
         <label for="chk-contacto" class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="chk-contacto" class="w-4 h-4 accent-[#f95602]" />
-          <span class="text-sm text-[#cacaca]/70 group-hover:text-white transition-colors">
+          <input type="checkbox" id="chk-contacto" class="w-4 h-4 accent-[var(--accent)]" />
+          <span class="text-sm text-[var(--text-tertiary)] group-hover:text-[var(--text-primary)] transition-colors">
             ¿Quieres que te contactemos?
           </span>
         </label>
 
         <div id="form-contacto" class="hidden mt-4 flex-col gap-3">
           <div class="calc-field">
-            <label for="c-nombre" class="calc-label">Tu nombre</label>
+            <label for="c-nombre" class="calc-label">Tu nombre <span class="text-[var(--accent)]">*</span></label>
             <input id="c-nombre" type="text" placeholder="María González"
-              class="calc-input" />
+              class="calc-input" required />
             <p class="calc-hint">Solo lo usamos para dirigirnos a ti.</p>
           </div>
           <div class="calc-field">
-            <label for="c-email" class="calc-label">Tu correo <span class="text-[#cacaca]/60">(opcional)</span></label>
+            <label for="c-email" class="calc-label">Tu correo <span class="text-[var(--text-muted)]">(opcional)</span></label>
             <input id="c-email" type="email" placeholder="para que te respondamos"
               class="calc-input" />
             <p class="calc-hint">Ej.: para que te enviemos el presupuesto. Opcional.</p>
           </div>
           <div class="calc-field">
-            <label for="c-fecha" class="calc-label">Fecha tentativa <span class="text-[#cacaca]/60">(opcional)</span></label>
+            <label for="c-fecha" class="calc-label">Fecha tentativa <span class="text-[var(--text-muted)]">(opcional)</span></label>
             <input id="c-fecha" type="date"
               class="calc-input" />
             <p class="calc-hint">El día aproximado de tu evento. Opcional.</p>
           </div>
           <button
             id="btn-enviar"
-            class="w-full mt-1 py-3.5 rounded-xl bg-[#f95602] text-white text-sm font-bold tracking-[0.08em] uppercase hover:bg-[#e04e00] active:scale-[0.98] transition-all duration-300"
+            class="w-full mt-1 py-3.5 rounded-xl bg-[var(--accent)] text-white text-sm font-bold tracking-[0.08em] uppercase hover:bg-[var(--accent-hover)] active:scale-[0.98] transition-all duration-300"
           >
             Enviar por correo
           </button>
-          <p class="text-[10px] text-[#cacaca]/55 text-center">
+          <p id="form-error" class="text-[11px] text-red-400 text-center hidden">
+            Por favor ingresa tu nombre para poder contactarte.
+          </p>
+          <p class="text-[10px] text-[var(--text-muted)] text-center">
             Abre tu correo con la cotización lista
           </p>
         </div>
       </div>
 
-      <div class="px-5 py-4 bg-[#111111] border-t border-white/5">
+      <div class="px-5 py-4 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)]">
         <div class="flex justify-between items-center">
-          <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-[#cacaca]/60">Total estimado</span>
+          <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-[var(--text-muted)]">Total estimado</span>
           <span id="r-total"
-            class="text-4xl font-extrabold text-[#f95602] tracking-tight transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"></span>
+            class="text-4xl font-extrabold text-[var(--accent)] tracking-tight transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"></span>
         </div>
         <div id="r-total-old-wrap" class="hidden mt-0.5 flex justify-between items-center">
-          <span class="text-[10px] text-[#cacaca]/60">Precio regular</span>
+          <span class="text-[10px] text-[var(--text-muted)]">Precio regular</span>
           <span id="r-total-old"
-            class="text-sm font-bold text-[#cacaca]/70 line-through decoration-[#f95602]/70"></span>
+            class="text-sm font-bold text-[var(--text-muted)] line-through decoration-[var(--accent)] opacity-70"></span>
         </div>
       </div>
 
-      <div class="px-5 pb-4 pt-2 flex justify-between items-center bg-[#111111] border-t border-white/5">
+      <div class="px-5 pb-4 pt-2 flex justify-between items-center bg-[var(--bg-surface)] border-t border-[var(--border-subtle)]">
         <span id="r-paquete"
-          class="text-[10px] font-bold tracking-[0.06em] uppercase px-3 py-1 rounded-full bg-[#f95602]/8 text-[#f95602]/70"></span>
-        <span class="text-[10px] text-[#cacaca]/55">Precios en MXN</span>
+          class="text-[10px] font-bold tracking-[0.06em] uppercase px-3 py-1 rounded-full bg-[rgba(var(--accent-rgb),0.08)] text-[var(--accent)] opacity-70"></span>
+        <span class="text-[10px] text-[var(--text-muted)]">Precios en MXN</span>
       </div>
 
       <div
         id="export-wrap"
-        class="hidden px-5 py-4 bg-[#111111] border-t border-white/5 flex gap-2.5"
+        class="hidden px-5 py-4 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)] flex gap-2.5"
       >
         <button
           id="btn-export-png"
-          class="flex-1 py-3 rounded-xl border-2 border-white/[0.08] text-white text-sm font-bold hover:border-[#f95602]/40 transition-all duration-300 active:scale-[0.98]"
+          class="flex-1 py-3 rounded-xl border-2 border-[var(--border-default)] text-[var(--text-primary)] text-sm font-bold hover:border-[var(--accent)] transition-all duration-300 active:scale-[0.98]"
         >
           Guardar como imagen
         </button>
         <button
           id="btn-export-pdf"
-          class="flex-1 py-3 rounded-xl bg-[#f95602] text-white text-sm font-bold tracking-[0.04em] uppercase hover:bg-[#e04e00] active:scale-[0.98] transition-all duration-300"
+          class="flex-1 py-3 rounded-xl bg-[var(--accent)] text-white text-sm font-bold tracking-[0.04em] uppercase hover:bg-[var(--accent-hover)] active:scale-[0.98] transition-all duration-300"
         >
           Descargar PDF
         </button>
@@ -226,7 +225,7 @@ import logo from "../../assets/MakersDark.svg?inline";
 
   </div>
 
-  <!-- ===== Ticket para exportar (se captura con html2canvas) ===== -->
+  <!-- Ticket para exportar -->
   <div
     id="ticket"
     aria-hidden="true"
@@ -248,7 +247,6 @@ import logo from "../../assets/MakersDark.svg?inline";
 </section>
 
 <style is:global>
-  /* --- Labels e inputs de la calculadora --- */
   .calc-field {
     position: relative;
   }
@@ -258,7 +256,7 @@ import logo from "../../assets/MakersDark.svg?inline";
     gap: 6px;
     font-size: 13px;
     font-weight: 600;
-    color: rgba(230, 230, 230, 0.82);
+    color: var(--text-tertiary);
     margin-bottom: 8px;
     transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -267,7 +265,7 @@ import logo from "../../assets/MakersDark.svg?inline";
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #f95602;
+    background: var(--accent);
     opacity: 0;
     transform: scale(0);
     transition:
@@ -277,11 +275,11 @@ import logo from "../../assets/MakersDark.svg?inline";
   }
   .calc-input {
     width: 100%;
-    background: #111;
-    border: 2px solid rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
+    border: 2px solid var(--border-subtle);
     border-radius: 14px;
     padding: 13px 15px;
-    color: #fff;
+    color: var(--text-primary);
     font-size: 16px;
     font-weight: 700;
     font-family: "Outfit", sans-serif;
@@ -291,80 +289,76 @@ import logo from "../../assets/MakersDark.svg?inline";
       box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .calc-input:focus {
-    border-color: #f95602;
-    box-shadow: 0 0 0 3px rgba(249, 86, 2, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.08);
   }
   .calc-input::placeholder {
-    color: rgba(202, 202, 202, 0.38);
+    color: var(--text-very-muted);
     font-weight: 400;
   }
 
-  /* Campo con valor: el label se ilumina y aparece un punto naranja
-     (animación al "aumentar"/rellenar un campo). */
   .calc-field:focus-within .calc-label {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
   }
   .calc-input:not(:placeholder-shown) {
-    border-color: rgba(249, 86, 2, 0.35);
+    border-color: rgba(var(--accent-rgb), 0.35);
   }
   .calc-field:has(.calc-input:not(:placeholder-shown)) .calc-label {
-    color: #f95602;
+    color: var(--accent);
   }
   .calc-field:has(.calc-input:not(:placeholder-shown)) .calc-label::after {
     opacity: 1;
     transform: scale(1);
   }
 
-  /* --- Toggle checkbox --- */
   .calc-toggle {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: #111;
-    border: 2px solid rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
+    border: 2px solid var(--border-subtle);
     border-radius: 14px;
     cursor: pointer;
     font-size: 13px;
-    color: rgba(202, 202, 202, 0.75);
+    color: var(--text-tertiary);
     font-weight: 500;
     transition:
       border-color 0.3s ease,
       color 0.3s ease;
   }
   .calc-toggle:hover {
-    border-color: rgba(249, 86, 2, 0.2);
-    color: rgba(202, 202, 202, 0.9);
+    border-color: rgba(var(--accent-rgb), 0.2);
+    color: var(--text-primary);
   }
 
-  /* --- Tarjeta de servicio --- */
   .servicio-card.active {
-    border-color: #f95602;
-    background: rgba(249, 86, 2, 0.05);
+    border-color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.05);
   }
   .servicio-card.active .s-check {
-    background: #f95602;
-    border-color: #f95602;
+    background: var(--accent);
+    border-color: var(--accent);
     transform: scale(1);
   }
   .servicio-card.active .s-check-mark {
     opacity: 1;
   }
 
-  /* --- Bloques del resultado --- */
   .res-bloque {
     padding: 16px 20px;
-    background: #161616;
+    background: var(--bg-tertiary);
   }
   .res-bloque + .res-bloque {
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid var(--border-subtle);
   }
   .res-bloque-titulo {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(249, 86, 2, 0.7);
+    color: var(--accent);
+    opacity: 0.7;
     margin-bottom: 12px;
   }
   .res-fila {
@@ -374,20 +368,19 @@ import logo from "../../assets/MakersDark.svg?inline";
     padding: 6px 0;
   }
   .res-fila + .res-fila {
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid var(--border-subtle);
   }
   .res-fila-label {
     font-size: 13px;
-    color: rgba(202, 202, 202, 0.45);
+    color: var(--text-muted);
     font-weight: 500;
   }
   .res-fila-valor {
     font-size: 13px;
-    color: rgba(202, 202, 202, 0.7);
+    color: var(--text-tertiary);
     font-weight: 700;
   }
 
-  /* --- Grupos: transición suave tipo Apple --- */
   .calc-group {
     transition:
       opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
@@ -397,24 +390,23 @@ import logo from "../../assets/MakersDark.svg?inline";
   .calc-hint {
     font-size: 11px;
     line-height: 1.4;
-    color: rgba(202, 202, 202, 0.56);
+    color: var(--text-muted);
     margin-top: 5px;
     font-weight: 400;
   }
 
-  /* --- Banner de promoción de temporada --- */
   .banner-promo {
     position: relative;
-    background: linear-gradient(135deg, rgba(249, 86, 2, 0.14), rgba(249, 86, 2, 0.04));
-    border: 1px solid rgba(249, 86, 2, 0.35);
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.14), rgba(var(--accent-rgb), 0.04));
+    border: 1px solid rgba(var(--accent-rgb), 0.35);
     border-radius: 14px;
     padding: 12px 14px;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--text-primary);
     line-height: 1.5;
   }
   .banner-promo strong {
-    color: #f95602;
+    color: var(--accent);
   }
   .banner-promo .promo-close {
     position: absolute;
@@ -424,17 +416,16 @@ import logo from "../../assets/MakersDark.svg?inline";
     height: 22px;
     display: grid;
     place-items: center;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
     font-size: 15px;
     cursor: pointer;
     border-radius: 50%;
     transition: color 0.2s ease;
   }
   .banner-promo .promo-close:hover {
-    color: #fff;
+    color: var(--text-primary);
   }
 
-  /* ===== Ticket (capturado con html2canvas para exportar) ===== */
   .ticket-canvas {
     position: fixed;
     left: 0;

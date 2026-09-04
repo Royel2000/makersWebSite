@@ -1,16 +1,9 @@
 ---
-// Lista de videos del canal "Makers - Fotografía y Video".
-// YouTube deprecó el feed RSS (feeds/videos.xml → 404) y la página del canal
-// está ofuscada, por eso la lista se mantiene aquí a mano (sencillo: el canal
-// tiene pocos videos). Para agregar uno, añade una entrada { id, title }.
-// El primer elemento es el video principal que se muestra en grande.
 const VIDEOS = [
   { id: "IVYbODWOXFA", title: "Boda - Willbert y Cesia" },
   { id: "A6_jIHEAwTE", title: "Misión Iglesia Bautista Gracia" },
 ];
 
-// Minimatura visible y listo para reproducir; la resolución HD (maxresdefault)
-// se intenta desde el cliente con degradación a hqdefault/mqdefault.
 const thumb = (id) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
 
 const mainVideo = { ...VIDEOS[0], thumb: thumb(VIDEOS[0].id) };
@@ -20,32 +13,27 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
 <section
   id="video"
   class="w-full py-16 px-5 md:px-10 lg:px-20"
-  style="font-family:'Outfit',sans-serif;"
 >
-  <!-- Eyebrow -->
   <div
     data-reveal
     class="flex flex-col md:flex-row items-start md:items-end justify-center gap-6 mb-10"
   >
-    <!-- Título izquierda -->
     <div class="text-left">
-      <p class="text-[10px] font-bold uppercase text-[#f95602]/70 mb-1">
+      <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--accent)] opacity-70 mb-1">
         Nuestro trabajo
       </p>
-      <h2 class="text-4xl md:text-5xl font-extrabold text-white">
-        En <span class="text-[#f95602]">movimiento</span>
+      <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-[var(--text-primary)]">
+        En <span class="text-[var(--accent)]">movimiento</span>
       </h2>
     </div>
 
-    <!-- Frase derecha -->
     <div class="text-left md:text-right max-w-xs">
-      <p class="text-sm md:text-base leading-relaxed text-neutral-500 italic">
+      <p class="text-sm md:text-base leading-relaxed text-[var(--text-muted)] italic">
         "Las fotos detienen el tiempo.<br>El video lo devuelve."
       </p>
     </div>
   </div>
 
-  <!-- Video principal -->
   <div
     data-reveal
     data-reveal-delay="120"
@@ -54,7 +42,6 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
     id="main-player-wrap"
     data-video-id={mainVideo.id}
   >
-    <!-- Poster -->
     <div id="main-poster" class="absolute inset-0 z-10 cursor-pointer group">
       <img
         id="main-thumb"
@@ -77,13 +64,11 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
           class="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
           style="background:rgba(1,1,1,0.95);border:2px solid rgba(255,255,255,0.15);box-shadow:0 0 40px rgba(1,1,1,0.4);"
         >
-          <i
-            class="ti ti-player-play text-white"
-            style="font-size:28px;margin-left:4px;"></i>
+          <svg class="w-7 h-7 text-white" style="margin-left:4px;" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </div>
       </div>
       <div class="absolute bottom-0 left-0 right-0 p-5">
-        <p class="text-[10px] font-bold uppercase text-[#f95602]/80 mb-1">
+        <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--accent)] opacity-70 mb-1">
           Video promocional
         </p>
         <p id="main-title" class="text-white font-bold text-lg leading-tight">
@@ -92,8 +77,6 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
       </div>
     </div>
 
-    <!-- iframe: se carga solo al reproducir (sin src inicial para
-         evitar una petición vacía extra y el CLS al cargar el reproductor) -->
     <iframe
       id="main-iframe"
       class="w-full h-full opacity-0 transition-opacity duration-500"
@@ -104,7 +87,6 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
       style="position:absolute;inset:0;"></iframe>
   </div>
 
-  <!-- Carrusel de videos -->
   {
     carouselVideos.length > 0 && (
       <div class="mt-5 relative">
@@ -115,7 +97,7 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
         >
           {carouselVideos.map((v) => (
             <button
-              class="video-thumb-btn group relative rounded-xl overflow-hidden flex-shrink-0 border border-white/[0.08] transition-all duration-300 hover:border-[#f95602]/60 focus:outline-none"
+              class="video-thumb-btn group relative rounded-xl overflow-hidden flex-shrink-0 border border-[var(--border-default)] transition-all duration-300 hover:border-[var(--accent)] focus:outline-none"
               style="width:200px;height:112px;"
               data-id={v.id}
               data-title={v.title}

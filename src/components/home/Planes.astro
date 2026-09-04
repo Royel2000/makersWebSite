@@ -1,15 +1,14 @@
 ---
 ---
-<div class="bg-[#f95602] rounded-[20px] p-6 sm:p-7">
-  <h2 class="font-extrabold text-4xl text-[#111111] mb-2">Paquetes</h2>
-  <p class="text-sm text-[#111111]/80 mb-6 leading-relaxed">
+<div class="bg-[var(--accent)] rounded-[24px] p-7 sm:p-8">
+  <h2 class="font-extrabold text-3xl sm:text-4xl text-[#111111] mb-2">Paquetes</h2>
+  <p class="text-sm text-[#111111]/75 mb-7 leading-relaxed max-w-sm">
     Selección, edición y entrega en nube. Perfectos para tu sesión, en la mayor
     parte de Felipe Carrillo Puerto sin costo extra.
   </p>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
 
-    <!-- Básico -->
     <div data-reveal class="plan-card">
       <span class="plan-shadow"></span>
       <h3 class="plan-name">Básico</h3>
@@ -21,10 +20,8 @@
       <p class="plan-price">$900<span class="plan-cuota">$22.50 c/u</span></p>
     </div>
 
-    <!-- Platino (destacado) -->
     <div data-reveal data-reveal-delay="120" class="plan-card plan-card--featured">
       <span class="plan-shadow"></span>
-      <span class="plan-badge">Más popular</span>
       <h3 class="plan-name">Platino</h3>
       <p class="plan-fotos">70 fotos</p>
       <ul class="plan-list">
@@ -34,7 +31,6 @@
       <p class="plan-price">$1,500<span class="plan-cuota">$21.50 c/u</span></p>
     </div>
 
-    <!-- Dorado -->
     <div data-reveal data-reveal-delay="180" class="plan-card">
       <span class="plan-shadow"></span>
       <h3 class="plan-name">Dorado</h3>
@@ -46,7 +42,6 @@
       <p class="plan-price">$2,200<span class="plan-cuota">$22 c/u</span></p>
     </div>
 
-    <!-- Personalizado -->
     <div data-reveal data-reveal-delay="240" class="plan-card">
       <span class="plan-shadow"></span>
       <h3 class="plan-name">Personalizado</h3>
@@ -60,9 +55,9 @@
 
   </div>
 
-  <p class="text-[#111111] mt-4 text-sm leading-relaxed">
+  <p class="text-[#111111]/70 mt-5 text-xs leading-relaxed">
     Servicios fuera de Felipe Carrillo Puerto incluyen viáticos cotizados por
-    separado — <span class="font-bold">contáctenos</span> o cotízalo en la
+    separado — <span class="font-bold text-[#111111]">contáctenos</span> o cotízalo en la
     calculadora.
   </p>
 </div>
@@ -71,8 +66,8 @@
   .plan-card {
     display: flex;
     flex-direction: column;
-    background: #111111;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-default);
     border-radius: 20px;
     padding: 18px 18px;
     position: relative;
@@ -140,77 +135,71 @@
     z-index: 3;
   }
 
-  .plan-card--featured {
-    border-color: #f95602;
-    background: linear-gradient(180deg, #171717 0%, #111111 100%);
-    box-shadow: 0 0 0 1px #f95602;
+  html.dark .plan-card--featured {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: #1a1a1a;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 20px rgba(249, 86, 0, 0.25);
+  }
+
+  html.light .plan-card--featured {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(249, 86, 0, 0.2);
   }
 
   .plan-name {
     font-size: 15px;
     font-weight: 800;
     letter-spacing: 0.02em;
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
   }
 
   .plan-fotos {
     font-size: 24px;
     font-weight: 800;
-    color: #f95602;
+    color: var(--accent);
     margin: 4px 0 10px;
   }
 
   .plan-list {
     font-size: 13px;
-    color: rgba(202, 202, 202, 0.85);
+    color: var(--text-tertiary);
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    flex: 1;
     list-style: none;
   }
 
   .plan-list strong {
-    color: #fff;
+    color: var(--text-primary);
     font-weight: 700;
   }
 
   .plan-price {
     margin: 12px 0 2px 0;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-primary);
     display: flex;
     align-items: baseline;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 4px 6px;
     transition: color 0.3s ease;
   }
 
   .plan-card:hover .plan-price {
-    color: #f95602;
+    color: var(--accent);
   }
 
   .plan-cuota {
     font-size: 12px;
     font-weight: 500;
-    color: rgba(202, 202, 202, 0.6);
-  }
-
-  .plan-badge {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #111111;
-    color: #f95602;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    padding: 3px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
-    z-index: 1;
+    color: var(--text-muted);
   }
 
   @media (prefers-reduced-motion: reduce) {

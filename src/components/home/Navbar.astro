@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../../assets/MK.jpg";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header
@@ -25,7 +26,7 @@ import logo from "../../assets/MK.jpg";
     >
       <a href="#aboutUs" class="flex items-center gap-2.5 group">
         <div
-          class="relative flex items-center justify-center overflow-hidden rounded-full h-8 w-8 shrink-0 border border-white/20 group-hover:border-[#f95602] transition-colors duration-300"
+          class="relative flex items-center justify-center overflow-hidden rounded-full h-8 w-8 shrink-0 border border-[var(--border-strong)] group-hover:border-[var(--accent)] transition-colors duration-300"
         >
           <Image
             src={logo}
@@ -38,18 +39,20 @@ import logo from "../../assets/MK.jpg";
         </div>
 
         <div class="flex items-center gap-1.5">
-          <span class="font-bold tracking-wider text-white"> MAKERS </span>
-          <span class="hidden sm:inline font-medium text-zinc-400">
+          <span class="text-sm font-bold tracking-wider text-[var(--text-primary)]"> MAKERS </span>
+          <span class="hidden sm:inline text-sm font-medium text-[var(--text-muted)]">
             • FOTO & VIDEO
           </span>
         </div>
       </a>
 
-      <div class="h-4 w-px bg-white/15"></div>
+      <div class="h-4 w-px bg-[var(--border-strong)]"></div>
+
+      <ThemeToggle />
 
       <a
         href="#footer"
-        class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1 text-[#f95602] hover:text-white bg-[#f95602]/10 hover:bg-[#f95602] rounded-full border border-[#f95602]/40 hover:border-[#f95602] transition-all duration-300 active:scale-95"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1 text-[var(--accent)] hover:text-[var(--text-primary)] bg-[rgba(var(--accent-rgb),0.1)] hover:bg-[var(--accent)] rounded-full border border-[rgba(var(--accent-rgb),0.4)] hover:border-[var(--accent)] transition-all duration-300 active:scale-95"
       >
         <span>Contacto</span>
         <span
@@ -70,12 +73,16 @@ import logo from "../../assets/MK.jpg";
 </header>
 
 <style is:global>
-  /* Barra flotante limpia y sólida (sin desenfoque conflictivo).
-     Los picos laterales siempre igualan el color del cuerpo. */
   #notch-container {
-    --nav-color: #000000;
     --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
     transform-origin: top center;
+  }
+
+  html.dark #notch-container {
+    --nav-color: #000000;
+  }
+  html.light #notch-container {
+    --nav-color: #ffffff;
   }
 
   #notch-container > svg {
@@ -87,10 +94,11 @@ import logo from "../../assets/MK.jpg";
     transition: background 0.4s var(--nav-ease);
   }
 
-  /* Al hacer scroll: fondo un pelín más oscuro y notch ligeramente más
-     compacto (transición suave tipo Apple). */
-  #navbar.scrolled #dynamic-notch {
+  html.dark #navbar.scrolled #dynamic-notch {
     background: #000000;
+  }
+  html.light #navbar.scrolled #dynamic-notch {
+    background: #ffffff;
   }
 
   #navbar.scrolled #notch-container {
@@ -108,4 +116,3 @@ import logo from "../../assets/MK.jpg";
     }
   }
 </style>
-

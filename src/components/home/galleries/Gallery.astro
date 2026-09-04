@@ -1,0 +1,65 @@
+---
+import "/src/assets/global.css";
+import { Image } from "astro:assets";
+
+interface Props {
+  folder: string;
+  label: string;
+  exclude?: string;
+}
+
+const { folder, label, exclude } = Astro.props;
+
+const globPattern = `/src/assets/pictures/${folder}/*.jpg`;
+const allImages = import.meta.glob("/src/assets/pictures/*/*.jpg", {
+  eager: true,
+});
+
+const fotos = Object.entries(allImages)
+  .filter(([path]) => path.includes(`/${folder}/`))
+  .filter(([path]) => !exclude || !path.includes(exclude))
+  .map(([_, mod]) => (mod as any).default);
+---
+
+<div
+  class="columns-2 sm:columns-3 lg:columns-4 gap-4"
+  role="list"
+  aria-label={`Galería ${label}`}
+>
+  {
+    fotos.map((foto, i) => (
+      <div
+        class="card group relative mb-4 break-inside-avoid rounded-xl overflow-hidden cursor-pointer gallery-item"
+        role="listitem"
+        style="transform-style: preserve-3d;"
+        data-reveal
+        style={`--reveal-delay: ${(i % 8) * 60}ms`}
+      >
+        <Image
+          src={foto}
+          alt={`${label} ${i + 1}`}
+          class="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-900"
+          data-original={foto.src}
+        />
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="w-10 h-10 rounded-full border border-white/30 backdrop-blur-sm bg-white/10 flex items-center justify-center">
+            <svg
+              class="w-5 h-5 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>

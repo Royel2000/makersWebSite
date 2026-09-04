@@ -1,7 +1,101 @@
 @import "tailwindcss";
 
+/* ============================================================
+   SISTEMA DE TEMAS — Dark / Light
+   Se aplica una clase `dark` o `light` en <html>.
+   Por defecto oscuro; se detecta `prefers-color-scheme` y se
+   respeta la preferencia guardada en localStorage.
+   ============================================================ */
+
+:root {
+  /* --- Paleta de acento (no cambia entre temas) --- */
+  --accent: #f95602;
+  --accent-hover: #e04e00;
+  --accent-rgb: 249, 86, 2;
+
+  /* --- Tema OSCURO (default) --- */
+  --bg-primary: #111111;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #161616;
+  --bg-card: #000000;
+  --bg-hero: #0a0a0a;
+  --bg-surface: #111111;
+
+  --text-primary: #ffffff;
+  --text-secondary: #cacaca;
+  --text-tertiary: rgba(202, 202, 202, 0.7);
+  --text-muted: rgba(202, 202, 202, 0.45);
+  --text-very-muted: rgba(202, 202, 202, 0.38);
+
+  --border-default: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.2);
+
+  --notch-bg: #000000;
+  --input-bg: #111111;
+  --overlay-bg: rgba(0, 0, 0, 0.8);
+
+  color-scheme: dark;
+}
+
+html.light {
+  /* --- Tema CLARO --- */
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ebebeb;
+  --bg-card: #ffffff;
+  --bg-hero: #e8e8e8;
+  --bg-surface: #ffffff;
+
+  --text-primary: #111111;
+  --text-secondary: #3f3f46;
+  --text-tertiary: rgba(63, 63, 70, 0.8);
+  --text-muted: rgba(63, 63, 70, 0.6);
+  --text-very-muted: rgba(63, 63, 70, 0.45);
+
+  --border-default: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --border-hover: rgba(0, 0, 0, 0.2);
+
+  --notch-bg: #ffffff;
+  --input-bg: #ffffff;
+  --overlay-bg: rgba(255, 255, 255, 0.85);
+
+  color-scheme: light;
+}
+
+/* ============================================================
+   Transiciones de tema suaves (solo para propiedades de color)
+   ============================================================ */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
 body {
   font-family: 'Outfit', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 /* ============================================================
@@ -29,9 +123,6 @@ body {
 
 /* ============================================================
    Reveal al hacer scroll (data-reveal).
-   Estado inicial oculto; al entrar en viewport se le añade
-   .is-visible y se anima con opacidad + desplazamiento + blur.
-   El retardo en escalera se controla con --reveal-delay.
    ============================================================ */
 [data-reveal] {
   opacity: 0;
@@ -49,6 +140,19 @@ body {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Al salir del viewport: desenfoque + desvanecido suave */
+[data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(6px);
+  transition:
+    opacity 0.6s var(--ease-out-expo),
+    transform 0.6s var(--ease-out-expo),
+    filter 0.6s var(--ease-out-expo);
+  transition-delay: 0ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -74,4 +178,64 @@ body {
 .card-lift:hover {
   transform: translateY(-6px);
   box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.55);
+}
+
+/* ============================================================
+   Theme toggle button
+   ============================================================ */
+.theme-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  transform: scale(1.08);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(30deg);
+}
+
+/* ============================================================
+   Scrollbar personalizada (dark / light)
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
 }

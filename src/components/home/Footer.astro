@@ -7,41 +7,39 @@ const year = new Date().getFullYear();
 ---
 
 <section id="footer">
-<footer class="bg-[#000000] text-[#cacaca] w-full px-6 md:px-20 lg:px-40 pt-12 pb-6 mt-20" style="font-family: 'Outfit', sans-serif;">
+<footer class="bg-[var(--bg-card)] text-[var(--text-secondary)] w-full px-6 md:px-20 lg:px-40 pt-12 pb-6 mt-20">
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-8 border-b border-white/[0.07]">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-8 border-b border-[var(--border-default)]">
 
     <!-- Marca -->
     <div data-reveal>
-      <!-- <Image src={Icon} alt="Makers ícono" width={48} height={48}
-        class="rounded-xl mb-3 object-cover" /> -->
       <Image src={imagen1} alt="Makers Fotografía y Video"
         class="w-36 mb-3" />
-      <p class="text-[#cacaca]">Momentos únicos,<br />ahora eternos.</p>
+      <p class="text-[var(--text-secondary)] text-sm">Momentos únicos,<br />ahora eternos.</p>
     </div>
 
     <!-- Contacto -->
     <div data-reveal data-reveal-delay="120">
-      <p class="font-black text-xl uppercase text-[#f95602] mb-4">Contacto</p>
+      <p class="text-lg font-bold uppercase text-[var(--accent)] mb-4">Contacto</p>
       <ul class="flex flex-col gap-1">
         <li>
           <a href="https://www.facebook.com/share/1EAGavYuJx/"
-            class="group inline-flex items-center gap-2.5 text-[#cacaca] hover:text-white transition-colors duration-300">
-            <i class="ti ti-brand-facebook text-lg group-hover:text-[#f95602] transition-colors duration-300"></i>
+            class="group inline-flex items-center gap-2.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-300">
+            <svg class="w-[18px] h-[18px] group-hover:text-[var(--accent)] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
             Facebook
           </a>
         </li>
         <li>
           <a href="https://www.instagram.com/_makers_2"
-            class="group inline-flex items-center gap-2.5 text-[#cacaca] hover:text-white transition-colors duration-300">
-            <i class="ti ti-brand-instagram text-lg group-hover:text-[#f95602] transition-colors duration-300"></i>
+            class="group inline-flex items-center gap-2.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-300">
+            <svg class="w-[18px] h-[18px] group-hover:text-[var(--accent)] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             Instagram
           </a>
         </li>
         <li>
           <a href="mailto:makers25117@gmail.com"
-            class="group inline-flex items-center gap-2.5 text-[#cacaca] hover:text-white transition-colors duration-300">
-            <i class="ti ti-mail text-lg group-hover:text-[#f95602] transition-colors duration-300"></i>
+            class="group inline-flex items-center gap-2.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-300">
+            <svg class="w-[18px] h-[18px] group-hover:text-[var(--accent)] transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
             makers25117@gmail.com
           </a>
         </li>
@@ -50,21 +48,21 @@ const year = new Date().getFullYear();
 
     <!-- Estudio -->
     <div data-reveal data-reveal-delay="240">
-      <p class="font-black text-xl uppercase text-[#f95602] mb-4">Estudio</p>
-      <div class=" text-[#cacaca] leading-loose">
+      <p class="text-lg font-bold uppercase text-[var(--accent)] mb-4">Estudio</p>
+      <div class="text-[var(--text-secondary)] leading-relaxed">
         <p class="flex items-center gap-2 text-sm">
           Felipe Carrillo Puerto - Quintana Roo, México</p>
-        <p class="mt-3 text-[#cacaca] font-bold text-sm">Equipo:</p>
-        <p>Angel Kau · Daniel Kau</p>
-        <p>Yassim · Henry Eli</p>
+        <p class="mt-3 text-[var(--text-secondary)] font-bold text-sm">Equipo:</p>
+        <p class="text-sm">Angel Kau · Daniel Kau</p>
+        <p class="text-sm">Yassim · Henry Eli</p>
       </div>
     </div>
 
   </div>
 
   <div class="flex flex-col md:flex-row justify-between items-center pt-5 gap-2">
-    <p class="text-[12px] text-[#cacaca] tracking-wide">© {year} Makers Fotografía y Video — Felipe Carrillo Puerto</p>
-    <p class="text-[12px] text-[#f95602]">desde 2025</p>
+    <p class="text-[12px] text-[var(--text-muted)] tracking-wide">© {year} Makers Fotografía y Video — Felipe Carrillo Puerto</p>
+    <p class="text-[12px] text-[var(--accent)]">desde 2025</p>
   </div>
 
 </footer>

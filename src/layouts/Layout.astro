@@ -1,7 +1,7 @@
 ---
 ---
 <!doctype html>
-<html lang="es">
+<html lang="es" class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,7 +17,8 @@
 		<meta property="og:url" content="https://makersfotoyvideo.vercel.app/" />
 		<meta property="og:title" content="Makers - Fotografía y Video" />
 		<meta property="og:description" content="Fotografía y video profesional en Felipe Carrillo Puerto, Quintana Roo. Bodas, quinceañeras, sesiones casuales y contenido para redes." />
-		<meta property="og:image" content="https://makersfotoyvideo.vercel.app/og-image.jpg" />		<meta property="og:image:width" content="1200" />
+		<meta property="og:image" content="https://makersfotoyvideo.vercel.app/og-image.jpg" />
+		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:locale" content="es_MX" />
 		<meta property="og:site_name" content="Makers Fotografía y Video" />
@@ -27,10 +28,48 @@
 		<meta name="twitter:title" content="Makers - Fotografía y Video" />
 		<meta name="twitter:description" content="Fotografía y video profesional en Felipe Carrillo Puerto, Quintana Roo." />
 		<meta name="twitter:image" content="https://makersfotoyvideo.vercel.app/og-image.jpg" />
+
+		<!-- Fuentes: carga asíncrona con display=swap -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css" />
+
+		<!-- JSON-LD: LocalBusiness para rich snippets en Google -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "LocalBusiness",
+			"name": "Makers Fotografía y Video",
+			"description": "Fotografía y video profesional en Felipe Carrillo Puerto, Quintana Roo. Bodas, quinceañeras, sesiones casuales y contenido para redes sociales.",
+			"url": "https://makersfotoyvideo.vercel.app",
+			"image": "https://makersfotoyvideo.vercel.app/og-image.jpg",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Felipe Carrillo Puerto",
+				"addressRegion": "Quintana Roo",
+				"addressCountry": "MX"
+			},
+			"areaServed": "Felipe Carrillo Puerto, Quintana Roo",
+			"priceRange": "$$",
+			"telephone": "",
+			"email": "makers25117@gmail.com",
+			"sameAs": [
+				"https://www.facebook.com/share/1EAGavYuJx/",
+				"https://www.instagram.com/_makers_2"
+			]
+		}
+		</script>
+
+		<!-- Evita flash de tema incorrecto: se ejecuta ANTES del render -->
+		<script is:inline>
+			(function() {
+				var saved = localStorage.getItem('theme');
+				var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				var theme = saved || (prefersDark ? 'dark' : 'light');
+				document.documentElement.className = theme;
+				document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+			})();
+		</script>
 	</head>
 
 <body>
@@ -47,13 +86,3 @@
     </script>
   </body>
 </html>
-
-<style>
-	html, body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		background: #111111;
-		font-family: 'Outfit', sans-serif;
-	}
-</style>

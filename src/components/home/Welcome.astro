@@ -4,8 +4,7 @@ import portada from "/src/assets/Portada.jpg";
 import Logo from "/src/assets/Makers.svg";
 import portadaMobile from "/src/assets/PortadaMobile.jpg";
 import Valores from "./Valores.astro";
-import Galeria from "./galleries/Galeria.astro";
-import Boda from "./galleries/Boda.astro";
+import Gallery from "./galleries/Gallery.astro";
 import Video from "./Video.astro";
 import Planes from "./Planes.astro";
 import Posters from "./galleries/Posters.astro";
@@ -16,7 +15,7 @@ import FAQ from "./FAQ.astro";
 
 <div>
   <div
-    class="hero relative min-h-screen min-h-dvh overflow-hidden bg-[#0a0a0a]"
+    class="hero relative min-h-screen min-h-dvh overflow-hidden bg-[var(--bg-hero)]"
   >
     <!-- Fondo con parallax -->
     <div
@@ -38,21 +37,21 @@ import FAQ from "./FAQ.astro";
       />
     </div>
 
-    <!-- Overlay (Gradiente Original Restaurado) -->
+    <!-- Overlay (Gradiente) -->
     <div
       class="absolute inset-0"
       style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgb(17, 17, 17) 100%);"
     >
     </div>
 
-    <!-- Overlay de grano animado (textura de película) -->
+    <!-- Overlay de grano animado -->
     <div class="hero-grain" aria-hidden="true"></div>
 
-    <!-- Tarjeta glassmorphism minimalista -->
+    <!-- Tarjeta glassmorphism -->
     <div class="absolute inset-0 flex items-end justify-center p-8 md:p-12">
       <div
         id="glassCard"
-        class="hero-enter w-auto max-w-md rounded-2xl p-6 text-[#cacaca] hover:scale-105 transition-all duration-300"
+        class="hero-enter w-auto max-w-md rounded-2xl p-6 text-[var(--text-secondary)] hover:scale-105 transition-all duration-300"
         style="
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(20px);
@@ -60,7 +59,7 @@ import FAQ from "./FAQ.astro";
   "
       >
         <Image src={Logo} class="w-1/3 mb-3" alt="Makers" loading="eager" />
-        <p class="text-xl leading-snug text-white">
+        <p class="text-xl leading-snug text-[var(--text-primary)]">
           Momentos únicos, <br class="sm:hidden" />
           <span class="inline-flex items-center min-h-[1.5em]">
             <span id="typewriter" class="transition-colors duration-300"></span>
@@ -70,7 +69,7 @@ import FAQ from "./FAQ.astro";
             >
           </span>
         </p>
-        <p class="text-sm mt-1 text-zinc-500">
+        <p class="text-sm mt-1 text-[var(--text-muted)]">
           Felipe Carrillo Puerto, Quintana Roo
         </p>
       </div>
@@ -93,20 +92,20 @@ import FAQ from "./FAQ.astro";
 
   <section
     id="aboutUs"
-    class="bg-[#111111] text-[#cacaca] py-20 px-6 md:px-16 lg:px-32"
+    class="bg-[var(--bg-primary)] text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24"
   >
     <div
       class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20"
     >
       <!-- Texto principal -->
       <div data-reveal>
-        <p class="font-bold uppercase text-[#f95602] mb-3">¿Quiénes somos?</p>
+        <p class="font-bold uppercase text-[var(--accent)] mb-3">¿Quiénes somos?</p>
         <h2
-          class="text-4xl md:text-5xl font-extrabold leading-tight text-white mb-3"
+          class="text-4xl md:text-5xl font-extrabold leading-tight text-[var(--text-primary)] mb-3"
         >
-          Fotografía que <span class="text-[#f95602]">cuenta historias</span>
+          Fotografía que <span class="text-[var(--accent)]">cuenta historias</span>
         </h2>
-        <p class="leading-relaxed text-[#cacaca]/90">
+        <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
           Somos fotógrafos apasionados por capturar momentos que trascienden la
           imagen. Nos especializamos en sesiones creativas que reflejan la
           esencia, personalidad y emoción de cada persona.
@@ -121,10 +120,10 @@ import FAQ from "./FAQ.astro";
         <div
           data-reveal
           data-reveal-delay="120"
-          class="relative rounded-xl border border-white/[0.07] bg-white/2 p-6 overflow-hidden"
+          class="relative rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6 overflow-hidden"
         >
-          <p class="text-2xl font-bold uppercase text-[#f95602] mb-2">Misión</p>
-          <p class="leading-relaxed text-[#cacaca]/85">
+          <p class="text-2xl font-bold uppercase text-[var(--accent)] mb-2">Misión</p>
+          <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
             Evolucionar en cada proyecto, superándonos constantemente en
             creatividad, técnica y calidad, ofreciendo un servicio accesible sin
             perder el valor artístico que nos define.
@@ -134,10 +133,10 @@ import FAQ from "./FAQ.astro";
         <div
           data-reveal
           data-reveal-delay="240"
-          class="relative rounded-xl border border-white/[0.07] bg-white/2 p-6 overflow-hidden"
+          class="relative rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6 overflow-hidden"
         >
-          <p class="text-2xl font-bold uppercase text-[#f95602] mb-2">Visión</p>
-          <p class="leading-relaxed text-[#cacaca]/85">
+          <p class="text-2xl font-bold uppercase text-[var(--accent)] mb-2">Visión</p>
+          <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
             Convertirnos en un estudio fotográfico consolidado, destacando por
             nuestra composición, estilo y calidad visual, hasta ser reconocidos
             como referentes de la fotografía en la península.
@@ -147,55 +146,55 @@ import FAQ from "./FAQ.astro";
     </div>
   </section>
 
-  <section id="Galeria" class="w-full text-[#cacaca] py-8">
+  <section id="Galeria" class="w-full text-[var(--text-secondary)] py-8">
     <div class="flex justify-center px-4 mb-12">
       <div
-        class="inline-flex flex-wrap items-center justify-center gap-2 bg-[#111111]"
+        class="inline-flex flex-wrap items-center justify-center gap-2 bg-[var(--bg-primary)]"
       >
         <!-- Pestaña: Casual -->
         <button
-          class="tab-btn active relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-white cursor-pointer select-none overflow-hidden group"
+          class="tab-btn active relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-[var(--text-primary)] cursor-pointer select-none overflow-hidden group"
           data-tab="galeria"
         >
           <span
-            class="tab-bg absolute inset-0 bg-[#f95602] rounded-full transition-opacity duration-500 ease-in-out opacity-100"
+            class="tab-bg absolute inset-0 bg-[var(--accent)] rounded-full transition-opacity duration-500 ease-in-out opacity-100"
           ></span>
           <span class="relative z-10">CASUAL</span>
         </button>
 
         <!-- Pestaña: Boda -->
         <button
-          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-[#cacaca] hover:text-white cursor-pointer select-none overflow-hidden group"
+          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer select-none overflow-hidden group"
           data-tab="boda"
         >
           <span
-            class="tab-bg absolute inset-0 bg-[#f95602] rounded-full transition-opacity duration-500 ease-in-out opacity-0"
+            class="tab-bg absolute inset-0 bg-[var(--accent)] rounded-full transition-opacity duration-500 ease-in-out opacity-0"
           ></span>
           <span class="relative z-10">BODA</span>
         </button>
 
         <!-- Pestaña: XV Años (Deshabilitada) -->
         <button
-          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[#cacaca]/60 cursor-not-allowed flex items-center gap-2 select-none"
+          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[var(--text-muted)] cursor-not-allowed flex items-center gap-2 select-none"
           data-tab="xv"
           disabled
         >
           <span>XV AÑOS</span>
           <span
-            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-white/5 text-[#cacaca]/60 border border-white/5"
+            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)]"
             >Próx</span
           >
         </button>
 
         <!-- Pestaña: Infantiles (Deshabilitada) -->
         <button
-          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[#cacaca]/60 cursor-not-allowed flex items-center gap-2 select-none"
+          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[var(--text-muted)] cursor-not-allowed flex items-center gap-2 select-none"
           data-tab="infantiles"
           disabled
         >
           <span>INFANTILES</span>
           <span
-            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-white/5 text-[#cacaca]/60 border border-white/5"
+            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)]"
             >Próx</span
           >
         </button>
@@ -204,20 +203,20 @@ import FAQ from "./FAQ.astro";
 
     <!-- CONTENIDO DE LAS PESTAÑAS -->
     <div>
-      <div id="galeria" class="tab-content">
-        <Galeria />
+      <div id="galeria" class="tab-content px-5 lg:px-20 md:px-10">
+        <Gallery folder="Casual" label="Casual" exclude="Posters" />
       </div>
 
-      <div id="boda" class="tab-content hidden">
-        <Boda />
+      <div id="boda" class="tab-content hidden px-5 lg:px-20 md:px-10">
+        <Gallery folder="Bodas-fotos" label="Boda" />
       </div>
 
       <div id="xv" class="tab-content hidden">
         <div
-          class="text-center py-16 px-4 max-w-md mx-auto border border-white/10 rounded-2xl bg-[#111111]"
+          class="text-center py-16 px-4 max-w-md mx-auto border border-[var(--border-default)] rounded-2xl bg-[var(--bg-secondary)]"
         >
-          <h3 class="font-bold text-2xl text-[#f95602] mb-2">PRÓXIMAMENTE</h3>
-          <p class="text-sm text-[#cacaca] leading-relaxed">
+          <h3 class="font-bold text-2xl text-[var(--accent)] mb-2">PRÓXIMAMENTE</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
             Estamos preparando la galería de XV años. Visita nuestras redes
             sociales para ver adelantos de nuestras sesiones.
           </p>
@@ -226,10 +225,10 @@ import FAQ from "./FAQ.astro";
 
       <div id="infantiles" class="tab-content hidden">
         <div
-          class="text-center py-16 px-4 max-w-md mx-auto border border-white/10 rounded-2xl bg-[#111111]"
+          class="text-center py-16 px-4 max-w-md mx-auto border border-[var(--border-default)] rounded-2xl bg-[var(--bg-secondary)]"
         >
-          <h3 class="font-bold text-2xl text-[#f95602] mb-2">PRÓXIMAMENTE</h3>
-          <p class="text-sm text-[#cacaca] leading-relaxed">
+          <h3 class="font-bold text-2xl text-[var(--accent)] mb-2">PRÓXIMAMENTE</h3>
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
             Pronto compartiremos nuestro trabajo en fotografía infantil.
             Síguenos en redes para no perdértelo.
           </p>
@@ -237,7 +236,7 @@ import FAQ from "./FAQ.astro";
       </div>
     </div>
 
-    <!-- MODAL (vista ampliada con carga y zoom) -->
+    <!-- MODAL -->
     <div
       id="modal"
       role="dialog"
@@ -246,12 +245,10 @@ import FAQ from "./FAQ.astro";
       aria-label="Vista ampliada de fotografía"
       class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50"
     >
-      <!-- Contenedor de la imagen: centra y permite paneo cuando hay zoom -->
       <div
         id="modalStage"
-        class="absolute inset-0 grid place-items-center overflow-auto"
+        class="absolute inset-0 grid place-items-center overflow-auto py-16 px-4"
       >
-        <!-- Indicador + vista de baja calidad (borrosa) mientras carga la alta -->
         <div
           id="modalLoader"
           class="absolute inset-0 flex items-center justify-center"
@@ -263,7 +260,7 @@ import FAQ from "./FAQ.astro";
             class="absolute inset-0 w-full h-full object-contain scale-110 blur-2xl opacity-70"
           />
           <div
-            class="relative w-12 h-12 rounded-full border-2 border-white/10 border-t-[#f95602] animate-spin"
+            class="relative w-12 h-12 rounded-full border-2 border-white/10 border-t-[var(--accent)] animate-spin"
           >
           </div>
         </div>
@@ -273,11 +270,10 @@ import FAQ from "./FAQ.astro";
           alt=""
           tabindex="0"
           draggable="false"
-          class="relative rounded-2xl border border-white/10 object-contain opacity-0 transition-opacity duration-300 select-none"
+          class="relative rounded-2xl border border-white/10 object-contain opacity-0 transition-opacity duration-300 select-none outline-none max-w-none"
         />
       </div>
 
-      <!-- Controles: zoom + / quitar zoom / cerrar -->
       <div
         class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5"
       >
@@ -288,7 +284,7 @@ import FAQ from "./FAQ.astro";
           title="Acercar"
           class="modal-btn"
         >
-          <i class="ti ti-zoom-in"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
         </button>
         <button
           id="modalZoomReset"
@@ -297,7 +293,7 @@ import FAQ from "./FAQ.astro";
           title="Restablecer"
           class="modal-btn"
         >
-          <i class="ti ti-zoom-out"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
         </button>
         <button
           id="modalClose"
@@ -306,7 +302,7 @@ import FAQ from "./FAQ.astro";
           title="Cerrar"
           class="modal-btn modal-btn-close"
         >
-          <i class="ti ti-x"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
       </div>
     </div>
@@ -325,14 +321,13 @@ import FAQ from "./FAQ.astro";
       backdrop-filter: blur(12px);
       color: rgba(202, 202, 202, 0.85);
       cursor: pointer;
-      font-size: 20px;
       transition: all 0.25s ease;
       user-select: none;
     }
     .modal-btn:hover {
-      border-color: rgba(249, 86, 2, 0.6);
-      background: rgba(249, 86, 2, 0.12);
-      color: #f95602;
+      border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      color: var(--accent);
     }
     .modal-btn:active {
       transform: scale(0.9);
@@ -343,10 +338,6 @@ import FAQ from "./FAQ.astro";
       color: #f87171;
     }
 
-    /* Grano animado del hero (textura de película en movimiento).
-   Dos capas desincronizadas (tamaño de tile y duración distintos,
-   una en reversa) para que la interferencia entre ambas rompa la
-   sensación de loop, sin costo de JS ni recálculo de filtro por frame. */
     .hero-grain {
       position: absolute;
       left: -50%;
@@ -374,65 +365,28 @@ import FAQ from "./FAQ.astro";
       opacity: 0.5;
     }
     @keyframes grainShiftA {
-      0% {
-        background-position: 0 0;
-      }
-      11% {
-        background-position: -23px 17px;
-      }
-      23% {
-        background-position: 31px -9px;
-      }
-      34% {
-        background-position: -14px -28px;
-      }
-      47% {
-        background-position: 19px 33px;
-      }
-      58% {
-        background-position: -37px 6px;
-      }
-      69% {
-        background-position: 8px -19px;
-      }
-      81% {
-        background-position: -21px 24px;
-      }
-      92% {
-        background-position: 27px -31px;
-      }
-      100% {
-        background-position: 0 0;
-      }
+      0% { background-position: 0 0; }
+      11% { background-position: -23px 17px; }
+      23% { background-position: 31px -9px; }
+      34% { background-position: -14px -28px; }
+      47% { background-position: 19px 33px; }
+      58% { background-position: -37px 6px; }
+      69% { background-position: 8px -19px; }
+      81% { background-position: -21px 24px; }
+      92% { background-position: 27px -31px; }
+      100% { background-position: 0 0; }
     }
     @keyframes grainShiftB {
-      0% {
-        background-position: 0 0;
-      }
-      15% {
-        background-position: 41px -12px;
-      }
-      29% {
-        background-position: -18px 29px;
-      }
-      44% {
-        background-position: 22px 44px;
-      }
-      58% {
-        background-position: -33px -15px;
-      }
-      73% {
-        background-position: 9px -37px;
-      }
-      87% {
-        background-position: -27px 8px;
-      }
-      100% {
-        background-position: 0 0;
-      }
+      0% { background-position: 0 0; }
+      15% { background-position: 41px -12px; }
+      29% { background-position: -18px 29px; }
+      44% { background-position: 22px 44px; }
+      58% { background-position: -33px -15px; }
+      73% { background-position: 9px -37px; }
+      87% { background-position: -27px 8px; }
+      100% { background-position: 0 0; }
     }
 
-    /* Entrada del hero (tarjeta + indicador de scroll), tipo Apple */
     .hero-enter {
       opacity: 0;
       animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
@@ -442,68 +396,49 @@ import FAQ from "./FAQ.astro";
       animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
     }
     @keyframes heroIn {
-      from {
-        opacity: 0;
-        transform: translateY(36px);
-        filter: blur(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-      }
+      from { opacity: 0; transform: translateY(36px); filter: blur(10px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
     @keyframes heroFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 0.4;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 0.4; transform: translateY(0); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .hero-enter,
-      .hero-fade {
-        animation: none;
-        opacity: 1;
-      }
-      .hero-grain::before,
-      .hero-grain::after {
-        animation: none;
-      }
+      .hero-enter, .hero-fade { animation: none; opacity: 1; }
+      .hero-grain::before, .hero-grain::after { animation: none; }
     }
   </style>
 
   <Posters />
 
-  <section class="text-[#cacaca] justify-center content-center">
+  <section class="text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24">
     <div
-      class="flex flex-col justify-evenly lg:flex-row lg:px-20 md:px-10 px-5"
+      class="mx-auto flex flex-col lg:flex-row lg:items-start lg:gap-14 gap-10"
     >
-      <div>
-        <div data-reveal class="mb-5">
-          <h1 class="text-6xl font-bold">¿Te gusta nuestro trabajo?</h1>
-        </div>
-        <div data-reveal data-reveal-delay="120">
-          <p>
-            Contáctenos para cotizar tu sesión de fotos y volverla inolvidable,
-            todos merecen en un momento alguna sesión de fotos inolvidable, <span
-              class="font-bold">vive con nosotros la experiencia</span
-            >.
-          </p>
-        </div>
+      <!-- Texto -->
+      <div class="lg:w-5/12 shrink-0" data-reveal>
+        <p class="font-bold uppercase text-[var(--accent)] text-sm tracking-widest mb-4">Cotización</p>
+        <h2 class="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.1] text-[var(--text-primary)] mb-5">
+          ¿Te gusta<br />nuestro trabajo?
+        </h2>
+        <p class="text-base md:text-lg leading-relaxed text-[var(--text-tertiary)] max-w-md">
+          Contáctenos para cotizar tu sesión de fotos y volverla inolvidable.
+          Todos merecen en algún momento una sesión de fotos inolvidable — <span
+            class="font-bold text-[var(--text-primary)]">vive con nosotros la experiencia</span
+          >.
+        </p>
       </div>
-      <div class="mt-10">
+
+      <!-- Planes -->
+      <div class="flex-1 min-w-0 lg:w-7/12" data-reveal data-reveal-delay="120">
         <Planes />
       </div>
     </div>
   </section>
 
-  <section class="h-auto my-10 content-center">
+  <section class="py-20 px-6 md:px-16 lg:px-24">
     <div
-      class="max-w-7xl mx-auto px-5 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
+      class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start"
     >
       <Calculadora />
       <FAQ />
