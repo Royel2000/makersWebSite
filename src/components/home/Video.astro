@@ -1,41 +1,20 @@
 ---
-const CHANNEL_ID = "UClpgO6x3-xCI8opTuWcmMUA";
-const MAIN_VIDEO = "IVYbODWOXFA";
+// Lista de videos del canal "Makers - Fotografía y Video".
+// YouTube deprecó el feed RSS (feeds/videos.xml → 404) y la página del canal
+// está ofuscada, por eso la lista se mantiene aquí a mano (sencillo: el canal
+// tiene pocos videos). Para agregar uno, añade una entrada { id, title }.
+// El primer elemento es el video principal que se muestra en grande.
+const VIDEOS = [
+  { id: "IVYbODWOXFA", title: "Boda - Willbert y Cesia" },
+  { id: "A6_jIHEAwTE", title: "Misión Iglesia Bautista Gracia" },
+];
 
-let videos: { id: string; title: string; thumb: string }[] = [];
+// Minimatura visible y listo para reproducir; la resolución HD (maxresdefault)
+// se intenta desde el cliente con degradación a hqdefault/mqdefault.
+const thumb = (id) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
 
-try {
-  const res = await fetch(
-    `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`,
-  );
-  const xml = await res.text();
-  const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
-  videos = entries
-    .map((e) => {
-      const content = e[1];
-      const id = (content.match(/<yt:videoId>(.*?)<\/yt:videoId>/) || [])[1];
-      const title = (content.match(/<title>(.*?)<\/title>/) || [])[1];
-      return {
-        id,
-        title,
-        thumb: `https://i.ytimg.com/vi/${id}/mqdefault.jpg`,
-      };
-    })
-    .filter((v) => v.id)
-    .slice(0, 20);
-} catch (e) {
-  videos = [];
-}
-
-const mainVideo =
-  videos.length > 0
-    ? videos[0]
-    : {
-        id: MAIN_VIDEO,
-        title: "Video promocional Makers",
-        thumb: `https://i.ytimg.com/vi/${MAIN_VIDEO}/mqdefault.jpg`,
-      };
-const carouselVideos = videos;
+const mainVideo = { ...VIDEOS[0], thumb: thumb(VIDEOS[0].id) };
+const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
 ---
 
 <section
@@ -45,6 +24,7 @@ const carouselVideos = videos;
 >
   <!-- Eyebrow -->
   <div
+    data-reveal
     class="flex flex-col md:flex-row items-start md:items-end justify-center gap-6 mb-10"
   >
     <!-- Título izquierda -->
@@ -67,6 +47,8 @@ const carouselVideos = videos;
 
   <!-- Video principal -->
   <div
+    data-reveal
+    data-reveal-delay="120"
     class="relative w-full rounded-2xl overflow-hidden bg-black mx-auto"
     style="aspect-ratio:16/9;max-width:780px;"
     id="main-player-wrap"
@@ -77,6 +59,9 @@ const carouselVideos = videos;
       <img
         id="main-thumb"
         src={mainVideo.thumb.replace("mqdefault", "maxresdefault")}
+        width={780}
+        height={439}
+        fetchpriority="high"
         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
         alt={mainVideo.title}
       />
@@ -107,14 +92,15 @@ const carouselVideos = videos;
       </div>
     </div>
 
-    <!-- iframe -->
+    <!-- iframe: se carga solo al reproducir (sin src inicial para
+         evitar una petición vacía extra y el CLS al cargar el reproductor) -->
     <iframe
       id="main-iframe"
       class="w-full h-full opacity-0 transition-opacity duration-500"
-      src=""
       title="Video Makers"
-      allow="autoplay; fullscreen"
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
       allowfullscreen
+      loading="lazy"
       style="position:absolute;inset:0;"></iframe>
   </div>
 
@@ -134,11 +120,14 @@ const carouselVideos = videos;
               data-id={v.id}
               data-title={v.title}
             >
-              <img
-                src={v.thumb}
-                alt={v.title}
-                class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-300"
-              />
+      <img
+        src={v.thumb}
+        width={200}
+        height={112}
+        loading="lazy"
+        alt={v.title}
+        class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-300"
+      />
               <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
               <div
                 class="absolute bottom-0 left-0 right-0 p-2"
@@ -155,49 +144,6 @@ const carouselVideos = videos;
     )
   }
 </section>
-
-<script is:inline>
-  const mainPoster = document.getElementById("main-poster");
-  const mainIframe = document.getElementById("main-iframe");
-  const mainThumb = document.getElementById("main-thumb");
-  const mainTitle = document.getElementById("main-title");
-  const MAIN_ID = document.getElementById("main-player-wrap").dataset.videoId;
-
-  function playVideo(id, title, thumbSrc) {
-    mainThumb.src = thumbSrc.replace("mqdefault", "maxresdefault");
-    if (mainTitle) mainTitle.textContent = title;
-
-    document.querySelectorAll(".video-thumb-btn").forEach((btn) => {
-      btn.style.borderColor =
-        btn.dataset.id === id ? "#f95602" : "rgba(255,255,255,0.08)";
-    });
-
-    mainIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&controls=1&rel=0`;
-    mainIframe.style.opacity = "1";
-    mainPoster.style.opacity = "0";
-    mainPoster.style.pointerEvents = "none";
-
-    document
-      .getElementById("main-player-wrap")
-      .scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  // Click en poster — siempre reproduce el video principal hardcoded
-  mainPoster.addEventListener("click", () => {
-    playVideo(MAIN_ID, mainTitle?.textContent || "", mainThumb?.src || "");
-  });
-
-  // Click en miniaturas del carrusel
-  document.querySelectorAll(".video-thumb-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      playVideo(
-        btn.dataset.id,
-        btn.dataset.title,
-        btn.querySelector("img").src,
-      );
-    });
-  });
-</script>
 
 <style is:global>
   #video-carousel::-webkit-scrollbar {

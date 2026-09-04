@@ -12,6 +12,8 @@
     "@tailwindcss/vite": "^4.1.18",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.1.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
     "tailwindcss": "^4.1.18"
   },
   "description": "```sh npm create astro@latest -- --template basics ```",

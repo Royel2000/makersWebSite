@@ -1,0 +1,582 @@
+---
+import logo from "../../assets/MakersDark.svg?inline";
+
+---
+
+
+<section class="py-16 px-5 text-[#cacaca]" style="font-family: 'Outfit', sans-serif;">
+  <div data-reveal class="max-w-lg mx-auto">
+
+    <!-- Encabezado -->
+    <p class="text-[10px] font-bold tracking-[0.22em] uppercase text-[#f95602]/70 mb-2">
+      Cotización rápida
+    </p>
+    <h2 class="text-4xl font-extrabold text-white mb-2">
+      ¿Qué <span class="text-[#f95602]">necesitas</span>?
+    </h2>
+    <p class="text-sm text-[#cacaca]/70 mb-8">
+      Elige los servicios y ajusta los detalles. El precio se actualiza solo.
+    </p>
+
+    <!-- Banner de promoción de temporada (lo rellena main.js) -->
+    <div
+      id="banner-promo"
+      role="status"
+      class="hidden banner-promo mb-6"
+    ></div>
+
+    <!-- Servicios -->
+    <div class="flex gap-3 mb-5">
+      <label
+        for="chk-foto"
+        class="servicio-card flex-1 relative rounded-2xl p-5 cursor-pointer transition-all duration-300 bg-[#1a1a1a] border-2 border-white/[0.06] hover:border-white/[0.12]"
+        id="card-foto"
+      >
+        <input type="checkbox" id="chk-foto" class="absolute opacity-0 w-0 h-0" checked />
+        <div class="s-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full border-2 border-white/10 flex items-center justify-center transition-all duration-300">
+          <span class="s-check-mark text-white opacity-0 transition-opacity duration-300" style="font-size:10px;">✓</span>
+        </div>
+        <p class="text-[11px] font-bold tracking-widest uppercase text-[#cacaca]/60 mb-1">Servicio</p>
+        <p class="text-lg font-bold text-white leading-tight">Fotografía</p>
+        <p class="text-[12px] text-[#cacaca]/60 mt-1">Fotos editadas + sesión</p>
+      </label>
+      <label
+        for="chk-video"
+        class="servicio-card flex-1 relative rounded-2xl p-5 cursor-pointer transition-all duration-300 bg-[#1a1a1a] border-2 border-white/[0.06] hover:border-white/[0.12]"
+        id="card-video"
+      >
+        <input type="checkbox" id="chk-video" class="absolute opacity-0 w-0 h-0" />
+        <div class="s-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full border-2 border-white/10 flex items-center justify-center transition-all duration-300">
+          <span class="s-check-mark text-white opacity-0 transition-opacity duration-300" style="font-size:10px;">✓</span>
+        </div>
+        <p class="text-[11px] font-bold tracking-widest uppercase text-[#cacaca]/60 mb-1">Servicio</p>
+        <p class="text-lg font-bold text-white leading-tight">Video</p>
+        <p class="text-[12px] text-[#cacaca]/60 mt-1">Grabación + edición</p>
+      </label>
+    </div>
+
+    <!-- Grupos -->
+    <div class="flex flex-col gap-4">
+
+      <!-- Grupo Fotografía -->
+      <div
+        id="grupo-foto"
+        class="calc-group rounded-2xl overflow-hidden transition-all duration-500"
+        style="opacity:1; transform:translateY(0);"
+      >
+        <div class="px-4 py-3 bg-[#161616] border-b border-white/5 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#f95602]/60"></span>
+          <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-[#cacaca]/75">Fotografía</p>
+        </div>
+        <div class="p-4 bg-[#1a1a1a] flex flex-col gap-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="calc-field">
+              <label for="fotos" class="calc-label">¿Cuántas fotos?</label>
+              <input id="fotos" type="number" min="1" placeholder="70"
+                class="calc-input" />
+              <p class="calc-hint">Ej.: 70 fotos editadas para una boda pequeña.</p>
+            </div>
+            <div class="calc-field">
+              <label for="horas-foto" class="calc-label">¿Cuántas horas?</label>
+              <input id="horas-foto" type="number" min="1" placeholder="2"
+                class="calc-input" />
+              <p class="calc-hint">Ej.: 2 horas en la locación el día del evento.</p>
+            </div>
+          </div>
+          <div>
+            <label for="fuera" class="calc-toggle">
+              <input type="checkbox" id="fuera" class="w-4 h-4 accent-[#f95602]" />
+              <span>¿Viajamos fuera de la ciudad?</span>
+            </label>
+            <p class="calc-hint mt-2 ml-1">Se suma un costo por cada km recorrido.</p>
+            <div id="kmContainer"
+              class="overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              style="max-height:0;opacity:0;">
+              <div class="calc-field mt-3">
+                <label for="km" class="calc-label">¿Cuántos km?</label>
+                <input id="km" type="number" min="1" placeholder="45"
+                  class="calc-input" />
+                <p class="calc-hint">Ej.: 45 km por trayecto hasta la locación.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grupo Video -->
+      <div
+        id="grupo-video"
+        class="calc-group rounded-2xl overflow-hidden transition-all duration-500"
+        style="display:none;opacity:0;transform:translateY(20px);"
+      >
+        <div class="px-4 py-3 bg-[#161616] border-b border-white/5 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#f95602]/60"></span>
+          <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-[#cacaca]/75">Video</p>
+        </div>
+        <div class="p-4 bg-[#1a1a1a] flex flex-col gap-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="calc-field">
+              <label for="horas-video" class="calc-label">¿Cuántas horas?</label>
+              <input id="horas-video" type="number" min="1" placeholder="2"
+                class="calc-input" />
+              <p class="calc-hint">Cada 2 horas de grabación = $800 (se redondea hacia arriba). Ej.: 3 h = $1,600.</p>
+            </div>
+            <div class="calc-field">
+              <label for="minutos-video" class="calc-label">¿Cuántos minutos finales?</label>
+              <input id="minutos-video" type="number" min="1" placeholder="3"
+                class="calc-input" />
+              <p class="calc-hint">Incluye los primeros 3 min por $1,200; cada minuto extra suma $120. Ej.: 7 min = $1,200 + 4 extra.</p>
+            </div>
+          </div>
+          <label for="reel" class="calc-toggle">
+            <input type="checkbox" id="reel" class="w-4 h-4 accent-[#f95602]" />
+            <span>Solo un reel (hasta 60 seg.)</span>
+          </label>
+          <p class="calc-hint mt-2 ml-1">Ideal para redes sociales. Precio fijo de $600.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div
+      id="resultado"
+      class="mt-5 rounded-2xl border-2 border-white/[0.06] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      style="opacity:0;transform:translateY(20px);pointer-events:none;"
+    >
+      <div id="res-bloques"></div>
+
+      <div id="contacto-wrap"
+        class="hidden px-5 py-4 bg-[#111111] border-t border-white/5"
+      >
+        <label for="chk-contacto" class="flex items-center gap-3 cursor-pointer group">
+          <input type="checkbox" id="chk-contacto" class="w-4 h-4 accent-[#f95602]" />
+          <span class="text-sm text-[#cacaca]/70 group-hover:text-white transition-colors">
+            ¿Quieres que te contactemos?
+          </span>
+        </label>
+
+        <div id="form-contacto" class="hidden mt-4 flex-col gap-3">
+          <div class="calc-field">
+            <label for="c-nombre" class="calc-label">Tu nombre</label>
+            <input id="c-nombre" type="text" placeholder="María González"
+              class="calc-input" />
+            <p class="calc-hint">Solo lo usamos para dirigirnos a ti.</p>
+          </div>
+          <div class="calc-field">
+            <label for="c-email" class="calc-label">Tu correo <span class="text-[#cacaca]/60">(opcional)</span></label>
+            <input id="c-email" type="email" placeholder="para que te respondamos"
+              class="calc-input" />
+            <p class="calc-hint">Ej.: para que te enviemos el presupuesto. Opcional.</p>
+          </div>
+          <div class="calc-field">
+            <label for="c-fecha" class="calc-label">Fecha tentativa <span class="text-[#cacaca]/60">(opcional)</span></label>
+            <input id="c-fecha" type="date"
+              class="calc-input" />
+            <p class="calc-hint">El día aproximado de tu evento. Opcional.</p>
+          </div>
+          <button
+            id="btn-enviar"
+            class="w-full mt-1 py-3.5 rounded-xl bg-[#f95602] text-white text-sm font-bold tracking-[0.08em] uppercase hover:bg-[#e04e00] active:scale-[0.98] transition-all duration-300"
+          >
+            Enviar por correo
+          </button>
+          <p class="text-[10px] text-[#cacaca]/55 text-center">
+            Abre tu correo con la cotización lista
+          </p>
+        </div>
+      </div>
+
+      <div class="px-5 py-4 bg-[#111111] border-t border-white/5">
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] font-bold tracking-[0.12em] uppercase text-[#cacaca]/60">Total estimado</span>
+          <span id="r-total"
+            class="text-4xl font-extrabold text-[#f95602] tracking-tight transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"></span>
+        </div>
+        <div id="r-total-old-wrap" class="hidden mt-0.5 flex justify-between items-center">
+          <span class="text-[10px] text-[#cacaca]/60">Precio regular</span>
+          <span id="r-total-old"
+            class="text-sm font-bold text-[#cacaca]/70 line-through decoration-[#f95602]/70"></span>
+        </div>
+      </div>
+
+      <div class="px-5 pb-4 pt-2 flex justify-between items-center bg-[#111111] border-t border-white/5">
+        <span id="r-paquete"
+          class="text-[10px] font-bold tracking-[0.06em] uppercase px-3 py-1 rounded-full bg-[#f95602]/8 text-[#f95602]/70"></span>
+        <span class="text-[10px] text-[#cacaca]/55">Precios en MXN</span>
+      </div>
+
+      <div
+        id="export-wrap"
+        class="hidden px-5 py-4 bg-[#111111] border-t border-white/5 flex gap-2.5"
+      >
+        <button
+          id="btn-export-png"
+          class="flex-1 py-3 rounded-xl border-2 border-white/[0.08] text-white text-sm font-bold hover:border-[#f95602]/40 transition-all duration-300 active:scale-[0.98]"
+        >
+          Guardar como imagen
+        </button>
+        <button
+          id="btn-export-pdf"
+          class="flex-1 py-3 rounded-xl bg-[#f95602] text-white text-sm font-bold tracking-[0.04em] uppercase hover:bg-[#e04e00] active:scale-[0.98] transition-all duration-300"
+        >
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== Ticket para exportar (se captura con html2canvas) ===== -->
+  <div
+    id="ticket"
+    aria-hidden="true"
+    class="ticket-canvas"
+  >
+    <img id="ticket-logo" src={logo} alt="Makers Fotografía y Video" class="ticket-logo" />
+    <div class="ticket-sub">Fotografía &amp; Video</div>
+    <div id="ticket-cliente" class="ticket-cliente"></div>
+    <h3 class="ticket-title">Cotización</h3>
+    <div id="ticket-detalle"></div>
+    <div id="ticket-noiva" class="ticket-noiva"></div>
+    <div class="ticket-total">
+      <span>Total</span>
+      <span id="ticket-total"></span>
+    </div>
+    <div class="ticket-total-old" id="ticket-total-old"></div>
+    <div class="ticket-num" id="ticket-folio"></div>
+  </div>
+</section>
+
+<style is:global>
+  /* --- Labels e inputs de la calculadora --- */
+  .calc-field {
+    position: relative;
+  }
+  .calc-label {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(230, 230, 230, 0.82);
+    margin-bottom: 8px;
+    transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .calc-label::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f95602;
+    opacity: 0;
+    transform: scale(0);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    align-self: center;
+  }
+  .calc-input {
+    width: 100%;
+    background: #111;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 13px 15px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Outfit", sans-serif;
+    outline: none;
+    transition:
+      border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .calc-input:focus {
+    border-color: #f95602;
+    box-shadow: 0 0 0 3px rgba(249, 86, 2, 0.08);
+  }
+  .calc-input::placeholder {
+    color: rgba(202, 202, 202, 0.38);
+    font-weight: 400;
+  }
+
+  /* Campo con valor: el label se ilumina y aparece un punto naranja
+     (animación al "aumentar"/rellenar un campo). */
+  .calc-field:focus-within .calc-label {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .calc-input:not(:placeholder-shown) {
+    border-color: rgba(249, 86, 2, 0.35);
+  }
+  .calc-field:has(.calc-input:not(:placeholder-shown)) .calc-label {
+    color: #f95602;
+  }
+  .calc-field:has(.calc-input:not(:placeholder-shown)) .calc-label::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* --- Toggle checkbox --- */
+  .calc-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #111;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 13px;
+    color: rgba(202, 202, 202, 0.75);
+    font-weight: 500;
+    transition:
+      border-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .calc-toggle:hover {
+    border-color: rgba(249, 86, 2, 0.2);
+    color: rgba(202, 202, 202, 0.9);
+  }
+
+  /* --- Tarjeta de servicio --- */
+  .servicio-card.active {
+    border-color: #f95602;
+    background: rgba(249, 86, 2, 0.05);
+  }
+  .servicio-card.active .s-check {
+    background: #f95602;
+    border-color: #f95602;
+    transform: scale(1);
+  }
+  .servicio-card.active .s-check-mark {
+    opacity: 1;
+  }
+
+  /* --- Bloques del resultado --- */
+  .res-bloque {
+    padding: 16px 20px;
+    background: #161616;
+  }
+  .res-bloque + .res-bloque {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .res-bloque-titulo {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(249, 86, 2, 0.7);
+    margin-bottom: 12px;
+  }
+  .res-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+  }
+  .res-fila + .res-fila {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .res-fila-label {
+    font-size: 13px;
+    color: rgba(202, 202, 202, 0.45);
+    font-weight: 500;
+  }
+  .res-fila-valor {
+    font-size: 13px;
+    color: rgba(202, 202, 202, 0.7);
+    font-weight: 700;
+  }
+
+  /* --- Grupos: transición suave tipo Apple --- */
+  .calc-group {
+    transition:
+      opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .calc-hint {
+    font-size: 11px;
+    line-height: 1.4;
+    color: rgba(202, 202, 202, 0.56);
+    margin-top: 5px;
+    font-weight: 400;
+  }
+
+  /* --- Banner de promoción de temporada --- */
+  .banner-promo {
+    position: relative;
+    background: linear-gradient(135deg, rgba(249, 86, 2, 0.14), rgba(249, 86, 2, 0.04));
+    border: 1px solid rgba(249, 86, 2, 0.35);
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #ffffff;
+    line-height: 1.5;
+  }
+  .banner-promo strong {
+    color: #f95602;
+  }
+  .banner-promo .promo-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: color 0.2s ease;
+  }
+  .banner-promo .promo-close:hover {
+    color: #fff;
+  }
+
+  /* ===== Ticket (capturado con html2canvas para exportar) ===== */
+  .ticket-canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    width: 440px;
+    background: #fff;
+    color: #18181b;
+    font-family: "Outfit", sans-serif;
+    padding: 24px 24px;
+    border-radius: 14px;
+    line-height: 1.35;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .ticket-logo {
+    display: block;
+    width: 240px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 4px;
+  }
+  .ticket-sub {
+    font-size: 11px;
+    color: #f95602;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .ticket-title {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #f95602;
+    margin: 18px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f95602;
+  }
+  .ticket-cliente,
+  .ticket-noiva {
+    font-size: 13px;
+    color: #3f3f46;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .ticket-cliente {
+    background: #f4f4f5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    white-space: pre-line;
+  }
+  .ticket-detalle {
+    font-size: 13px;
+  }
+  .ticket-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 0;
+    min-width: 0;
+    color: #3f3f46;
+  }
+  .ticket-fila .t-lbl {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    color: #52525b;
+  }
+  .ticket-fila .t-val {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-weight: 700;
+    color: #18181b;
+  }
+  .ticket-noiva {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #18181b;
+    margin: 16px 0 4px;
+  }
+  .ticket-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 14px 2px 0;
+    border-top: 2px dashed #e4e4e7;
+    min-width: 0;
+  }
+  .ticket-total .t-total-label {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #18181b;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .ticket-total .t-total-val {
+    font-size: 24px;
+    font-weight: 800;
+    color: #f95602;
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .ticket-num {
+    margin-top: 14px;
+    font-size: 10px;
+    text-align: center;
+    color: #a1a1aa;
+    letter-spacing: 0.05em;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .ticket-total-old {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    color: #8a8a93;
+    text-decoration: line-through;
+    text-decoration-color: #f95602;
+    margin-top: 2px;
+  }
+
+  @media print {
+    .ticket-canvas {
+      position: static;
+      left: 0;
+      margin: 0 auto;
+    }
+  }
+</style>

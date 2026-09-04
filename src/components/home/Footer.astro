@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import imagen1 from "/src/assets/Makers.svg";
 import Icon from "/src/assets/MK.jpg";
+
+const year = new Date().getFullYear();
 ---
 
 <section id="footer">
@@ -10,7 +12,7 @@ import Icon from "/src/assets/MK.jpg";
   <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-8 border-b border-white/[0.07]">
 
     <!-- Marca -->
-    <div>
+    <div data-reveal>
       <!-- <Image src={Icon} alt="Makers ícono" width={48} height={48}
         class="rounded-xl mb-3 object-cover" /> -->
       <Image src={imagen1} alt="Makers Fotografía y Video"
@@ -19,7 +21,7 @@ import Icon from "/src/assets/MK.jpg";
     </div>
 
     <!-- Contacto -->
-    <div>
+    <div data-reveal data-reveal-delay="120">
       <p class="font-black text-xl uppercase text-[#f95602] mb-4">Contacto</p>
       <ul class="flex flex-col gap-1">
         <li>
@@ -47,7 +49,7 @@ import Icon from "/src/assets/MK.jpg";
     </div>
 
     <!-- Estudio -->
-    <div>
+    <div data-reveal data-reveal-delay="240">
       <p class="font-black text-xl uppercase text-[#f95602] mb-4">Estudio</p>
       <div class=" text-[#cacaca] leading-loose">
         <p class="flex items-center gap-2 text-sm">
@@ -61,7 +63,7 @@ import Icon from "/src/assets/MK.jpg";
   </div>
 
   <div class="flex flex-col md:flex-row justify-between items-center pt-5 gap-2">
-    <p class="text-[12px] text-[#cacaca] tracking-wide">© 2025 Makers Fotografía y Video — Felipe Carrillo Puerto</p>
+    <p class="text-[12px] text-[#cacaca] tracking-wide">© {year} Makers Fotografía y Video — Felipe Carrillo Puerto</p>
     <p class="text-[12px] text-[#f95602]">desde 2025</p>
   </div>
 

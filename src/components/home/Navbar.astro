@@ -1,18 +1,18 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/MK.jpg";
+import logo from "../../assets/MK.jpg";
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none overflow-hidden pb-2"
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none overflow-hidden pb-2 transition-all duration-500"
 >
   <div
     id="notch-container"
-    class="relative pointer-events-auto flex items-start transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105"
-    style="transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), scale 0.3s ease;"
+    class="relative pointer-events-auto flex items-start transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
   >
     <svg
-      class="w-5 h-5 text-[#111111] fill-current -mr-px shrink-0 self-start"
+      class="w-5 h-5 -mr-px shrink-0 self-start"
       viewBox="0 0 20 20"
     >
       <path d="M20 0H0C11.0457 0 20 8.95431 20 20V0Z"></path>
@@ -21,7 +21,7 @@ import logo from "../assets/MK.jpg";
     <nav
       id="dynamic-notch"
       aria-label="Global"
-      class="flex items-center gap-4 p-1.5 bg-[#111111] rounded-b-[20px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      class="flex items-center gap-4 p-1.5 rounded-b-[20px]"
     >
       <a href="#aboutUs" class="flex items-center gap-2.5 group">
         <div
@@ -61,7 +61,7 @@ import logo from "../assets/MK.jpg";
     </nav>
 
     <svg
-      class="w-5 h-5 text-[#111111] fill-current -ml-px shrink-0 self-start"
+      class="w-5 h-5 -ml-px shrink-0 self-start"
       viewBox="0 0 20 20"
     >
       <path d="M0 0H20C8.95431 0 0 8.95431 0 20V0Z"></path>
@@ -69,19 +69,43 @@ import logo from "../assets/MK.jpg";
   </div>
 </header>
 
-<script>
-  const notchContainer = document.getElementById("notch-container");
-  let lastScrollY = window.scrollY;
+<style is:global>
+  /* Barra flotante limpia y sólida (sin desenfoque conflictivo).
+     Los picos laterales siempre igualan el color del cuerpo. */
+  #notch-container {
+    --nav-color: #000000;
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top center;
+  }
 
-  window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
+  #notch-container > svg {
+    fill: var(--nav-color);
+  }
 
-    if (currentScrollY > lastScrollY && currentScrollY > 60) {
-      notchContainer?.classList.add("-translate-y-full");
-    } else if (currentScrollY < lastScrollY) {
-      notchContainer?.classList.remove("-translate-y-full");
+  #dynamic-notch {
+    background: var(--nav-color);
+    transition: background 0.4s var(--nav-ease);
+  }
+
+  /* Al hacer scroll: fondo un pelín más oscuro y notch ligeramente más
+     compacto (transición suave tipo Apple). */
+  #navbar.scrolled #dynamic-notch {
+    background: #000000;
+  }
+
+  #navbar.scrolled #notch-container {
+    transform: scale(0.97);
+  }
+
+  #notch-container:hover {
+    transform: scale(1.02);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #notch-container,
+    #dynamic-notch {
+      transition: none !important;
     }
+  }
+</style>
 
-    lastScrollY = currentScrollY;
-  });
-</script>
