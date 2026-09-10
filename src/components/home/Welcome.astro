@@ -11,11 +11,15 @@ import Posters from "./galleries/Posters.astro";
 import Calculadora from "./Calculadora.astro";
 import { Image } from "astro:assets";
 import FAQ from "./FAQ.astro";
+import DotGrid from "./DotGrid.astro";
+import AmbientGlow from "./AmbientGlow.astro";
 ---
 
 <div>
   <div
+    id="hero"
     class="hero relative min-h-screen min-h-dvh overflow-hidden bg-[var(--bg-hero)]"
+    data-nav-label="Inicio"
   >
     <!-- Fondo con parallax -->
     <div
@@ -40,7 +44,7 @@ import FAQ from "./FAQ.astro";
     <!-- Overlay (Gradiente) -->
     <div
       class="absolute inset-0"
-      style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgb(17, 17, 17) 100%);"
+      style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgb(11, 11, 11) 100%);"
     >
     </div>
 
@@ -53,9 +57,11 @@ import FAQ from "./FAQ.astro";
         id="glassCard"
         class="hero-enter w-auto max-w-md rounded-2xl p-6 text-[var(--text-secondary)] hover:scale-105 transition-all duration-300"
         style="
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(17, 17, 17, 0.45);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   "
       >
         <Image src={Logo} class="w-1/3 mb-3" alt="Makers" loading="eager" />
@@ -80,7 +86,7 @@ import FAQ from "./FAQ.astro";
       class="hero-fade absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40"
     >
       <div
-        class="w-px h-8 origin-top animate-[scrollLine_1.8s_ease-in-out_infinite]"
+        class="w-px h-8 origin-top bg-[linear-gradient(to_bottom,var(--accent),rgba(249,86,2,0))] animate-[scrollLine_1.8s_ease-in-out_infinite]"
       >
       </div>
     </div>
@@ -92,10 +98,13 @@ import FAQ from "./FAQ.astro";
 
   <section
     id="aboutUs"
-    class="bg-[var(--bg-primary)] text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24"
+    class="relative bg-[var(--bg-primary)] text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24"
+    data-nav-label="Quiénes Somos"
   >
+    <DotGrid />
+    <AmbientGlow variant="dual" />
     <div
-      class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20"
+      class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 relative z-10"
     >
       <!-- Texto principal -->
       <div data-reveal>
@@ -116,11 +125,11 @@ import FAQ from "./FAQ.astro";
       </div>
 
       <!-- Misión y Visión -->
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 relative z-10">
         <div
           data-reveal
           data-reveal-delay="120"
-          class="relative rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6 overflow-hidden"
+          class="glass relative rounded-xl p-6 overflow-hidden"
         >
           <p class="text-2xl font-bold uppercase text-[var(--accent)] mb-2">Misión</p>
           <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
@@ -133,7 +142,7 @@ import FAQ from "./FAQ.astro";
         <div
           data-reveal
           data-reveal-delay="240"
-          class="relative rounded-xl border border-[var(--border-default)] bg-[var(--bg-secondary)] p-6 overflow-hidden"
+          class="glass relative rounded-xl p-6 overflow-hidden"
         >
           <p class="text-2xl font-bold uppercase text-[var(--accent)] mb-2">Visión</p>
           <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
@@ -146,57 +155,59 @@ import FAQ from "./FAQ.astro";
     </div>
   </section>
 
-  <section id="Galeria" class="w-full text-[var(--text-secondary)] py-8">
-    <div class="flex justify-center px-4 mb-12">
+  <section id="Galeria" class="w-full text-[var(--text-secondary)] py-8" data-nav-label="Galería">
+    <div class="flex justify-center px-4 mb-12 relative z-10">
       <div
-        class="inline-flex flex-wrap items-center justify-center gap-2 bg-[var(--bg-primary)]"
+        id="tab-container"
+        class="tab-container relative inline-flex items-center py-1.5 pr-2"
+        role="tablist"
       >
-        <!-- Pestaña: Casual -->
+        <span id="tab-indicator" class="tab-indicator" aria-hidden="true"></span>
+
         <button
-          class="tab-btn active relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-[var(--text-primary)] cursor-pointer select-none overflow-hidden group"
+          class="tab-btn active"
           data-tab="galeria"
+          role="tab"
+          aria-selected="true"
+          aria-controls="galeria"
         >
-          <span
-            class="tab-bg absolute inset-0 bg-[var(--accent)] rounded-full transition-opacity duration-500 ease-in-out opacity-100"
-          ></span>
-          <span class="relative z-10">CASUAL</span>
+          Casual
         </button>
 
-        <!-- Pestaña: Boda -->
         <button
-          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer select-none overflow-hidden group"
+          class="tab-btn"
           data-tab="boda"
+          role="tab"
+          aria-selected="false"
+          aria-controls="boda"
         >
-          <span
-            class="tab-bg absolute inset-0 bg-[var(--accent)] rounded-full transition-opacity duration-500 ease-in-out opacity-0"
-          ></span>
-          <span class="relative z-10">BODA</span>
+          Boda
         </button>
 
-        <!-- Pestaña: XV Años (Deshabilitada) -->
+        <span class="tab-divider" aria-hidden="true"></span>
+
         <button
-          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[var(--text-muted)] cursor-not-allowed flex items-center gap-2 select-none"
+          class="tab-btn tab-btn--upcoming"
           data-tab="xv"
+          role="tab"
+          aria-selected="false"
+          aria-controls="xv"
           disabled
         >
-          <span>XV AÑOS</span>
-          <span
-            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)]"
-            >Próx</span
-          >
+          XV Años
+          <span class="tab-badge">Próx</span>
         </button>
 
-        <!-- Pestaña: Infantiles (Deshabilitada) -->
         <button
-          class="tab-btn relative px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-[var(--text-muted)] cursor-not-allowed flex items-center gap-2 select-none"
+          class="tab-btn tab-btn--upcoming"
           data-tab="infantiles"
+          role="tab"
+          aria-selected="false"
+          aria-controls="infantiles"
           disabled
         >
-          <span>INFANTILES</span>
-          <span
-            class="text-[9px] uppercase px-2 py-0.5 rounded-full bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-subtle)]"
-            >Próx</span
-          >
+          Infantiles
+          <span class="tab-badge">Próx</span>
         </button>
       </div>
     </div>
@@ -213,7 +224,7 @@ import FAQ from "./FAQ.astro";
 
       <div id="xv" class="tab-content hidden">
         <div
-          class="text-center py-16 px-4 max-w-md mx-auto border border-[var(--border-default)] rounded-2xl bg-[var(--bg-secondary)]"
+          class="glass text-center py-16 px-4 max-w-md mx-auto rounded-2xl"
         >
           <h3 class="font-bold text-2xl text-[var(--accent)] mb-2">PRÓXIMAMENTE</h3>
           <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
@@ -225,7 +236,7 @@ import FAQ from "./FAQ.astro";
 
       <div id="infantiles" class="tab-content hidden">
         <div
-          class="text-center py-16 px-4 max-w-md mx-auto border border-[var(--border-default)] rounded-2xl bg-[var(--bg-secondary)]"
+          class="glass text-center py-16 px-4 max-w-md mx-auto rounded-2xl"
         >
           <h3 class="font-bold text-2xl text-[var(--accent)] mb-2">PRÓXIMAMENTE</h3>
           <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
@@ -309,6 +320,125 @@ import FAQ from "./FAQ.astro";
   </section>
 
   <style>
+    /* ============================================================
+       Tabs — segmented control con cápsula glass deslizante
+       ============================================================ */
+    .tab-container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 9999px;
+      box-shadow: var(--glass-shadow);
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      overscroll-behavior-x: contain;
+    }
+    .tab-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-indicator {
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 6px;
+      width: 96px;
+      border-radius: 9999px;
+      background: rgba(var(--accent-rgb), 0.14);
+      backdrop-filter: blur(18px) saturate(1.7);
+      -webkit-backdrop-filter: blur(18px) saturate(1.7);
+      border: 1px solid rgba(var(--accent-rgb), 0.5);
+      box-shadow:
+        0 0 0 1px rgba(var(--accent-rgb), 0.18),
+        0 4px 20px rgba(var(--accent-rgb), 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition:
+        transform 0.3s var(--ease-spring),
+        width 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        background 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+      will-change: transform, width;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    html.light .tab-indicator {
+      background: rgba(var(--accent-rgb), 0.1);
+      box-shadow:
+        0 0 0 1px rgba(var(--accent-rgb), 0.16),
+        0 4px 20px rgba(var(--accent-rgb), 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .tab-btn {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border: none;
+      border-radius: 9999px;
+      background: transparent;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+      flex-shrink: 0;
+      transition:
+        color 0.35s ease-in-out,
+        text-shadow 0.35s ease;
+      font-family: "Outfit", sans-serif;
+    }
+
+    .tab-btn:hover:not(:disabled):not(.active) {
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.45);
+    }
+
+    .tab-btn--upcoming {
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    .tab-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text-tertiary);
+    }
+
+    .tab-divider {
+      width: 1px;
+      height: 20px;
+      margin: 0 4px;
+      flex-shrink: 0;
+      background: var(--border-strong);
+      border-radius: 1px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tab-indicator {
+        transition: none;
+      }
+    }
+
     .modal-btn {
       width: 44px;
       height: 44px;
@@ -316,13 +446,15 @@ import FAQ from "./FAQ.astro";
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(17, 17, 17, 0.85);
+      background: rgba(17, 17, 17, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
       color: rgba(202, 202, 202, 0.85);
       cursor: pointer;
       transition: all 0.25s ease;
       user-select: none;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
     .modal-btn:hover {
       border-color: color-mix(in srgb, var(--accent) 60%, transparent);
@@ -411,9 +543,11 @@ import FAQ from "./FAQ.astro";
 
   <Posters />
 
-  <section class="text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24">
+  <section class="relative text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24" data-nav-label="Cotización">
+    <DotGrid />
+    <AmbientGlow />
     <div
-      class="mx-auto flex flex-col lg:flex-row lg:items-start lg:gap-14 gap-10"
+      class="mx-auto flex flex-col lg:flex-row lg:items-start lg:gap-14 gap-10 relative z-10"
     >
       <!-- Texto -->
       <div class="lg:w-5/12 shrink-0" data-reveal>
@@ -436,9 +570,11 @@ import FAQ from "./FAQ.astro";
     </div>
   </section>
 
-  <section class="py-20 px-6 md:px-16 lg:px-24">
+  <section class="relative py-20 px-6 md:px-16 lg:px-24" data-nav-label="Preguntas">
+    <DotGrid />
+    <AmbientGlow variant="dual" />
     <div
-      class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start"
+      class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start relative z-10"
     >
       <Calculadora />
       <FAQ />

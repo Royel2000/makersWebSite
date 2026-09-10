@@ -37,7 +37,127 @@ import { jsPDF } from "jspdf";
   const qsa = (sel) => Array.from(document.querySelectorAll(sel));
 
   // ===================================================================
-  // 2. NAVBAR
+  // 2. SCROLLBAR — indicador flotante + nombre de sección actual
+  // ===================================================================
+  function initScrollbar() {
+    const track = document.createElement("div");
+    track.id = "mks-scrollbar";
+    track.style.cssText = `
+      position: fixed; right: 12px; top: 50%; transform: translateY(-50%);
+      width: 6px; height: min(38vh, 320px); z-index: 60;
+      border-radius: 9999px; pointer-events: none;
+      background: rgba(17,17,17,0.78);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
+      backdrop-filter: blur(14px) saturate(1.3);
+      -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    `;
+
+    const thumb = document.createElement("div");
+    thumb.style.cssText = `
+      position: absolute; left: 0; right: 0; top: 0;
+      height: 48px; border-radius: 9999px;
+      background: linear-gradient(180deg, #f95602, #ff8a45);
+      box-shadow: 0 0 14px rgba(249,86,2,0.55);
+    `;
+    track.appendChild(thumb);
+    document.body.appendChild(track);
+
+    const sections = qsa("[data-nav-label]");
+
+    const strip = document.createElement("div");
+    strip.id = "mks-sections";
+    sections.forEach((s) => {
+      const item = document.createElement("span");
+      item.className = "mks-sec";
+      item.textContent = s.getAttribute("data-nav-label");
+      strip.appendChild(item);
+    });
+    document.body.appendChild(strip);
+    const items = Array.from(strip.children);
+    let heights = null;
+
+    const measure = () => {
+      strip.offsetHeight;
+      heights = items.map((it) => {
+        it.style.height = "auto";
+        return Math.max(it.getBoundingClientRect().height || 0, 10);
+      });
+    };
+
+    const reduced = prefersReducedMotion;
+    let timer = null;
+
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      const travel = track.clientHeight - thumb.offsetHeight;
+      thumb.style.transform = `translateY(${progress * travel}px)`;
+    };
+
+    const updateLabel = () => {
+      if (!items.length) return;
+      if (!heights) measure();
+      const winH = window.innerHeight;
+      const center = winH * 0.5;
+
+      let activeIndex = -1;
+      sections.forEach((s, i) => {
+        const r = s.getBoundingClientRect();
+        if (r.top <= center && r.bottom >= center) activeIndex = i;
+      });
+
+      sections.forEach((s, i) => {
+        const r = s.getBoundingClientRect();
+        const mid = (r.top + r.bottom) / 2;
+        const diff = Math.max(-1, Math.min(1, (mid - center) / (winH * 0.5)));
+        items[i].style.setProperty("--parallax", `${(-diff * 16).toFixed(1)}px`);
+
+        const ab = activeIndex < 0 ? 2 : Math.abs(i - activeIndex);
+        const visible = ab <= 1;
+        items[i].classList.toggle("is-active", ab === 0);
+        items[i].style.height = visible ? `${heights[i]}px` : "0px";
+        items[i].style.margin = visible ? "3px 0" : "0px";
+        items[i].style.opacity = ab === 0 ? "1" : ab === 1 ? "0.5" : "0";
+        items[i].style.filter =
+          ab === 0 ? "blur(0)" : ab === 1 ? "blur(1.5px)" : "blur(0)";
+        items[i].style.scale = ab === 0 ? "1" : ab === 1 ? "0.9" : "0.85";
+      });
+    };
+
+    const idle = () => {
+      track.classList.add("mks-idle");
+      strip.classList.add("mks-idle");
+    };
+
+    const show = () => {
+      track.classList.remove("mks-idle");
+      strip.classList.remove("mks-idle");
+      clearTimeout(timer);
+      timer = setTimeout(idle, 1400);
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        update();
+        updateLabel();
+        if (!reduced) show();
+      },
+      { passive: true },
+    );
+    window.addEventListener("resize", () => {
+      update();
+      updateLabel();
+    });
+
+    update();
+    updateLabel();
+    if (!reduced) idle();
+  }
+
+  // ===================================================================
+  // 3. NAVBAR
   // ===================================================================
   function initNavbar() {
     const notch = el("notch-container");
@@ -68,7 +188,7 @@ import { jsPDF } from "jspdf";
   }
 
   // ===================================================================
-  // 3. HERO — parallax y typewriter
+  // 4. HERO — parallax y typewriter
   // ===================================================================
   function initHeroParallax() {
     const heroBg = el("heroBg");
@@ -173,31 +293,6 @@ import { jsPDF } from "jspdf";
 
   // ===================================================================
   // 4. TARJETAS 3D
-  // ===================================================================
-  function initCardTilt() {
-    if (prefersReducedMotion || window.matchMedia("(hover: none)").matches) {
-      return;
-    }
-
-    qsa(".card").forEach((card) => {
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        card.style.transform = `perspective(600px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`;
-        card.style.transition = "transform 0.1s ease-out";
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg)";
-        card.style.transition = "transform 0.4s ease-out";
-      });
-    });
-  }
-
-  // ===================================================================
-  // 5. MODAL DE IMAGEN
   // ===================================================================
   function initModal() {
     const modal = el("modal");
@@ -361,7 +456,7 @@ import { jsPDF } from "jspdf";
 
     window.__openModal = openModal;
 
-    qsa(".card").forEach((card) => {
+    qsa(".gallery-item").forEach((card) => {
       const img = card.querySelector("img");
       if (img && img.dataset.original) {
         card.addEventListener("click", () =>
@@ -377,45 +472,58 @@ import { jsPDF } from "jspdf";
   function initTabs() {
     const buttons = qsa(".tab-btn");
     const contents = qsa(".tab-content");
+    const container = el("tab-container");
+    const indicator = el("tab-indicator");
     if (buttons.length === 0) return;
 
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        if (btn.hasAttribute("disabled")) return;
+    function moveIndicator() {
+      if (!indicator || !container) return;
+      const active = container.querySelector(".tab-btn.active");
+      if (!active) return;
+      const cRect = container.getBoundingClientRect();
+      const aRect = active.getBoundingClientRect();
+      indicator.style.width = aRect.width + "px";
+      indicator.style.transform = `translate3d(${aRect.left - cRect.left}px, 0, 0)`;
+    }
 
-        const target = btn.dataset.tab;
+    function select(btn) {
+      if (btn.hasAttribute("disabled")) return;
 
-        buttons.forEach((b) => {
-          b.classList.remove("active");
-          b.setAttribute("aria-selected", "false");
-          const bg = b.querySelector(".tab-bg");
-          if (bg) {
-            bg.classList.remove("opacity-100");
-            bg.classList.add("opacity-0");
-          }
-        });
+      const target = btn.dataset.tab;
 
-        contents.forEach((c) => {
-          c.classList.add("hidden");
-          c.setAttribute("aria-hidden", "true");
-        });
-
-        btn.classList.add("active");
-        btn.setAttribute("aria-selected", "true");
-
-        const activeBg = btn.querySelector(".tab-bg");
-        if (activeBg) {
-          activeBg.classList.remove("opacity-0");
-          activeBg.classList.add("opacity-100");
-        }
-
-        const targetEl = el(target);
-        if (targetEl) {
-          targetEl.classList.remove("hidden");
-          targetEl.setAttribute("aria-hidden", "false");
-        }
+      buttons.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
       });
-    });
+
+      contents.forEach((c) => {
+        c.classList.add("hidden");
+        c.setAttribute("aria-hidden", "true");
+      });
+
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+
+      const targetEl = el(target);
+      if (targetEl) {
+        targetEl.classList.remove("hidden");
+        targetEl.setAttribute("aria-hidden", "false");
+      }
+
+      moveIndicator();
+    }
+
+    buttons.forEach((btn) =>
+      btn.addEventListener("click", () => select(btn)),
+    );
+
+    requestAnimationFrame(moveIndicator);
+    window.addEventListener("load", moveIndicator);
+    window.addEventListener("resize", moveIndicator);
+    if (typeof ResizeObserver !== "undefined" && container) {
+      const ro = new ResizeObserver(moveIndicator);
+      ro.observe(container);
+    }
   }
 
   // ===================================================================
@@ -521,6 +629,8 @@ import { jsPDF } from "jspdf";
         const overlay = slide.querySelector(".poster-overlay");
         const zoom = slide.querySelector(".poster-zoom");
         const accent = slide.querySelector(".poster-accent");
+        const chip = slide.querySelector(".poster-chip");
+        const rot = prefersReducedMotion ? 0 : 1;
 
         slide.style.width = `${cardW}px`;
         slide.style.height = `${cardH}px`;
@@ -535,31 +645,35 @@ import { jsPDF } from "jspdf";
           overlay.style.opacity = "0";
           zoom.style.opacity = "0";
           accent.style.opacity = "1";
+          if (chip) chip.style.opacity = "1";
         } else if (Math.abs(pos) === 1) {
           const dir = pos > 0 ? 1 : -1;
-          slide.style.transform = `translateX(${dir * d1}px) scale(${s1}) rotateY(${dir * -r1}deg) translateY(var(--parallax-y))`;
+          slide.style.transform = `translateX(${dir * d1}px) scale(${s1}) rotateY(${dir * -r1 * rot}deg) translateY(var(--parallax-y))`;
           slide.style.zIndex = "6";
           slide.style.opacity = "0.9";
-          slide.style.filter = "brightness(0.9) blur(5px)";
+          slide.style.filter = "brightness(0.85) blur(0px)";
           overlay.style.opacity = "1";
           zoom.style.opacity = "0";
           accent.style.opacity = "0";
+          if (chip) chip.style.opacity = "0";
         } else if (Math.abs(pos) === 2) {
           const dir = pos > 0 ? 1 : -1;
-          slide.style.transform = `translateX(${dir * d2}px) scale(${s2}) rotateY(${dir * -r2}deg) translateY(var(--parallax-y))`;
+          slide.style.transform = `translateX(${dir * d2}px) scale(${s2}) rotateY(${dir * -r2 * rot}deg) translateY(var(--parallax-y))`;
           slide.style.zIndex = "3";
           slide.style.opacity = isMobile ? "0" : "0.5";
-          slide.style.filter = "brightness(0.4) blur(10px)";
+          slide.style.filter = "brightness(0.55) blur(0px)";
           overlay.style.opacity = "1";
           zoom.style.opacity = "0";
           accent.style.opacity = "0";
+          if (chip) chip.style.opacity = "0";
         } else {
           const dir = pos > 0 ? 1 : -1;
           slide.style.transform = `translateX(${dir * (d2 + 200)}px) scale(0.4) translateY(var(--parallax-y))`;
           slide.style.zIndex = "0";
           slide.style.opacity = "0";
-          slide.style.filter = "blur(8px)";
+          slide.style.filter = "brightness(0.4) blur(0px)";
           accent.style.opacity = "0";
+          if (chip) chip.style.opacity = "0";
         }
       });
 
@@ -626,36 +740,40 @@ import { jsPDF } from "jspdf";
       if (e.key === "ArrowRight") goTo(current + 1);
     });
 
-    let autoplay = setInterval(() => goTo(current + 1), 5000);
-    el("carousel-wrap").addEventListener("mouseenter", () =>
-      clearInterval(autoplay),
-    );
-    el("carousel-wrap").addEventListener("mouseleave", () => {
-      autoplay = setInterval(() => goTo(current + 1), 5000);
-    });
+    if (!prefersReducedMotion) {
+      let autoplay = setInterval(() => goTo(current + 1), 5000);
+      el("carousel-wrap").addEventListener("mouseenter", () =>
+        clearInterval(autoplay),
+      );
+      el("carousel-wrap").addEventListener("mouseleave", () => {
+        autoplay = setInterval(() => goTo(current + 1), 5000);
+      });
+    }
 
     window.addEventListener("resize", () => update());
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        const wrap = el("carousel-wrap");
-        const rect = wrap.getBoundingClientRect();
-        const windowH = window.innerHeight;
+    if (!prefersReducedMotion) {
+      window.addEventListener(
+        "scroll",
+        () => {
+          const wrap = el("carousel-wrap");
+          const rect = wrap.getBoundingClientRect();
+          const windowH = window.innerHeight;
 
-        if (rect.bottom < 0 || rect.top > windowH) return;
+          if (rect.bottom < 0 || rect.top > windowH) return;
 
-        const progress = 1 - rect.bottom / (windowH + rect.height);
-        const offset = (progress - 0.5) * 80;
+          const progress = 1 - rect.bottom / (windowH + rect.height);
+          const offset = (progress - 0.5) * 80;
 
-        slides.forEach((slide, i) => {
-          const pos = getPos(i);
-          const depth = Math.abs(pos) === 0 ? 1 : Math.abs(pos) === 1 ? 0.5 : 0.2;
-          slide.style.setProperty("--parallax-y", `${offset * depth}px`);
-        });
-      },
-      { passive: true },
-    );
+          slides.forEach((slide, i) => {
+            const pos = getPos(i);
+            const depth = Math.abs(pos) === 0 ? 1 : Math.abs(pos) === 1 ? 0.5 : 0.2;
+            slide.style.setProperty("--parallax-y", `${offset * depth}px`);
+          });
+        },
+        { passive: true },
+      );
+    }
 
     update();
   }
@@ -884,10 +1002,10 @@ import { jsPDF } from "jspdf";
         const km = parseInt(el("km").value) || 0;
         let precioPorFoto = 0,
           paquete = "";
-        if (fotos < 40) {
+        if (fotos <= 40) {
           precioPorFoto = 22.5;
           paquete = "Básico";
-        } else if (fotos < 70) {
+        } else if (fotos <= 70) {
           precioPorFoto = 21.5;
           paquete = "Platino";
         } else if (fotos < 150) {
@@ -1272,9 +1390,14 @@ ${nombre}`;
         const answerId = `faq-a-${faqId}`;
 
         const div = document.createElement("div");
-        div.className = "faq-item";
-        div.style.borderBottom = "1px solid var(--border-subtle)";
+        div.className = "faq-item glass";
+        div.style.border = "none";
+        div.style.marginBottom = "10px";
+        div.style.borderRadius = "16px";
         div.style.overflow = "hidden";
+        div.style.padding = "0 18px";
+        div.style.transition =
+          "transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease, background 0.35s ease";
         div.setAttribute("role", "listitem");
 
         div.innerHTML = `
@@ -1337,24 +1460,11 @@ ${nombre}`;
   // ===================================================================
   // ARRANQUE
   // ===================================================================
-  function initPlanSpotlight() {
-    if (prefersReducedMotion) return;
-    qsa(".plan-card").forEach((card) => {
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty("--mx", x + "%");
-        card.style.setProperty("--my", y + "%");
-      });
-    });
-  }
-
   function start() {
+    initScrollbar();
     initNavbar();
     initHeroParallax();
     initTypewriter();
-    initCardTilt();
     initModal();
     initTabs();
     initScrollReveal();
@@ -1362,7 +1472,6 @@ ${nombre}`;
     initVideoPlayer();
     initCalculator();
     initFaq();
-    initPlanSpotlight();
   }
 
   if (document.readyState === "loading") {

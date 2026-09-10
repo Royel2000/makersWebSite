@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+  variant?: "accent" | "dual";
+}
+const { class: className = "", variant = "accent" } = Astro.props;
+---
+
+<div
+  class:list={["pointer-events-none absolute inset-0 z-0", className]}
+  aria-hidden="true"
+>
+  <span
+    class={`absolute top-0 h-[58%] w-[55%] rounded-full opacity-70 blur-[70px] bg-[radial-gradient(circle,rgba(249,86,2,0.12),transparent_70%)] ${
+      variant === "dual" ? "left-[2%]" : "left-0"
+    }`}
+  ></span>
+  {
+    variant === "dual" && (
+      <span
+        class="absolute right-[2%] bottom-0 h-[55%] w-1/2 rounded-full opacity-70 blur-[70px] bg-[radial-gradient(circle,rgba(249,86,2,0.1),transparent_70%)]"
+      ></span>
+    )
+  }
+</div>

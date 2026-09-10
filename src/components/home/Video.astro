@@ -12,11 +12,18 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
 
 <section
   id="video"
-  class="w-full py-16 px-5 md:px-10 lg:px-20"
+  class="relative w-full py-16 px-5 md:px-10 lg:px-20 overflow-hidden"
+  data-nav-label="Video"
 >
   <div
+    class="pointer-events-none absolute inset-0 z-0 bg-dots"
+    aria-hidden="true"
+    style="mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, black 40%, transparent 100%);-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, black 40%, transparent 100%);"
+  ></div>
+
+  <div
     data-reveal
-    class="flex flex-col md:flex-row items-start md:items-end justify-center gap-6 mb-10"
+    class="relative z-10 flex flex-col md:flex-row items-start md:items-end justify-center gap-6 mb-10"
   >
     <div class="text-left">
       <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--accent)] opacity-70 mb-1">
@@ -37,8 +44,8 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
   <div
     data-reveal
     data-reveal-delay="120"
-    class="relative w-full rounded-2xl overflow-hidden bg-black mx-auto"
-    style="aspect-ratio:16/9;max-width:780px;"
+    class="relative z-10 w-full rounded-2xl overflow-hidden bg-black mx-auto"
+    style="aspect-ratio:16/9;max-width:780px;box-shadow:0 12px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.06);"
     id="main-player-wrap"
     data-video-id={mainVideo.id}
   >

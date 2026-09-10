@@ -1,223 +1,391 @@
 ---
 ---
-<div class="bg-[var(--accent)] rounded-[24px] p-7 sm:p-8">
-  <h2 class="font-extrabold text-3xl sm:text-4xl text-[#111111] mb-2">Paquetes</h2>
-  <p class="text-sm text-[#111111]/75 mb-7 leading-relaxed max-w-sm">
-    Selección, edición y entrega en nube. Perfectos para tu sesión, en la mayor
-    parte de Felipe Carrillo Puerto sin costo extra.
-  </p>
+<div
+  class="relative overflow-hidden rounded-[28px] border border-[var(--border-default)] bg-[var(--bg-primary)] p-7 shadow-[var(--glass-shadow)] sm:p-8"
+>
+  <div
+    class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),transparent_40%)]"
+    aria-hidden="true"
+  />
+  <div
+    class="pointer-events-none absolute -top-[150px] -right-[120px] h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(249,86,2,0.16),transparent_65%)] blur-[54px]"
+    aria-hidden="true"
+  />
+  <div
+    class="pointer-events-none absolute -bottom-[160px] -left-[140px] h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(249,86,2,0.09),transparent_65%)] blur-[54px]"
+    aria-hidden="true"
+  />
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(249,86,2,0.12)_1.2px,transparent_1.2px)] bg-[size:24px_24px] [mask-image:radial-gradient(120%_90%_at_50%_0%,black_15%,transparent_78%)]"
+    aria-hidden="true"
+  />
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-
-    <div data-reveal class="plan-card">
-      <span class="plan-shadow"></span>
-      <h3 class="plan-name">Básico</h3>
-      <p class="plan-fotos">40 fotos</p>
-      <ul class="plan-list">
-        <li>Edición profesional incluida</li>
-        <li>Entrega en nube gratis · <strong>USB + $100</strong></li>
-      </ul>
-      <p class="plan-price">$900<span class="plan-cuota">$22.50 c/u</span></p>
+  <div class="relative z-10">
+    <div
+      class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
+    >
+      <div>
+        <p
+          class="mb-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--accent)] opacity-90"
+        >
+          Sesiones · Edición
+        </p>
+        <h2
+          class="mb-1 text-3xl leading-tight font-extrabold text-[var(--text-primary)] sm:text-4xl"
+        >
+          Paquetes
+        </h2>
+        <p class="max-w-[400px] text-sm leading-relaxed text-[var(--text-tertiary)]">
+          Selección, edición y entrega en nube. Perfectos para tu sesión, en la
+          mayor parte de Felipe Carrillo Puerto sin costo extra.
+        </p>
+      </div>
+      <span
+        class="flex items-center gap-2 self-start rounded-full border border-[rgba(249,86,2,0.35)] bg-[rgba(249,86,2,0.09)] px-3.5 py-2 text-xs font-bold tracking-[0.04em] whitespace-nowrap text-[#ff9a5c]"
+      >
+        <span
+          class="h-1.5 w-1.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_rgba(249,86,2,0.8)]"
+          aria-hidden="true"
+        />
+        Entrega en nube
+      </span>
     </div>
 
-    <div data-reveal data-reveal-delay="120" class="plan-card plan-card--featured">
-      <span class="plan-shadow"></span>
-      <h3 class="plan-name">Platino</h3>
-      <p class="plan-fotos">70 fotos</p>
-      <ul class="plan-list">
-        <li>Prioridad de entrega en 12 h</li>
-        <li>Nube o USB incluido</li>
-      </ul>
-      <p class="plan-price">$1,500<span class="plan-cuota">$21.50 c/u</span></p>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
+      <div
+        data-reveal
+        class="group relative flex flex-col rounded-[22px] border border-white/10 bg-[linear-gradient(165deg,rgba(255,255,255,0.065),rgba(17,17,17,0.42)_55%)] px-5 pt-[22px] pb-5 shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px] backdrop-saturate-[1.3] transition-[transform,box-shadow,border-color,background] duration-[550ms] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:border-[rgba(249,86,2,0.4)] hover:bg-[linear-gradient(165deg,rgba(255,255,255,0.08),rgba(17,17,17,0.6)_55%)] hover:shadow-[0_24px_48px_-20px_rgba(0,0,0,0.55),0_0_0_1px_rgba(249,86,2,0.15),0_0_28px_rgba(249,86,2,0.15)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_60%_at_50%_0%,rgba(249,86,2,0.09),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          aria-hidden="true"
+        />
+        <div
+          class="absolute top-0 right-[14%] left-[14%] h-px bg-[linear-gradient(90deg,transparent,rgba(249,86,2,0.55),transparent)] opacity-80"
+          aria-hidden="true"
+        />
+        <p
+          class="relative mb-3 text-[10px] font-bold tracking-[0.24em] text-[rgba(202,202,202,0.38)]"
+        >
+          01
+        </p>
+        <h3 class="relative mb-1 text-lg font-extrabold tracking-[0.01em] text-white">
+          Básico
+        </h3>
+        <p class="relative mb-[18px] flex items-baseline gap-[9px]">
+          <span
+            class="-tracking-[0.02em] text-[34px] leading-none font-extrabold text-[#ff8a45]"
+            >40</span
+          >
+          <em
+            class="text-[12px] font-semibold tracking-[0.05em] text-[rgba(202,202,202,0.6)] uppercase not-italic"
+            >fotos</em
+          >
+        </p>
+        <ul class="relative mb-[18px] flex flex-1 flex-col gap-2.5">
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Edición profesional incluida</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Entrega en nube gratis · <strong class="font-bold text-white">USB + $100</strong></span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Galería privada en línea por 30 días</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Alta resolución, lista para imprimir</span>
+          </li>
+        </ul>
+        <div
+          class="relative mt-auto flex items-baseline justify-between gap-2 border-t border-dashed border-white/10 pt-3.5"
+        >
+          <p class="-tracking-[0.01em] text-[26px] font-extrabold text-white">
+            $900
+          </p>
+          <p class="text-[11px] font-semibold whitespace-nowrap text-[rgba(202,202,202,0.5)]">
+            $22.50 c/u
+          </p>
+        </div>
+      </div>
+
+      <div
+        data-reveal
+        data-reveal-delay="120"
+        class="group relative flex flex-col rounded-[22px] border border-[rgba(249,86,2,0.5)] bg-[linear-gradient(165deg,rgba(255,255,255,0.09),rgba(30,16,7,0.55)_55%)] px-5 pt-[22px] pb-5 shadow-[0_0_0_1px_rgba(249,86,2,0.18),0_0_28px_rgba(249,86,2,0.22),0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-[18px] backdrop-saturate-[1.3] transition-[transform,box-shadow,border-color,background] duration-[550ms] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:border-[rgba(249,86,2,0.6)] hover:bg-[linear-gradient(165deg,rgba(255,255,255,0.1),rgba(30,16,7,0.7)_55%)] hover:shadow-[0_0_0_1px_rgba(249,86,2,0.35),0_0_40px_rgba(249,86,2,0.35),0_24px_48px_-20px_rgba(0,0,0,0.55)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_60%_at_50%_0%,rgba(249,86,2,0.12),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          aria-hidden="true"
+        />
+        <div
+          class="absolute top-0 right-[8%] left-[8%] h-px bg-[linear-gradient(90deg,transparent,rgba(249,86,2,0.75),transparent)]"
+          aria-hidden="true"
+        />
+        <span
+          class="absolute -top-3 left-1/2 z-[2] -translate-x-1/2 rounded-full bg-[var(--accent)] px-3.5 py-[5px] text-[10px] font-extrabold tracking-[0.08em] whitespace-nowrap text-[#111111] uppercase shadow-[0_6px_18px_rgba(249,86,2,0.4)]"
+          >Más popular</span
+        >
+        <p
+          class="relative mb-3 text-[10px] font-bold tracking-[0.24em] text-[rgba(202,202,202,0.38)]"
+        >
+          02
+        </p>
+        <h3 class="relative mb-1 text-lg font-extrabold tracking-[0.01em] text-white">
+          Platino
+        </h3>
+        <p class="relative mb-[18px] flex items-baseline gap-[9px]">
+          <span
+            class="-tracking-[0.02em] text-[34px] leading-none font-extrabold text-[#ff8a45]"
+            >70</span
+          >
+          <em
+            class="text-[12px] font-semibold tracking-[0.05em] text-[rgba(202,202,202,0.6)] uppercase not-italic"
+            >fotos</em
+          >
+        </p>
+        <ul class="relative mb-[18px] flex flex-1 flex-col gap-2.5">
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Prioridad de entrega en 12 h</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Nube o <strong class="font-bold text-white">USB incluido</strong></span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Galería privada en línea por 60 días</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Avance el mismo día · mejores 10</span>
+          </li>
+        </ul>
+        <div
+          class="relative mt-auto flex items-baseline justify-between gap-2 border-t border-dashed border-white/10 pt-3.5"
+        >
+          <p class="-tracking-[0.01em] text-[26px] font-extrabold text-white">
+            $1,500
+          </p>
+          <p class="text-[11px] font-semibold whitespace-nowrap text-[rgba(202,202,202,0.5)]">
+            $21.50 c/u
+          </p>
+        </div>
+      </div>
+
+      <div
+        data-reveal
+        data-reveal-delay="180"
+        class="group relative flex flex-col rounded-[22px] border border-white/10 bg-[linear-gradient(165deg,rgba(255,255,255,0.065),rgba(17,17,17,0.42)_55%)] px-5 pt-[22px] pb-5 shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px] backdrop-saturate-[1.3] transition-[transform,box-shadow,border-color,background] duration-[550ms] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:border-[rgba(249,86,2,0.4)] hover:bg-[linear-gradient(165deg,rgba(255,255,255,0.08),rgba(17,17,17,0.6)_55%)] hover:shadow-[0_24px_48px_-20px_rgba(0,0,0,0.55),0_0_0_1px_rgba(249,86,2,0.15),0_0_28px_rgba(249,86,2,0.15)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_60%_at_50%_0%,rgba(249,86,2,0.09),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          aria-hidden="true"
+        />
+        <div
+          class="absolute top-0 right-[14%] left-[14%] h-px bg-[linear-gradient(90deg,transparent,rgba(249,86,2,0.55),transparent)] opacity-80"
+          aria-hidden="true"
+        />
+        <p
+          class="relative mb-3 text-[10px] font-bold tracking-[0.24em] text-[rgba(202,202,202,0.38)]"
+        >
+          03
+        </p>
+        <h3 class="relative mb-1 text-lg font-extrabold tracking-[0.01em] text-white">
+          Dorado
+        </h3>
+        <p class="relative mb-[18px] flex items-baseline gap-[9px]">
+          <span
+            class="-tracking-[0.02em] text-[34px] leading-none font-extrabold text-[#ff8a45]"
+            >100</span
+          >
+          <em
+            class="text-[12px] font-semibold tracking-[0.05em] text-[rgba(202,202,202,0.6)] uppercase not-italic"
+            >fotos</em
+          >
+        </p>
+        <ul class="relative mb-[18px] flex flex-1 flex-col gap-2.5">
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Gran galería para todo el evento</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Nube o <strong class="font-bold text-white">USB incluido</strong></span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Galería privada en línea por 90 días</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Álbum digital para compartir con invitados</span>
+          </li>
+        </ul>
+        <div
+          class="relative mt-auto flex items-baseline justify-between gap-2 border-t border-dashed border-white/10 pt-3.5"
+        >
+          <p class="-tracking-[0.01em] text-[26px] font-extrabold text-white">
+            $2,200
+          </p>
+          <p class="text-[11px] font-semibold whitespace-nowrap text-[rgba(202,202,202,0.5)]">
+            $22 c/u
+          </p>
+        </div>
+      </div>
+
+      <div
+        data-reveal
+        data-reveal-delay="240"
+        class="group relative flex flex-col rounded-[22px] border border-white/10 bg-[linear-gradient(165deg,rgba(255,255,255,0.065),rgba(17,17,17,0.42)_55%)] px-5 pt-[22px] pb-5 shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[18px] backdrop-saturate-[1.3] transition-[transform,box-shadow,border-color,background] duration-[550ms] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:border-[rgba(249,86,2,0.4)] hover:bg-[linear-gradient(165deg,rgba(255,255,255,0.08),rgba(17,17,17,0.6)_55%)] hover:shadow-[0_24px_48px_-20px_rgba(0,0,0,0.55),0_0_0_1px_rgba(249,86,2,0.15),0_0_28px_rgba(249,86,2,0.15)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_60%_at_50%_0%,rgba(249,86,2,0.09),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          aria-hidden="true"
+        />
+        <div
+          class="absolute top-0 right-[14%] left-[14%] h-px bg-[linear-gradient(90deg,transparent,rgba(249,86,2,0.55),transparent)] opacity-80"
+          aria-hidden="true"
+        />
+        <p
+          class="relative mb-3 text-[10px] font-bold tracking-[0.24em] text-[rgba(202,202,202,0.38)]"
+        >
+          04
+        </p>
+        <h3 class="relative mb-1 text-lg font-extrabold tracking-[0.01em] text-white">
+          Personalizado
+        </h3>
+        <p class="relative mb-[18px] flex items-baseline gap-[9px]">
+          <span
+            class="-tracking-[0.02em] text-[34px] leading-none font-extrabold text-[#ff8a45]"
+            >+150</span
+          >
+          <em
+            class="text-[12px] font-semibold tracking-[0.05em] text-[rgba(202,202,202,0.6)] uppercase not-italic"
+            >fotos</em
+          >
+        </p>
+        <ul class="relative mb-[18px] flex flex-1 flex-col gap-2.5">
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Diseñado a tu medida</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Nube o <strong class="font-bold text-white">USB incluido</strong></span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Sesión ampliada y cobertura completa</span>
+          </li>
+          <li
+            class="flex items-start gap-[9px] text-[13px] leading-snug text-[rgba(202,202,202,0.78)]"
+          >
+            <svg
+              viewBox="0 0 16 16" fill="none" aria-hidden="true"
+              class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ff8a45]"
+            ><path d="M3 8.5l3.2 3.2L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Edición extendida y prioridad de fecha</span>
+          </li>
+        </ul>
+        <div
+          class="relative mt-auto flex items-baseline justify-between gap-2 border-t border-dashed border-white/10 pt-3.5"
+        >
+          <p class="-tracking-[0.01em] text-[26px] font-extrabold text-white">
+            Desde $3,150
+          </p>
+          <p class="text-[11px] font-semibold whitespace-nowrap text-[rgba(202,202,202,0.5)]">
+            $21 c/u
+          </p>
+        </div>
+      </div>
+
     </div>
 
-    <div data-reveal data-reveal-delay="180" class="plan-card">
-      <span class="plan-shadow"></span>
-      <h3 class="plan-name">Dorado</h3>
-      <p class="plan-fotos">100 fotos</p>
-      <ul class="plan-list">
-        <li>Gran galería para todo el evento</li>
-        <li>Nube o USB incluido</li>
-      </ul>
-      <p class="plan-price">$2,200<span class="plan-cuota">$22 c/u</span></p>
-    </div>
-
-    <div data-reveal data-reveal-delay="240" class="plan-card">
-      <span class="plan-shadow"></span>
-      <h3 class="plan-name">Personalizado</h3>
-      <p class="plan-fotos">+150 fotos</p>
-      <ul class="plan-list">
-        <li>Diseñado a tu medida</li>
-        <li>Nube o USB incluido</li>
-      </ul>
-      <p class="plan-price">Desde $3,150<span class="plan-cuota">$21 c/u</span></p>
-    </div>
-
+    <p class="mt-[22px] text-xs leading-relaxed text-[var(--text-tertiary)]">
+      Servicios fuera de Felipe Carrillo Puerto incluyen viáticos cotizados por
+      separado — <strong class="font-bold text-white">contáctenos</strong> o
+      cotízalo en la calculadora.
+    </p>
   </div>
-
-  <p class="text-[#111111]/70 mt-5 text-xs leading-relaxed">
-    Servicios fuera de Felipe Carrillo Puerto incluyen viáticos cotizados por
-    separado — <span class="font-bold text-[#111111]">contáctenos</span> o cotízalo en la
-    calculadora.
-  </p>
 </div>
-
-<style is:global>
-  .plan-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    padding: 18px 18px;
-    position: relative;
-    transition:
-      transform 0.5s var(--ease-out-quart),
-      box-shadow 0.5s var(--ease-out-quart),
-      border-color 0.35s ease;
-    will-change: transform, box-shadow;
-  }
-
-  .plan-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      radial-gradient(circle at var(--mx) var(--my),
-        rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 14px 14px;
-    background-position: calc(var(--mx) - 7px) calc(var(--my) - 7px);
-    filter: url(#grain);
-    opacity: 0;
-    transition: opacity 0.6s var(--ease-out-expo);
-    z-index: 1;
-    mask-image: radial-gradient(70px circle at var(--mx) var(--my), black 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(70px circle at var(--mx) var(--my), black 40%, transparent 100%);
-  }
-
-  .plan-shadow {
-    position: absolute;
-    bottom: -16px;
-    left: 10%;
-    right: 10%;
-    height: 35px;
-    border-radius: 50%;
-    background: radial-gradient(
-      ellipse at var(--mx) 50%,
-      rgba(249, 86, 2, 0.4),
-      transparent 70%
-    );
-    filter: blur(12px);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: -1;
-  }
-
-  .plan-card:hover::before {
-    opacity: 1;
-  }
-
-  .plan-card:hover .plan-shadow {
-    opacity: 1;
-  }
-
-  .plan-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(249, 86, 2, 0.4);
-    box-shadow: 0 18px 36px -14px rgba(249, 86, 2, 0.35),
-      0 0 0 1px rgba(249, 86, 2, 0.15);
-  }
-
-  .plan-card > *:not(.plan-shadow) {
-    position: relative;
-    z-index: 3;
-  }
-
-  html.dark .plan-card--featured {
-    border-color: rgba(255, 255, 255, 0.35);
-    background: #1a1a1a;
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.2),
-      0 0 20px rgba(249, 86, 0, 0.25);
-  }
-
-  html.light .plan-card--featured {
-    border-color: rgba(255, 255, 255, 0.6);
-    background: #ffffff;
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.5),
-      0 0 20px rgba(249, 86, 0, 0.2);
-  }
-
-  .plan-name {
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    color: var(--text-primary);
-    margin: 0;
-  }
-
-  .plan-fotos {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--accent);
-    margin: 4px 0 10px;
-  }
-
-  .plan-list {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .plan-list strong {
-    color: var(--text-primary);
-    font-weight: 700;
-  }
-
-  .plan-price {
-    margin: 12px 0 2px 0;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text-primary);
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 4px 6px;
-    transition: color 0.3s ease;
-  }
-
-  .plan-card:hover .plan-price {
-    color: var(--accent);
-  }
-
-  .plan-cuota {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .plan-card {
-      transition: none;
-    }
-    .plan-card:hover {
-      transform: none;
-      box-shadow: none;
-    }
-    .plan-card::before,
-    .plan-shadow {
-      transition: none;
-      opacity: 0;
-    }
-    .plan-card:hover::before,
-    .plan-card:hover .plan-shadow {
-      opacity: 0;
-    }
-  }
-</style>
