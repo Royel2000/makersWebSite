@@ -68,6 +68,13 @@
 				var theme = saved || (prefersDark ? 'dark' : 'light');
 				document.documentElement.className = theme;
 				document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+
+				var motion = localStorage.getItem('motion');
+				if (motion === 'reduced') {
+					document.documentElement.classList.add('motion-reduced');
+				} else if (motion === 'full') {
+					document.documentElement.classList.add('motion-full');
+				}
 			})();
 		</script>
 	</head>

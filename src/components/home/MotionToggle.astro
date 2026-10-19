@@ -1,0 +1,79 @@
+---
+---
+<button
+  id="motion-toggle"
+  class="theme-toggle"
+  type="button"
+  aria-label="Reducir animaciones de scroll"
+  title="Animaciones: activas"
+  aria-pressed="false"
+>
+  <!-- Animaciones activas -->
+  <svg class="icon-motion-on" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+  </svg>
+  <!-- Animaciones reducidas -->
+  <svg class="icon-motion-off" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728-12.728L5.636 5.636" />
+  </svg>
+</button>
+
+<script>
+  function initMotionToggle() {
+    const btn = document.getElementById("motion-toggle");
+    if (!btn) return;
+
+    const html = document.documentElement;
+    const reduced = html.classList.contains("motion-reduced");
+
+    function sync() {
+      const isReduced = html.classList.contains("motion-reduced");
+      btn.setAttribute("aria-pressed", String(isReduced));
+      btn.setAttribute(
+        "aria-label",
+        isReduced ? "Activar animaciones de scroll" : "Reducir animaciones de scroll",
+      );
+      btn.setAttribute(
+        "title",
+        isReduced ? "Animaciones: reducidas" : "Animaciones: activas",
+      );
+    }
+
+    sync();
+
+    btn.addEventListener("click", () => {
+      const isReduced = html.classList.toggle("motion-reduced");
+
+      if (isReduced) {
+        html.classList.remove("motion-full");
+        localStorage.setItem("motion", "reduced");
+      } else {
+        html.classList.add("motion-full");
+        localStorage.setItem("motion", "full");
+      }
+
+      sync();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMotionToggle);
+  } else {
+    initMotionToggle();
+  }
+</script>
+
+<style>
+  :global(html.motion-reduced) .icon-motion-on {
+    display: none;
+  }
+  :global(html.motion-reduced) .icon-motion-off {
+    display: block;
+  }
+  .icon-motion-on {
+    display: block;
+  }
+  .icon-motion-off {
+    display: none;
+  }
+</style>

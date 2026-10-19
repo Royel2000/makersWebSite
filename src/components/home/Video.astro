@@ -4,7 +4,7 @@ const VIDEOS = [
   { id: "A6_jIHEAwTE", title: "Misión Iglesia Bautista Gracia" },
 ];
 
-const thumb = (id) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+const thumb = (id: string) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
 
 const mainVideo = { ...VIDEOS[0], thumb: thumb(VIDEOS[0].id) };
 const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
@@ -19,123 +19,164 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
     class="pointer-events-none absolute inset-0 z-0 bg-dots"
     aria-hidden="true"
     style="mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, black 40%, transparent 100%);-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, black 40%, transparent 100%);"
-  ></div>
+  >
+  </div>
 
   <div
     data-reveal
     class="relative z-10 flex flex-col md:flex-row items-start md:items-end justify-center gap-6 mb-10"
   >
     <div class="text-left">
-      <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--accent)] opacity-70 mb-1">
+      <p
+        class="text-[11px] font-bold tracking-[0.18em] uppercase text-(--accent) opacity-70 mb-1"
+      >
         Nuestro trabajo
       </p>
-      <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-[var(--text-primary)]">
-        En <span class="text-[var(--accent)]">movimiento</span>
+      <h2
+        class="text-4xl md:text-5xl font-extrabold leading-tight text-(--text-primary)"
+      >
+        En <span class="text-(--accent)">movimiento</span>
       </h2>
     </div>
 
     <div class="text-left md:text-right max-w-xs">
-      <p class="text-sm md:text-base leading-relaxed text-[var(--text-muted)] italic">
-        "Las fotos detienen el tiempo.<br>El video lo devuelve."
+      <p
+        class="text-sm md:text-base leading-relaxed text-(--text-muted) italic"
+      >
+        "Las fotos detienen el tiempo. El video lo devuelve."
       </p>
     </div>
   </div>
 
   <div
-    data-reveal
-    data-reveal-delay="120"
-    class="relative z-10 w-full rounded-2xl overflow-hidden bg-black mx-auto"
-    style="aspect-ratio:16/9;max-width:780px;box-shadow:0 12px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.06);"
-    id="main-player-wrap"
-    data-video-id={mainVideo.id}
+    class="relative z-10 flex flex-col md:flex-row items-stretch justify-center gap-6 max-w-6xl mx-auto"
   >
-    <div id="main-poster" class="absolute inset-0 z-10 cursor-pointer group">
-      <img
-        id="main-thumb"
-        src={mainVideo.thumb.replace("mqdefault", "maxresdefault")}
-        width={780}
-        height={439}
-        fetchpriority="high"
-        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-        alt={mainVideo.title}
-      />
-      <div
-        class="absolute inset-0"
-        style="background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);"
-      >
-      </div>
-      <div
-        class="absolute inset-0 flex flex-col items-center justify-center gap-4"
-      >
+    <div
+      data-reveal
+      data-reveal-delay="120"
+      class="relative z-10 w-full md:w-[780px] shrink-0 rounded-2xl overflow-hidden bg-black"
+      style="aspect-ratio:16/9;box-shadow:0 12px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.06);"
+      id="main-player-wrap"
+      data-video-id={mainVideo.id}
+    >
+      <div id="main-poster" class="absolute inset-0 z-10 cursor-pointer group">
+        <img
+          id="main-thumb"
+          src={mainVideo.thumb.replace("mqdefault", "maxresdefault")}
+          width={780}
+          height={439}
+          fetchpriority="high"
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          alt={mainVideo.title}
+        />
         <div
-          class="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-          style="background:rgba(1,1,1,0.95);border:2px solid rgba(255,255,255,0.15);box-shadow:0 0 40px rgba(1,1,1,0.4);"
+          class="absolute inset-0"
+          style="background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);"
         >
-          <svg class="w-7 h-7 text-white" style="margin-left:4px;" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center gap-4"
+        >
+          <div
+            class="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+            style="background:rgba(1,1,1,0.95);border:2px solid rgba(255,255,255,0.15);box-shadow:0 0 40px rgba(1,1,1,0.4);"
+          >
+            <svg
+              class="w-7 h-7 text-white"
+              style="margin-left:4px;"
+              fill="currentColor"
+              viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg
+            >
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-5">
+          <p
+            class="text-[11px] font-bold tracking-[0.18em] uppercase text-(--accent) opacity-70 mb-1"
+          >
+            Video promocional
+          </p>
+          <p id="main-title" class="text-white font-bold text-lg leading-tight">
+            {mainVideo.title}
+          </p>
         </div>
       </div>
-      <div class="absolute bottom-0 left-0 right-0 p-5">
-        <p class="text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--accent)] opacity-70 mb-1">
-          Video promocional
-        </p>
-        <p id="main-title" class="text-white font-bold text-lg leading-tight">
-          {mainVideo.title}
-        </p>
-      </div>
+
+      <iframe
+        id="main-iframe"
+        class="w-full h-full opacity-0 transition-opacity duration-500"
+        title="Video Makers"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        allowfullscreen
+        loading="lazy"
+        style="position:absolute;inset:0;"></iframe>
     </div>
 
-    <iframe
-      id="main-iframe"
-      class="w-full h-full opacity-0 transition-opacity duration-500"
-      title="Video Makers"
-      allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-      allowfullscreen
-      loading="lazy"
-      style="position:absolute;inset:0;"></iframe>
-  </div>
-
-  {
-    carouselVideos.length > 0 && (
-      <div class="mt-5 relative">
-        <div
-          class="flex gap-3 overflow-x-auto pb-2 scroll-smooth justify-start md:justify-center"
-          id="video-carousel"
-          style="scrollbar-width:none;-ms-overflow-style:none;"
-        >
-          {carouselVideos.map((v) => (
-            <button
-              class="video-thumb-btn group relative rounded-xl overflow-hidden flex-shrink-0 border border-[var(--border-default)] transition-all duration-300 hover:border-[var(--accent)] focus:outline-none"
-              style="width:200px;height:112px;"
-              data-id={v.id}
-              data-title={v.title}
-            >
-      <img
-        src={v.thumb}
-        width={200}
-        height={112}
-        loading="lazy"
-        alt={v.title}
-        class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-300"
-      />
-              <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
-              <div
-                class="absolute bottom-0 left-0 right-0 p-2"
-                style="background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);"
+    {
+      carouselVideos.length > 0 && (
+        <div class="w-full md:w-[200px] shrink-0 md:self-stretch">
+          <div
+            class="flex gap-3 overflow-x-auto md:flex-col md:overflow-x-hidden md:overflow-y-auto pb-2 md:pb-0 snap-x snap-mandatory md:snap-none scroll-smooth md:h-full md:justify-start"
+            id="video-carousel"
+          >
+            {carouselVideos.map((v) => (
+              <button
+                class="video-thumb-btn group relative rounded-xl overflow-hidden shrink-0 snap-start border border-(--border-default) transition-all duration-300 hover:border-(--accent) focus:outline-none"
+                style="width:200px;height:112px;"
+                data-id={v.id}
+                data-title={v.title}
               >
-                <p class="text-white text-[10px] font-semibold leading-tight line-clamp-2 text-left">
-                  {v.title}
-                </p>
-              </div>
-            </button>
-          ))}
+                <img
+                  src={v.thumb}
+                  width={200}
+                  height={112}
+                  loading="lazy"
+                  alt={v.title}
+                  class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity duration-300"
+                />
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
+                <div
+                  class="absolute bottom-0 left-0 right-0 p-2"
+                  style="background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);"
+                >
+                  <p class="text-white text-[10px] font-semibold leading-tight line-clamp-2 text-left">
+                    {v.title}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-    )
-  }
+      )
+    }
+  </div>
 </section>
 
 <style is:global>
+  #video-carousel {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(249, 86, 2, 0.5) transparent;
+  }
   #video-carousel::-webkit-scrollbar {
-    display: none;
+    width: 6px;
+    height: 6px;
+  }
+  #video-carousel::-webkit-scrollbar-thumb {
+    background: rgba(249, 86, 2, 0.5);
+    border-radius: 999px;
+  }
+  #video-carousel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* La lista alcanza la misma altura que el reproductor (16/9) en desktop */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    #video-carousel {
+      max-height: calc(min(780px, 100vw - 304px) * 9 / 16);
+    }
+  }
+  @media (min-width: 1024px) {
+    #video-carousel {
+      max-height: calc(min(780px, 100vw - 384px) * 9 / 16);
+    }
   }
 </style>

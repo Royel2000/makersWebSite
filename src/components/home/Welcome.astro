@@ -13,12 +13,13 @@ import { Image } from "astro:assets";
 import FAQ from "./FAQ.astro";
 import DotGrid from "./DotGrid.astro";
 import AmbientGlow from "./AmbientGlow.astro";
+import Revelado from "./Revelado.astro";
 ---
 
 <div>
   <div
     id="hero"
-    class="hero relative min-h-screen min-h-dvh overflow-hidden bg-[var(--bg-hero)]"
+    class="hero relative min-h-screen overflow-hidden bg-(--bg-hero)"
     data-nav-label="Inicio"
   >
     <!-- Fondo con parallax -->
@@ -55,7 +56,7 @@ import AmbientGlow from "./AmbientGlow.astro";
     <div class="absolute inset-0 flex items-end justify-center p-8 md:p-12">
       <div
         id="glassCard"
-        class="hero-enter w-auto max-w-md rounded-2xl p-6 text-[var(--text-secondary)] hover:scale-105 transition-all duration-300"
+        class="hero-enter w-auto max-w-md rounded-2xl p-6 text-(--text-secondary) hover:scale-105 transition-all duration-300"
         style="
     background: rgba(17, 17, 17, 0.45);
     backdrop-filter: blur(20px) saturate(1.5);
@@ -65,7 +66,7 @@ import AmbientGlow from "./AmbientGlow.astro";
   "
       >
         <Image src={Logo} class="w-1/3 mb-3" alt="Makers" loading="eager" />
-        <p class="text-xl leading-snug text-[var(--text-primary)]">
+        <p class="text-xl leading-snug text-(--text-primary)">
           Momentos únicos, <br class="sm:hidden" />
           <span class="inline-flex items-center min-h-[1.5em]">
             <span id="typewriter" class="transition-colors duration-300"></span>
@@ -75,7 +76,7 @@ import AmbientGlow from "./AmbientGlow.astro";
             >
           </span>
         </p>
-        <p class="text-sm mt-1 text-[var(--text-muted)]">
+        <p class="text-sm mt-1 text-(--text-muted)">
           Felipe Carrillo Puerto, Quintana Roo
         </p>
       </div>
@@ -98,7 +99,7 @@ import AmbientGlow from "./AmbientGlow.astro";
 
   <section
     id="aboutUs"
-    class="relative bg-[var(--bg-primary)] text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24"
+    class="relative bg-(--bg-primary) text-(--text-secondary) py-20 px-6 md:px-16 lg:px-24"
     data-nav-label="Quiénes Somos"
   >
     <DotGrid />
@@ -108,13 +109,13 @@ import AmbientGlow from "./AmbientGlow.astro";
     >
       <!-- Texto principal -->
       <div data-reveal>
-        <p class="font-bold uppercase text-[var(--accent)] mb-3">¿Quiénes somos?</p>
+        <p class="font-bold uppercase text-(--accent) mb-3">¿Quiénes somos?</p>
         <h2
-          class="text-4xl md:text-5xl font-extrabold leading-tight text-[var(--text-primary)] mb-3"
+          class="text-4xl md:text-5xl font-extrabold leading-tight text-(--text-primary) mb-3"
         >
-          Fotografía que <span class="text-[var(--accent)]">cuenta historias</span>
+          Fotografía que <span class="text-(--accent)">cuenta historias</span>
         </h2>
-        <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
+        <p class="text-base leading-relaxed text-(--text-tertiary)">
           Somos fotógrafos apasionados por capturar momentos que trascienden la
           imagen. Nos especializamos en sesiones creativas que reflejan la
           esencia, personalidad y emoción de cada persona.
@@ -131,8 +132,10 @@ import AmbientGlow from "./AmbientGlow.astro";
           data-reveal-delay="120"
           class="glass relative rounded-xl p-6 overflow-hidden"
         >
-          <p class="text-2xl font-bold uppercase text-[var(--accent)] mb-2">Misión</p>
-          <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
+          <p class="text-2xl font-bold uppercase text-(--accent) mb-2">
+            Misión
+          </p>
+          <p class="text-base leading-relaxed text-(--text-tertiary)">
             Evolucionar en cada proyecto, superándonos constantemente en
             creatividad, técnica y calidad, ofreciendo un servicio accesible sin
             perder el valor artístico que nos define.
@@ -144,8 +147,10 @@ import AmbientGlow from "./AmbientGlow.astro";
           data-reveal-delay="240"
           class="glass relative rounded-xl p-6 overflow-hidden"
         >
-          <p class="text-2xl font-bold uppercase text-[var(--accent)] mb-2">Visión</p>
-          <p class="text-base leading-relaxed text-[var(--text-tertiary)]">
+          <p class="text-2xl font-bold uppercase text-(--accent) mb-2">
+            Visión
+          </p>
+          <p class="text-base leading-relaxed text-(--text-tertiary)">
             Convertirnos en un estudio fotográfico consolidado, destacando por
             nuestra composición, estilo y calidad visual, hasta ser reconocidos
             como referentes de la fotografía en la península.
@@ -155,14 +160,19 @@ import AmbientGlow from "./AmbientGlow.astro";
     </div>
   </section>
 
-  <section id="Galeria" class="w-full text-[var(--text-secondary)] py-8" data-nav-label="Galería">
+  <section
+    id="Galeria"
+    class="w-full text-(--text-secondary) py-8"
+    data-nav-label="Galería"
+  >
     <div class="flex justify-center px-4 mb-12 relative z-10">
       <div
         id="tab-container"
         class="tab-container relative inline-flex items-center py-1.5 pr-2"
         role="tablist"
       >
-        <span id="tab-indicator" class="tab-indicator" aria-hidden="true"></span>
+        <span id="tab-indicator" class="tab-indicator" aria-hidden="true"
+        ></span>
 
         <button
           class="tab-btn active"
@@ -184,17 +194,27 @@ import AmbientGlow from "./AmbientGlow.astro";
           Boda
         </button>
 
-        <span class="tab-divider" aria-hidden="true"></span>
-
         <button
-          class="tab-btn tab-btn--upcoming"
+          class="tab-btn"
           data-tab="xv"
           role="tab"
           aria-selected="false"
           aria-controls="xv"
-          disabled
         >
           XV Años
+        </button>
+
+        <span class="tab-divider" aria-hidden="true"></span>
+
+        <button
+          class="tab-btn tab-btn--upcoming"
+          data-tab="infantiles"
+          role="tab"
+          aria-selected="false"
+          aria-controls="infantiles"
+          disabled
+        >
+          Maternidad
           <span class="tab-badge">Próx</span>
         </button>
 
@@ -222,24 +242,14 @@ import AmbientGlow from "./AmbientGlow.astro";
         <Gallery folder="Bodas-fotos" label="Boda" />
       </div>
 
-      <div id="xv" class="tab-content hidden">
-        <div
-          class="glass text-center py-16 px-4 max-w-md mx-auto rounded-2xl"
-        >
-          <h3 class="font-bold text-2xl text-[var(--accent)] mb-2">PRÓXIMAMENTE</h3>
-          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
-            Estamos preparando la galería de XV años. Visita nuestras redes
-            sociales para ver adelantos de nuestras sesiones.
-          </p>
-        </div>
+      <div id="xv" class="tab-content hidden px-5 lg:px-20 md:px-10">
+        <Gallery folder="XV" label="xv" />
       </div>
 
       <div id="infantiles" class="tab-content hidden">
-        <div
-          class="glass text-center py-16 px-4 max-w-md mx-auto rounded-2xl"
-        >
-          <h3 class="font-bold text-2xl text-[var(--accent)] mb-2">PRÓXIMAMENTE</h3>
-          <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+        <div class="glass text-center py-16 px-4 max-w-md mx-auto rounded-2xl">
+          <h3 class="font-bold text-2xl text-(--accent) mb-2">PRÓXIMAMENTE</h3>
+          <p class="text-sm text-(--text-secondary) leading-relaxed">
             Pronto compartiremos nuestro trabajo en fotografía infantil.
             Síguenos en redes para no perdértelo.
           </p>
@@ -258,7 +268,7 @@ import AmbientGlow from "./AmbientGlow.astro";
     >
       <div
         id="modalStage"
-        class="absolute inset-0 grid place-items-center overflow-auto py-16 px-4"
+        class="absolute inset-0 grid place-items-center overflow-auto px-4"
       >
         <div
           id="modalLoader"
@@ -268,10 +278,10 @@ import AmbientGlow from "./AmbientGlow.astro";
             id="modalLoaderImg"
             src=""
             alt=""
-            class="absolute inset-0 w-full h-full object-contain scale-110 blur-2xl opacity-70"
+            class="absolute inset-0 w-full h-full object-contain scale-90 blur-2xl opacity-70"
           />
           <div
-            class="relative w-12 h-12 rounded-full border-2 border-white/10 border-t-[var(--accent)] animate-spin"
+            class="relative w-12 h-12 rounded-full border-2 border-white/10 border-t-(--accent) animate-spin"
           >
           </div>
         </div>
@@ -295,7 +305,20 @@ import AmbientGlow from "./AmbientGlow.astro";
           title="Acercar"
           class="modal-btn"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
+            ></path></svg
+          >
         </button>
         <button
           id="modalZoomReset"
@@ -304,7 +327,20 @@ import AmbientGlow from "./AmbientGlow.astro";
           title="Restablecer"
           class="modal-btn"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
+            ></path></svg
+          >
         </button>
         <button
           id="modalClose"
@@ -313,11 +349,25 @@ import AmbientGlow from "./AmbientGlow.astro";
           title="Cerrar"
           class="modal-btn modal-btn-close"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"></path></svg
+          >
         </button>
       </div>
     </div>
   </section>
+
+  <Revelado />
 
   <style>
     /* ============================================================
@@ -344,8 +394,7 @@ import AmbientGlow from "./AmbientGlow.astro";
       position: absolute;
       top: 6px;
       bottom: 6px;
-      left: 6px;
-      width: 96px;
+      width: 90px;
       border-radius: 9999px;
       background: rgba(var(--accent-rgb), 0.14);
       backdrop-filter: blur(18px) saturate(1.7);
@@ -380,7 +429,7 @@ import AmbientGlow from "./AmbientGlow.astro";
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 9px 20px;
+      padding: 9px 12px;
       border: none;
       border-radius: 9999px;
       background: transparent;
@@ -497,26 +546,62 @@ import AmbientGlow from "./AmbientGlow.astro";
       opacity: 0.5;
     }
     @keyframes grainShiftA {
-      0% { background-position: 0 0; }
-      11% { background-position: -23px 17px; }
-      23% { background-position: 31px -9px; }
-      34% { background-position: -14px -28px; }
-      47% { background-position: 19px 33px; }
-      58% { background-position: -37px 6px; }
-      69% { background-position: 8px -19px; }
-      81% { background-position: -21px 24px; }
-      92% { background-position: 27px -31px; }
-      100% { background-position: 0 0; }
+      0% {
+        background-position: 0 0;
+      }
+      11% {
+        background-position: -23px 17px;
+      }
+      23% {
+        background-position: 31px -9px;
+      }
+      34% {
+        background-position: -14px -28px;
+      }
+      47% {
+        background-position: 19px 33px;
+      }
+      58% {
+        background-position: -37px 6px;
+      }
+      69% {
+        background-position: 8px -19px;
+      }
+      81% {
+        background-position: -21px 24px;
+      }
+      92% {
+        background-position: 27px -31px;
+      }
+      100% {
+        background-position: 0 0;
+      }
     }
     @keyframes grainShiftB {
-      0% { background-position: 0 0; }
-      15% { background-position: 41px -12px; }
-      29% { background-position: -18px 29px; }
-      44% { background-position: 22px 44px; }
-      58% { background-position: -33px -15px; }
-      73% { background-position: 9px -37px; }
-      87% { background-position: -27px 8px; }
-      100% { background-position: 0 0; }
+      0% {
+        background-position: 0 0;
+      }
+      15% {
+        background-position: 41px -12px;
+      }
+      29% {
+        background-position: -18px 29px;
+      }
+      44% {
+        background-position: 22px 44px;
+      }
+      58% {
+        background-position: -33px -15px;
+      }
+      73% {
+        background-position: 9px -37px;
+      }
+      87% {
+        background-position: -27px 8px;
+      }
+      100% {
+        background-position: 0 0;
+      }
     }
 
     .hero-enter {
@@ -528,49 +613,83 @@ import AmbientGlow from "./AmbientGlow.astro";
       animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
     }
     @keyframes heroIn {
-      from { opacity: 0; transform: translateY(36px); filter: blur(10px); }
-      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+      from {
+        opacity: 0;
+        transform: translateY(36px);
+        filter: blur(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
     }
     @keyframes heroFadeIn {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 0.4; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 0.4;
+        transform: translateY(0);
+      }
     }
     @media (prefers-reduced-motion: reduce) {
-      .hero-enter, .hero-fade { animation: none; opacity: 1; }
-      .hero-grain::before, .hero-grain::after { animation: none; }
+      .hero-enter,
+      .hero-fade {
+        animation: none;
+        opacity: 1;
+      }
+      .hero-grain::before,
+      .hero-grain::after {
+        animation: none;
+      }
     }
   </style>
 
   <Posters />
 
-  <section class="relative text-[var(--text-secondary)] py-20 px-6 md:px-16 lg:px-24" data-nav-label="Cotización">
+  <section
+    class="relative text-(--text-secondary) py-20 px-6 md:px-16 lg:px-24"
+    data-nav-label="Cotización"
+  >
     <DotGrid />
     <AmbientGlow />
-    <div
-      class="mx-auto flex flex-col lg:flex-row lg:items-start lg:gap-14 gap-10 relative z-10"
-    >
+    <div class="mx-auto relative z-10">
       <!-- Texto -->
-      <div class="lg:w-5/12 shrink-0" data-reveal>
-        <p class="font-bold uppercase text-[var(--accent)] text-sm tracking-widest mb-4">Cotización</p>
-        <h2 class="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.1] text-[var(--text-primary)] mb-5">
+      <div class="mb-10" data-reveal>
+        <p
+          class="font-bold uppercase text-(--accent) text-sm tracking-widest mb-4"
+        >
+          Cotización
+        </p>
+        <h2
+          class="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.1] text-(--text-primary) mb-5"
+        >
           ¿Te gusta<br />nuestro trabajo?
         </h2>
-        <p class="text-base md:text-lg leading-relaxed text-[var(--text-tertiary)] max-w-md">
+        <p
+          class="text-base md:text-lg leading-relaxed text-(--text-tertiary) max-w-max"
+        >
           Contáctenos para cotizar tu sesión de fotos y volverla inolvidable.
           Todos merecen en algún momento una sesión de fotos inolvidable — <span
-            class="font-bold text-[var(--text-primary)]">vive con nosotros la experiencia</span
+            class="font-bold text-(--text-primary)"
+            >vive con nosotros la experiencia</span
           >.
         </p>
       </div>
 
       <!-- Planes -->
-      <div class="flex-1 min-w-0 lg:w-7/12" data-reveal data-reveal-delay="120">
+      <div data-reveal data-reveal-delay="120">
         <Planes />
       </div>
     </div>
   </section>
 
-  <section class="relative py-20 px-6 md:px-16 lg:px-24" data-nav-label="Preguntas">
+  <section
+    class="relative py-20 px-6 md:px-16 lg:px-24"
+    data-nav-label="Preguntas"
+  >
     <DotGrid />
     <AmbientGlow variant="dual" />
     <div

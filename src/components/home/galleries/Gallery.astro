@@ -31,7 +31,7 @@ const wide = fotos.map((foto) => foto.width / foto.height > 1.25);
     fotos.map((foto, i) => (
       <div
         class:list={[
-          "gallery-item group relative border border-[var(--border-default)] overflow-hidden cursor-pointer hover:border-[var(--border-hover)]",
+          "gallery-item group relative border border-(--border-default) overflow-hidden cursor-pointer hover:border-(--border-hover)",
           wide[i] && "sm:col-span-2",
         ]}
         role="listitem"
@@ -39,7 +39,7 @@ const wide = fotos.map((foto) => foto.width / foto.height > 1.25);
         style={`--reveal-delay: ${(i % 8) * 60}ms;`}
       >
         <div
-          class="relative h-full will-change-transform transition-transform duration-[550ms] ease-[var(--ease-out-quart)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          class="relative h-full will-change-transform transition-transform duration-550 ease-(--ease-out-quart) group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         >
           <Image
             src={foto}
@@ -90,7 +90,7 @@ const wide = fotos.map((foto) => foto.width / foto.height > 1.25);
                 {label}
               </span>
               <span
-                class="w-5 h-5 rounded-full bg-[var(--accent)] text-white text-[10px] font-extrabold flex items-center justify-center"
+                class="w-5 h-5 rounded-full bg-(--accent) text-white text-[10px] font-extrabold flex items-center justify-center"
               >
                 {i + 1}
               </span>

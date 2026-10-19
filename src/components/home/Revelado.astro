@@ -1,0 +1,276 @@
+---
+import { Image } from "astro:assets";
+import antes from "/src/assets/pictures/Revelado/antes.jpg";
+import despues from "/src/assets/pictures/Revelado/despues.jpg";
+---
+
+<section
+  id="revelado"
+  class="w-full text-(--text-secondary) py-16"
+  data-nav-label="Revelado"
+>
+  <div class="px-5 md:px-10 lg:px-20">
+    <div class="max-w-6xl mx-auto">
+      <!-- Encabezado -->
+      <div class="text-center mb-8" data-reveal>
+        <p
+          class="text-[11px] font-bold tracking-[0.18em] uppercase text-(--accent) opacity-70 mb-2"
+        >
+          Antes & después
+        </p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-(--text-primary)">
+          Mostrando <span class="text-(--accent)">la luz</span>
+        </h2>
+        <p
+          class="mt-3 text-sm md:text-base leading-relaxed text-(--text-muted) max-w-xl mx-auto"
+        >
+          Arrastra el deslizador y descubre cómo una foto cruda se transforma en
+          una imagen lista para recordar.
+        </p>
+      </div>
+
+      <!-- Slider -->
+      <div
+        id="reveal-slider"
+        class="reveal-slider"
+        style="--pos: 50%;"
+        data-reveal
+        data-reveal-delay="120"
+      >
+        <Image
+          src={antes}
+          alt="Foto antes del revelado"
+          class="reveal-img"
+          loading="lazy"
+        />
+
+        <div class="reveal-after">
+          <Image
+            src={despues}
+            alt="Foto después del revelado"
+            class="reveal-img"
+            loading="lazy"
+          />
+        </div>
+
+        <span class="reveal-label reveal-label--left">Antes</span>
+        <span class="reveal-label reveal-label--right">Después</span>
+
+        <div class="reveal-line">
+          <div
+            class="reveal-handle"
+            id="reveal-handle"
+            role="slider"
+            tabindex="0"
+            aria-label="Comparar antes y después"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="50"
+          >
+            <svg
+              class="w-5 h-5 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+            </svg>
+            <svg
+              class="w-5 h-5 text-white -ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reveal-slider {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    background: #000;
+    box-shadow:
+      0 16px 48px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+  }
+
+  .reveal-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  /* Foto "después": recortada desde la izquierda hasta el handle */
+  .reveal-after {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 0 0 var(--pos));
+  }
+
+  .reveal-label {
+    position: absolute;
+    top: 14px;
+    z-index: 3;
+    font-family: "Outfit", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .reveal-label--left {
+    left: 14px;
+  }
+
+  .reveal-label--right {
+    right: 14px;
+  }
+
+  .reveal-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    margin-left: -1px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.55);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .reveal-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(1, 1, 1, 0.85);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+      0 6px 20px rgba(0, 0, 0, 0.5),
+      0 0 24px rgba(249, 86, 2, 0.25);
+    pointer-events: auto;
+    cursor: ew-resize;
+    transition:
+      transform 0.3s var(--ease-out-quart),
+      box-shadow 0.3s ease;
+  }
+
+  .reveal-slider:hover .reveal-handle,
+  .reveal-handle:focus-visible {
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.55),
+      0 0 30px rgba(249, 86, 2, 0.5);
+  }
+
+  .reveal-handle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-handle {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initRevealSlider() {
+    const slider = document.getElementById("reveal-slider");
+    const handle = document.getElementById("reveal-handle");
+    if (!slider || !handle) return;
+
+    let dragging = false;
+
+    const setPos = (clientX: number) => {
+      const rect = slider.getBoundingClientRect();
+      const p = Math.max(
+        0,
+        Math.min(100, ((clientX - rect.left) / rect.width) * 100),
+      );
+      slider.style.setProperty("--pos", `${p}%`);
+      handle.setAttribute("aria-valuenow", String(Math.round(p)));
+    };
+
+    slider.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      slider.setPointerCapture(e.pointerId);
+      setPos(e.clientX);
+    });
+
+    slider.addEventListener("pointermove", (e) => {
+      if (dragging) setPos(e.clientX);
+    });
+
+    const stop = () => {
+      dragging = false;
+    };
+    slider.addEventListener("pointerup", stop);
+    slider.addEventListener("pointercancel", stop);
+
+    handle.addEventListener("keydown", (e) => {
+      const key = e.key;
+      const cur = Number(handle.getAttribute("aria-valuenow")) || 50;
+      const step = e.shiftKey ? 10 : 2;
+      let next = cur;
+
+      if (key === "ArrowLeft" || key === "ArrowDown") next = cur - step;
+      else if (key === "ArrowRight" || key === "ArrowUp") next = cur + step;
+      else if (key === "Home") next = 0;
+      else if (key === "End") next = 100;
+      else return;
+
+      e.preventDefault();
+      next = Math.max(0, Math.min(100, next));
+      slider.style.setProperty("--pos", `${next}%`);
+      handle.setAttribute("aria-valuenow", String(next));
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initRevealSlider);
+  } else {
+    initRevealSlider();
+  }
+</script>

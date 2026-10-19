@@ -191,6 +191,17 @@ html, body {
   }
 }
 
+/* Toggle manual de animaciones (botón en navbar): solo el
+   aparecer/desaparecer por scroll; el parallax del hero no se toca. */
+html.motion-reduced [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+  transition-delay: 0ms !important;
+  will-change: auto;
+}
+
 /* ============================================================
    Micro-interacciones refinadas al pasar el cursor (hover)
    ============================================================ */
