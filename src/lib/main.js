@@ -36,6 +36,26 @@ import { jsPDF } from "jspdf";
   const el = (id) => document.getElementById(id);
   const qsa = (sel) => Array.from(document.querySelectorAll(sel));
 
+  const scrollHandlers = [];
+  let scrollQueued = false;
+
+  const onScroll = (fn) => scrollHandlers.push(fn);
+
+  const initScrollDispatcher = () => {
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (scrollQueued) return;
+        scrollQueued = true;
+        requestAnimationFrame(() => {
+          for (const fn of scrollHandlers) fn();
+          scrollQueued = false;
+        });
+      },
+      { passive: true },
+    );
+  };
+
   // ===================================================================
   // 2. SCROLLBAR — indicador flotante + nombre de sección actual
   // ===================================================================
@@ -101,14 +121,14 @@ import { jsPDF } from "jspdf";
       const winH = window.innerHeight;
       const center = winH * 0.5;
 
+      const rects = sections.map((s) => s.getBoundingClientRect());
+
       let activeIndex = -1;
-      sections.forEach((s, i) => {
-        const r = s.getBoundingClientRect();
+      rects.forEach((r, i) => {
         if (r.top <= center && r.bottom >= center) activeIndex = i;
       });
 
-      sections.forEach((s, i) => {
-        const r = s.getBoundingClientRect();
+      rects.forEach((r, i) => {
         const mid = (r.top + r.bottom) / 2;
         const diff = Math.max(-1, Math.min(1, (mid - center) / (winH * 0.5)));
         items[i].style.setProperty("--parallax", `${(-diff * 16).toFixed(1)}px`);
@@ -137,15 +157,11 @@ import { jsPDF } from "jspdf";
       timer = setTimeout(idle, 1400);
     };
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        update();
-        updateLabel();
-        if (!reduced) show();
-      },
-      { passive: true },
-    );
+    onScroll(() => {
+      update();
+      updateLabel();
+      if (!reduced) show();
+    });
     window.addEventListener("resize", () => {
       update();
       updateLabel();
@@ -166,25 +182,21 @@ import { jsPDF } from "jspdf";
 
     let lastScrollY = window.scrollY;
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        const currentScrollY = window.scrollY;
-        const scrollingDown = currentScrollY > lastScrollY;
-        const pastTop = currentScrollY > 60;
+    onScroll(() => {
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY;
+      const pastTop = currentScrollY > 60;
 
-        nav?.classList.toggle("scrolled", pastTop);
+      nav?.classList.toggle("scrolled", pastTop);
 
-        if (scrollingDown && pastTop) {
-          notch.classList.add("-translate-y-full");
-        } else {
-          notch.classList.remove("-translate-y-full");
-        }
+      if (scrollingDown && pastTop) {
+        notch.classList.add("-translate-y-full");
+      } else {
+        notch.classList.remove("-translate-y-full");
+      }
 
-        lastScrollY = currentScrollY;
-      },
-      { passive: true },
-    );
+      lastScrollY = currentScrollY;
+    });
   }
 
   // ===================================================================
@@ -194,36 +206,16 @@ import { jsPDF } from "jspdf";
     const heroBg = el("heroBg");
     if (!heroBg) return;
 
-    const heroEnter = el("glassCard");
-    if (heroEnter) {
-      heroEnter.addEventListener("animationend", () => {
-        heroEnter.classList.remove("hero-enter");
-      });
-    }
     const heroInd = document.querySelector(".hero-fade");
     heroInd?.addEventListener("animationend", () => {
       heroInd.classList.remove("hero-fade");
     });
 
-    let ticking = false;
-    let lastScrollY = 0;
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        lastScrollY = window.scrollY;
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const y = lastScrollY * 0.4;
-            const s = 1 + Math.min(lastScrollY / 4000, 0.12);
-            heroBg.style.transform = `translate3d(0, ${y}px, 0) scale(${s.toFixed(4)})`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      },
-      { passive: true },
-    );
+    onScroll(() => {
+      const y = window.scrollY * 0.4;
+      const s = 1 + Math.min(window.scrollY / 4000, 0.12);
+      heroBg.style.transform = `translate3d(0, ${y}px, 0) scale(${s.toFixed(4)})`;
+    });
   }
 
   function initTypewriter() {
@@ -300,6 +292,7 @@ import { jsPDF } from "jspdf";
     const modalLoader = el("modalLoader");
     const modalLoaderImg = el("modalLoaderImg");
     const modalStage = el("modalStage");
+    const zoomOutBtn = el("modalZoomOut");
     const zoomInBtn = el("modalZoomIn");
     const zoomResetBtn = el("modalZoomReset");
     const closeBtn = el("modalClose");
@@ -317,6 +310,8 @@ import { jsPDF } from "jspdf";
     };
 
     const applyZoom = () => {
+      if (zoomOutBtn) zoomOutBtn.disabled = zoom <= 1;
+      if (zoomInBtn) zoomInBtn.disabled = zoom >= 6;
       if (baseW <= 0 || baseH <= 0) return;
       modalImg.style.width = `${(baseW * zoom).toFixed(2)}px`;
       modalImg.style.height = `${(baseH * zoom).toFixed(2)}px`;
@@ -329,6 +324,8 @@ import { jsPDF } from "jspdf";
       zoom = 1;
       baseW = 0;
       baseH = 0;
+      if (zoomOutBtn) zoomOutBtn.disabled = true;
+      if (zoomInBtn) zoomInBtn.disabled = false;
       modalImg.style.width = "";
       modalImg.style.height = "";
       modalImg.style.transform = "";
@@ -390,9 +387,14 @@ import { jsPDF } from "jspdf";
       if (e.target === modal) closeModal();
     });
 
+    zoomOutBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      zoom = Math.max(zoom / 1.5, 1);
+      applyZoom();
+    });
     zoomInBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
-      zoom = zoom < 1 ? 1 : Math.min(zoom * 1.5, 6);
+      zoom = Math.min(zoom * 1.5, 6);
       applyZoom();
     });
     zoomResetBtn?.addEventListener("click", (e) => {
@@ -740,39 +742,62 @@ import { jsPDF } from "jspdf";
       if (e.key === "ArrowRight") goTo(current + 1);
     });
 
-    if (!prefersReducedMotion) {
-      let autoplay = setInterval(() => goTo(current + 1), 5000);
-      el("carousel-wrap").addEventListener("mouseenter", () =>
-        clearInterval(autoplay),
-      );
-      el("carousel-wrap").addEventListener("mouseleave", () => {
+    const carouselWrap = el("carousel-wrap");
+    const canAutoplay =
+      !prefersReducedMotion && window.matchMedia("(hover: hover)").matches;
+    let inView = false;
+    let hovering = false;
+    let autoplay = null;
+
+    const syncAutoplay = () => {
+      const shouldRun =
+        canAutoplay && inView && !hovering && !document.hidden;
+      if (shouldRun && !autoplay) {
         autoplay = setInterval(() => goTo(current + 1), 5000);
-      });
+      } else if (!shouldRun && autoplay) {
+        clearInterval(autoplay);
+        autoplay = null;
+      }
+    };
+
+    if (canAutoplay && carouselWrap && typeof IntersectionObserver !== "undefined") {
+      new IntersectionObserver(
+        ([entry]) => {
+          inView = entry.isIntersecting;
+          syncAutoplay();
+        },
+        { threshold: 0.15 },
+      ).observe(carouselWrap);
     }
+
+    carouselWrap.addEventListener("mouseenter", () => {
+      hovering = true;
+      syncAutoplay();
+    });
+    carouselWrap.addEventListener("mouseleave", () => {
+      hovering = false;
+      syncAutoplay();
+    });
+    document.addEventListener("visibilitychange", syncAutoplay);
 
     window.addEventListener("resize", () => update());
 
     if (!prefersReducedMotion) {
-      window.addEventListener(
-        "scroll",
-        () => {
-          const wrap = el("carousel-wrap");
-          const rect = wrap.getBoundingClientRect();
-          const windowH = window.innerHeight;
+      onScroll(() => {
+        const rect = carouselWrap.getBoundingClientRect();
+        const windowH = window.innerHeight;
 
-          if (rect.bottom < 0 || rect.top > windowH) return;
+        if (rect.bottom < 0 || rect.top > windowH) return;
 
-          const progress = 1 - rect.bottom / (windowH + rect.height);
-          const offset = (progress - 0.5) * 80;
+        const progress = 1 - rect.bottom / (windowH + rect.height);
+        const offset = (progress - 0.5) * 80;
 
-          slides.forEach((slide, i) => {
-            const pos = getPos(i);
-            const depth = Math.abs(pos) === 0 ? 1 : Math.abs(pos) === 1 ? 0.5 : 0.2;
-            slide.style.setProperty("--parallax-y", `${offset * depth}px`);
-          });
-        },
-        { passive: true },
-      );
+        slides.forEach((slide, i) => {
+          const pos = getPos(i);
+          const depth = Math.abs(pos) === 0 ? 1 : Math.abs(pos) === 1 ? 0.5 : 0.2;
+          slide.style.setProperty("--parallax-y", `${offset * depth}px`);
+        });
+      });
     }
 
     update();
@@ -784,12 +809,25 @@ import { jsPDF } from "jspdf";
   function initVideoPlayer() {
     const mainWrap = el("main-player-wrap");
     const mainPoster = el("main-poster");
-    const mainIframe = el("main-iframe");
+    const playerMount = el("main-player-host");
     const mainThumb = el("main-thumb");
     const mainTitle = el("main-title");
-    if (!mainWrap || !mainPoster || !mainIframe) return;
+    const soundBtn = el("video-sound-btn");
+    const soundLabel = el("video-sound-label");
+    const controlsBtn = el("video-controls-btn");
+    const soundIcons = qsa("#video-sound-btn [data-sound-icon]");
+    if (!mainWrap || !mainPoster || !playerMount) return;
 
     const MAIN_ID = mainWrap.dataset.videoId;
+    let ytPlayer = null;
+    let playerReady = false;
+    let isMuted = true;
+    let useFallback = false;
+    let apiPromise = null;
+    let autoStarted = false;
+    let fallbackIframe = null;
+    let currentVideoId = null;
+    let controlsVisible = false;
 
     const setThumb = (img, thumbSrc) => {
       const match = thumbSrc.match(/\/vi\/([^/]+)\//);
@@ -809,7 +847,126 @@ import { jsPDF } from "jspdf";
       trySizes(0);
     };
 
-    function playVideo(id, title, thumbSrc) {
+    const syncSoundButton = () => {
+      if (!soundBtn) return;
+      soundBtn.setAttribute(
+        "aria-label",
+        isMuted ? "Activar sonido" : "Silenciar",
+      );
+      if (soundLabel)
+        soundLabel.textContent = isMuted ? "Activar sonido" : "Silenciar";
+      soundIcons.forEach((icon) => {
+        icon.toggleAttribute(
+          "hidden",
+          (icon.dataset.soundIcon === "on") === isMuted,
+        );
+      });
+    };
+
+    const setMuted = (muted) => {
+      isMuted = muted;
+      if (playerReady && ytPlayer) {
+        if (muted) {
+          ytPlayer.mute();
+        } else {
+          ytPlayer.unMute();
+          ytPlayer.setVolume(85);
+        }
+      } else if (useFallback && fallbackIframe?.src) {
+        const url = new URL(fallbackIframe.src);
+        url.searchParams.set("mute", muted ? "1" : "0");
+        fallbackIframe.src = url.toString();
+      }
+      syncSoundButton();
+    };
+
+    const loadYouTubeAPI = () => {
+      if (window.YT?.Player) return Promise.resolve(window.YT);
+      if (apiPromise) return apiPromise;
+      apiPromise = new Promise((resolve, reject) => {
+        const timeout = setTimeout(
+          () => reject(new Error("YouTube API timeout")),
+          8000,
+        );
+        const previous = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = () => {
+          if (typeof previous === "function") previous();
+          clearTimeout(timeout);
+          resolve(window.YT);
+        };
+        const script = document.createElement("script");
+        script.src = "https://www.youtube.com/iframe_api";
+        script.async = true;
+        script.onerror = () => {
+          clearTimeout(timeout);
+          reject(new Error("YouTube API error"));
+        };
+        document.head.appendChild(script);
+      });
+      return apiPromise;
+    };
+
+    const createPlayer = async (id, controls, start = 0) => {
+      const YT = await loadYouTubeAPI();
+      playerMount.innerHTML = '<div id="main-player"></div>';
+      ytPlayer = new YT.Player("main-player", {
+        videoId: id,
+        playerVars: {
+          autoplay: 1,
+          controls: controls ? 1 : 0,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          rel: 0,
+          playsinline: 1,
+          fs: controls ? 1 : 0,
+          ...(start > 0 ? { start: Math.floor(start) } : {}),
+        },
+        events: {
+          onReady: (event) => {
+            playerReady = true;
+            if (isMuted) {
+              event.target.mute();
+            } else {
+              event.target.unMute();
+              event.target.setVolume(85);
+            }
+            event.target.playVideo();
+          },
+        },
+      });
+    };
+
+    const embedParams = (controls, start = 0) => {
+      const params = new URLSearchParams({
+        autoplay: "1",
+        controls: controls ? "1" : "0",
+        modestbranding: "1",
+        iv_load_policy: "3",
+        rel: "0",
+        playsinline: "1",
+        mute: isMuted ? "1" : "0",
+        enablejsapi: "1",
+      });
+      if (start > 0) params.set("start", String(Math.floor(start)));
+      if (!controls) params.set("fs", "0");
+      return params.toString();
+    };
+
+    const fallbackPlay = (id, controls = controlsVisible, start = 0) => {
+      useFallback = true;
+      playerMount.innerHTML = "";
+      fallbackIframe = document.createElement("iframe");
+      fallbackIframe.title = "Video Makers";
+      fallbackIframe.allow =
+        "autoplay; fullscreen; picture-in-picture; encrypted-media";
+      fallbackIframe.allowFullscreen = true;
+      fallbackIframe.src = `https://www.youtube.com/embed/${id}?${embedParams(controls, start)}`;
+      playerMount.appendChild(fallbackIframe);
+    };
+
+    async function playVideo(id, title, thumbSrc, { scroll = true } = {}) {
+      autoStarted = true;
+      currentVideoId = id;
       setThumb(mainThumb, thumbSrc);
       if (mainTitle) mainTitle.textContent = title;
 
@@ -818,12 +975,25 @@ import { jsPDF } from "jspdf";
           btn.dataset.id === id ? "#f95602" : "var(--border-default)";
       });
 
-      mainIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&controls=1&rel=0`;
-      mainIframe.style.opacity = "1";
-      mainPoster.style.opacity = "0";
-      mainPoster.style.pointerEvents = "none";
+      mainWrap.classList.add("is-playing");
+      if (soundBtn) soundBtn.hidden = false;
+      if (controlsBtn && !controlsVisible) controlsBtn.hidden = false;
+      setMuted(true);
 
-      mainWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (scroll) {
+        mainWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      try {
+        if (ytPlayer && playerReady) {
+          ytPlayer.mute();
+          ytPlayer.loadVideoById(id);
+          return;
+        }
+        await createPlayer(id, controlsVisible);
+      } catch {
+        fallbackPlay(id);
+      }
     }
 
     setThumb(mainThumb, mainThumb.src);
@@ -841,6 +1011,51 @@ import { jsPDF } from "jspdf";
         );
       });
     });
+
+    const showControls = async () => {
+      if (controlsVisible || !currentVideoId) return;
+      controlsVisible = true;
+      if (controlsBtn) controlsBtn.hidden = true;
+      const start = playerReady && ytPlayer ? ytPlayer.getCurrentTime() : 0;
+      if (ytPlayer) {
+        try {
+          ytPlayer.destroy();
+        } catch {}
+        ytPlayer = null;
+        playerReady = false;
+      }
+      try {
+        await createPlayer(currentVideoId, true, start);
+      } catch {
+        fallbackPlay(currentVideoId, true, start);
+      }
+    };
+
+    if (soundBtn) {
+      soundBtn.addEventListener("click", () => setMuted(!isMuted));
+    }
+    if (controlsBtn) {
+      controlsBtn.addEventListener("click", showControls);
+    }
+
+    if ("IntersectionObserver" in window) {
+      const autoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || autoStarted) return;
+            autoObserver.disconnect();
+            playVideo(
+              MAIN_ID,
+              mainTitle?.textContent || "",
+              mainThumb?.src || "",
+              { scroll: false },
+            );
+          });
+        },
+        { threshold: 0.35 },
+      );
+      autoObserver.observe(mainWrap);
+    }
   }
 
   // ===================================================================
@@ -1461,6 +1676,7 @@ ${nombre}`;
   // ARRANQUE
   // ===================================================================
   function start() {
+    initScrollDispatcher();
     initScrollbar();
     initNavbar();
     initHeroParallax();

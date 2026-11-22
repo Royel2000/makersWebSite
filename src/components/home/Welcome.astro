@@ -2,24 +2,37 @@
 import "/src/assets/global.css";
 import portada from "/src/assets/Portada.jpg";
 import Logo from "/src/assets/Makers.svg";
-import portadaMobile from "/src/assets/PortadaMobile.jpg";
+import portadaMobile from "/src/assets/PortadaMobile2.jpg";
 import Valores from "./Valores.astro";
 import Gallery from "./galleries/Gallery.astro";
 import Video from "./Video.astro";
 import Planes from "./Planes.astro";
 import Posters from "./galleries/Posters.astro";
 import Calculadora from "./Calculadora.astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import FAQ from "./FAQ.astro";
 import DotGrid from "./DotGrid.astro";
 import AmbientGlow from "./AmbientGlow.astro";
 import Revelado from "./Revelado.astro";
+
+const heroDesktop = await getImage({
+  src: portada,
+  width: 1600,
+  format: "webp",
+  quality: 80,
+});
+const heroMobile = await getImage({
+  src: portadaMobile,
+  width: 900,
+  format: "webp",
+  quality: 80,
+});
 ---
 
 <div>
   <div
     id="hero"
-    class="hero relative min-h-screen overflow-hidden bg-(--bg-hero)"
+    class="relative min-h-[max(24rem,80svh)] overflow-hidden rounded-b-[45px] bg-(--bg-hero) border-b border-b-zinc-800 shadow-xl shadow-black"
     data-nav-label="Inicio"
   >
     <!-- Fondo con parallax -->
@@ -28,68 +41,61 @@ import Revelado from "./Revelado.astro";
       class="absolute inset-0 will-change-transform"
       style="margin: -60px 0;"
     >
-      <Image
-        src={portada}
-        class="hidden md:block w-full h-full object-cover"
-        alt="Portada Makers"
-        loading="eager"
-      />
-      <Image
-        src={portadaMobile}
-        class="block md:hidden w-full h-full object-cover"
-        alt="Portada Makers"
-        loading="eager"
-      />
+      <picture class="block w-full h-full">
+        <source
+          media="(min-width: 768px)"
+          srcset={heroDesktop.src}
+          type="image/webp"
+        />
+        <img
+          src={heroMobile.src}
+          alt="Portada Makers"
+          class="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
     </div>
 
     <!-- Overlay (Gradiente) -->
     <div
       class="absolute inset-0"
-      style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgb(11, 11, 11) 100%);"
-    >
-    </div>
+      style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgb(3, 3, 3) 85%);"
+    ></div>
 
     <!-- Overlay de grano animado -->
     <div class="hero-grain" aria-hidden="true"></div>
 
-    <!-- Tarjeta glassmorphism -->
-    <div class="absolute inset-0 flex items-end justify-center p-8 md:p-12">
-      <div
-        id="glassCard"
-        class="hero-enter w-auto max-w-md rounded-2xl p-6 text-(--text-secondary) hover:scale-105 transition-all duration-300"
-        style="
-    background: rgba(17, 17, 17, 0.45);
-    backdrop-filter: blur(20px) saturate(1.5);
-    -webkit-backdrop-filter: blur(20px) saturate(1.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  "
-      >
-        <Image src={Logo} class="w-1/3 mb-3" alt="Makers" loading="eager" />
-        <p class="text-xl leading-snug text-(--text-primary)">
+    <!-- Bloque tipográfico del hero -->
+    <div class="absolute inset-0 z-10 flex items-end justify-start p-8 md:p-12 lg:p-16">
+      <div class="hero-enter max-w-2xl text-(--text-secondary)">
+        <p class="hero-eyebrow">FOTOGRAFÍA Y VIDEO</p>
+        <Image
+          src={Logo}
+          class="w-96 mb-5 opacity-80"
+          alt="Makers"
+          loading="eager"
+        />
+        <p class="hero-statement">
           Momentos únicos, <br class="sm:hidden" />
-          <span class="inline-flex items-center min-h-[1.5em]">
+          <span class="inline-flex items-center min-h-[1.4em]">
             <span id="typewriter" class="transition-colors duration-300"></span>
             <span
               id="typewriter-cursor"
-              class="animate-pulse ml-0.5 font-normal">|</span
+              class="animate-pulse ml-0.5 font-normal"
             >
+              |
+            </span>
           </span>
         </p>
-        <p class="text-sm mt-1 text-(--text-muted)">
-          Felipe Carrillo Puerto, Quintana Roo
-        </p>
+        <p class="hero-location">Felipe Carrillo Puerto, Quintana Roo</p>
       </div>
     </div>
 
     <!-- Indicador de scroll -->
-    <div
-      class="hero-fade absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40"
-    >
-      <div
-        class="w-px h-8 origin-top bg-[linear-gradient(to_bottom,var(--accent),rgba(249,86,2,0))] animate-[scrollLine_1.8s_ease-in-out_infinite]"
-      >
-      </div>
+    <div class="hero-fade absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40">
+      <div class="w-px h-8 origin-top bg-[linear-gradient(to_bottom,var(--accent),rgba(249,86,2,0))] animate-[scrollLine_1.8s_ease-in-out_infinite]"></div>
     </div>
   </div>
 
@@ -104,24 +110,21 @@ import Revelado from "./Revelado.astro";
   >
     <DotGrid />
     <AmbientGlow variant="dual" />
-    <div
-      class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 relative z-10"
-    >
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 relative z-10">
       <!-- Texto principal -->
       <div data-reveal>
         <p class="font-bold uppercase text-(--accent) mb-3">¿Quiénes somos?</p>
-        <h2
-          class="text-4xl md:text-5xl font-extrabold leading-tight text-(--text-primary) mb-3"
-        >
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-(--text-primary) mb-3">
           Fotografía que <span class="text-(--accent)">cuenta historias</span>
         </h2>
         <p class="text-base leading-relaxed text-(--text-tertiary)">
           Somos fotógrafos apasionados por capturar momentos que trascienden la
           imagen. Nos especializamos en sesiones creativas que reflejan la
           esencia, personalidad y emoción de cada persona.
-          <br /><br />
-          Originarios de Felipe Carrillo Puerto, Quintana Roo, transformamos ideas
-          en recuerdos visuales únicos.
+          <br />
+          <br />
+          Originarios de Felipe Carrillo Puerto, Quintana Roo, transformamos
+          ideas en recuerdos visuales únicos.
         </p>
       </div>
 
@@ -171,7 +174,10 @@ import Revelado from "./Revelado.astro";
         class="tab-container relative inline-flex items-center py-1.5 pr-2"
         role="tablist"
       >
-        <span id="tab-indicator" class="tab-indicator" aria-hidden="true"
+        <span
+          id="tab-indicator"
+          class="tab-indicator"
+          aria-hidden="true"
         ></span>
 
         <button
@@ -266,10 +272,7 @@ import Revelado from "./Revelado.astro";
       aria-label="Vista ampliada de fotografía"
       class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50"
     >
-      <div
-        id="modalStage"
-        class="absolute inset-0 grid place-items-center overflow-auto px-4"
-      >
+      <div id="modalStage" class="absolute inset-0 flex overflow-auto px-4">
         <div
           id="modalLoader"
           class="absolute inset-0 flex items-center justify-center"
@@ -280,10 +283,7 @@ import Revelado from "./Revelado.astro";
             alt=""
             class="absolute inset-0 w-full h-full object-contain scale-90 blur-2xl opacity-70"
           />
-          <div
-            class="relative w-12 h-12 rounded-full border-2 border-white/10 border-t-(--accent) animate-spin"
-          >
-          </div>
+          <div class="relative w-12 h-12 rounded-full border-2 border-white/10 border-t-(--accent) animate-spin"></div>
         </div>
 
         <img
@@ -291,13 +291,34 @@ import Revelado from "./Revelado.astro";
           alt=""
           tabindex="0"
           draggable="false"
-          class="relative rounded-2xl border border-white/10 object-contain opacity-0 transition-opacity duration-300 select-none outline-none max-w-none"
+          class="relative m-auto rounded-2xl border border-white/10 object-contain opacity-0 transition-opacity duration-300 select-none outline-none max-w-none"
         />
       </div>
 
-      <div
-        class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5"
-      >
+      <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+        <button
+          id="modalZoomOut"
+          type="button"
+          aria-label="Alejar la imagen"
+          title="Alejar"
+          class="modal-btn"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM7.5 10.5h6"
+            ></path>
+          </svg>
+        </button>
         <button
           id="modalZoomIn"
           type="button"
@@ -313,12 +334,13 @@ import Revelado from "./Revelado.astro";
             viewBox="0 0 24 24"
             stroke-width="2"
             stroke="currentColor"
-            ><path
+          >
+            <path
               stroke-linecap="round"
               stroke-linejoin="round"
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
-            ></path></svg
-          >
+            ></path>
+          </svg>
         </button>
         <button
           id="modalZoomReset"
@@ -335,12 +357,13 @@ import Revelado from "./Revelado.astro";
             viewBox="0 0 24 24"
             stroke-width="2"
             stroke="currentColor"
-            ><path
+          >
+            <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
-            ></path></svg
-          >
+              d="M3 12a9 9 0 1 0 2.64-6.36M3 4v5h5"
+            ></path>
+          </svg>
         </button>
         <button
           id="modalClose"
@@ -357,11 +380,13 @@ import Revelado from "./Revelado.astro";
             viewBox="0 0 24 24"
             stroke-width="2"
             stroke="currentColor"
-            ><path
+          >
+            <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"></path></svg
-          >
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
         </button>
       </div>
     </div>
@@ -505,10 +530,14 @@ import Revelado from "./Revelado.astro";
       user-select: none;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
-    .modal-btn:hover {
+    .modal-btn:hover:not(:disabled) {
       border-color: color-mix(in srgb, var(--accent) 60%, transparent);
       background: color-mix(in srgb, var(--accent) 12%, transparent);
       color: var(--accent);
+    }
+    .modal-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
     }
     .modal-btn:active {
       transform: scale(0.9);
@@ -517,6 +546,31 @@ import Revelado from "./Revelado.astro";
       border-color: rgba(239, 68, 68, 0.6);
       background: rgba(239, 68, 68, 0.12);
       color: #f87171;
+    }
+
+    .hero-eyebrow {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: #f95602;
+      margin-bottom: 10px;
+    }
+    .hero-statement {
+      font-family: "Outfit", sans-serif;
+      font-weight: 400;
+      font-size: clamp(14px, 1.6vw, 18px);
+      line-height: 1.4;
+      color: #b3b9ba;
+      max-width: 30ch;
+    }
+    .hero-location {
+      font-family: "Outfit", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(220, 220, 220, 0.5);
+      margin-top: 12px;
     }
 
     .hero-grain {
@@ -658,24 +712,21 @@ import Revelado from "./Revelado.astro";
     <div class="mx-auto relative z-10">
       <!-- Texto -->
       <div class="mb-10" data-reveal>
-        <p
-          class="font-bold uppercase text-(--accent) text-sm tracking-widest mb-4"
-        >
+        <p class="font-bold uppercase text-(--accent) text-sm tracking-widest mb-4">
           Cotización
         </p>
-        <h2
-          class="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.1] text-(--text-primary) mb-5"
-        >
-          ¿Te gusta<br />nuestro trabajo?
+        <h2 class="text-4xl md:text-5xl lg:text-[3.2rem] font-extrabold leading-[1.1] text-(--text-primary) mb-5">
+          ¿Te gusta
+          <br />
+          nuestro trabajo?
         </h2>
-        <p
-          class="text-base md:text-lg leading-relaxed text-(--text-tertiary) max-w-max"
-        >
+        <p class="text-base md:text-lg leading-relaxed text-(--text-tertiary) max-w-max">
           Contáctenos para cotizar tu sesión de fotos y volverla inolvidable.
-          Todos merecen en algún momento una sesión de fotos inolvidable — <span
-            class="font-bold text-(--text-primary)"
-            >vive con nosotros la experiencia</span
-          >.
+          Todos merecen en algún momento una sesión de fotos inolvidable —{" "}
+          <span class="font-bold text-(--text-primary)">
+            vive con nosotros la experiencia
+          </span>
+          .
         </p>
       </div>
 
@@ -692,9 +743,7 @@ import Revelado from "./Revelado.astro";
   >
     <DotGrid />
     <AmbientGlow variant="dual" />
-    <div
-      class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start relative z-10"
-    >
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start relative z-10">
       <Calculadora />
       <FAQ />
     </div>

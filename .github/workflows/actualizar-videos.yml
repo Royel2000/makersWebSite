@@ -1,0 +1,20 @@
+name: Actualizar videos de YouTube
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar deploy en Vercel
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$VERCEL_DEPLOY_HOOK" ]; then
+            echo "Falta el secret VERCEL_DEPLOY_HOOK"
+            exit 1
+          fi
+          curl --fail --silent --show-error --request POST "$VERCEL_DEPLOY_HOOK"

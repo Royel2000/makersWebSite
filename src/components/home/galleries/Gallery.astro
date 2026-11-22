@@ -1,6 +1,6 @@
 ---
 import "/src/assets/global.css";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 
 interface Props {
   folder: string;
@@ -20,6 +20,12 @@ const fotos = Object.entries(allImages)
   .map(([_, mod]) => (mod as any).default);
 
 const wide = fotos.map((foto) => foto.width / foto.height > 1.25);
+
+const full = await Promise.all(
+  fotos.map((foto) =>
+    getImage({ src: foto, width: 1400, format: "webp", quality: 82 }),
+  ),
+);
 ---
 
 <div
@@ -45,7 +51,10 @@ const wide = fotos.map((foto) => foto.width / foto.height > 1.25);
             src={foto}
             alt={`${label} ${i + 1}`}
             class="w-full h-full object-cover"
-            data-original={foto.src}
+            widths={[360, 600, 900, 1400]}
+            sizes="(min-width: 1024px) 50vw, (min-width: 640px) 67vw, 100vw"
+            quality={78}
+            data-original={full[i].src}
           />
 
           <!-- Degradado inferior en hover -->

@@ -1,5 +1,3 @@
----
----
 <button
   id="motion-toggle"
   class="theme-toggle"
@@ -24,7 +22,6 @@
     if (!btn) return;
 
     const html = document.documentElement;
-    const reduced = html.classList.contains("motion-reduced");
 
     function sync() {
       const isReduced = html.classList.contains("motion-reduced");
@@ -44,13 +41,7 @@
     btn.addEventListener("click", () => {
       const isReduced = html.classList.toggle("motion-reduced");
 
-      if (isReduced) {
-        html.classList.remove("motion-full");
-        localStorage.setItem("motion", "reduced");
-      } else {
-        html.classList.add("motion-full");
-        localStorage.setItem("motion", "full");
-      }
+      localStorage.setItem("motion", isReduced ? "reduced" : "full");
 
       sync();
     });

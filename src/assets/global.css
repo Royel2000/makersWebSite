@@ -16,7 +16,6 @@
   /* --- Tema OSCURO (default) --- */
   --bg-primary: #0a0a0a;
   --bg-secondary: #1a1a1a;
-  --bg-tertiary: #161616;
   --bg-card: #000000;
   --bg-hero: #0a0a0a;
   --bg-surface: #111111;
@@ -32,9 +31,7 @@
   --border-strong: rgba(255, 255, 255, 0.12);
   --border-hover: rgba(255, 255, 255, 0.2);
 
-  --notch-bg: #000000;
   --input-bg: #111111;
-  --overlay-bg: rgba(0, 0, 0, 0.8);
 
   /* --- Glassmorphism (dark) --- */
   --glass-bg: rgba(255, 255, 255, 0.03);
@@ -43,9 +40,7 @@
   --glass-border-hover: rgba(255, 255, 255, 0.15);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --glass-glow: rgba(249, 86, 2, 0.08);
   --dot-color: rgba(255, 255, 255, 0.06);
-  --dot-color-accent: rgba(249, 86, 2, 0.15);
 
   color-scheme: dark;
 }
@@ -54,7 +49,6 @@ html.light {
   /* --- Tema CLARO --- */
   --bg-primary: #f5f5f5;
   --bg-secondary: #ffffff;
-  --bg-tertiary: #ebebeb;
   --bg-card: #ffffff;
   --bg-hero: #e8e8e8;
   --bg-surface: #ffffff;
@@ -70,9 +64,7 @@ html.light {
   --border-strong: rgba(0, 0, 0, 0.12);
   --border-hover: rgba(0, 0, 0, 0.2);
 
-  --notch-bg: #ffffff;
   --input-bg: #ffffff;
-  --overlay-bg: rgba(255, 255, 255, 0.85);
 
   /* --- Glassmorphism (light) --- */
   --glass-bg: rgba(255, 255, 255, 0.6);
@@ -81,9 +73,7 @@ html.light {
   --glass-border-hover: rgba(0, 0, 0, 0.12);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --glass-glow: rgba(249, 86, 2, 0.06);
   --dot-color: rgba(0, 0, 0, 0.06);
-  --dot-color-accent: rgba(249, 86, 2, 0.12);
 
   color-scheme: light;
 }
@@ -200,22 +190,6 @@ html.motion-reduced [data-reveal] {
   transition: none !important;
   transition-delay: 0ms !important;
   will-change: auto;
-}
-
-/* ============================================================
-   Micro-interacciones refinadas al pasar el cursor (hover)
-   ============================================================ */
-.card-lift {
-  transition:
-    transform 0.5s var(--ease-out-quart),
-    box-shadow 0.5s var(--ease-out-quart),
-    border-color 0.3s ease;
-  will-change: transform, box-shadow;
-}
-
-.card-lift:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.55);
 }
 
 /* ============================================================
@@ -380,57 +354,9 @@ html::-webkit-scrollbar {
 }
 
 /* ============================================================
-   Patrón de puntos SVG — fondo decorativo tipo grid
-   ============================================================ */
-.dot-pattern {
-  position: relative;
-}
-
-.dot-pattern::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
-  z-index: 0;
-  opacity: 0.7;
-}
-
-/* ============================================================
-   Glow sutil detrás de elementos — brillo ambiental
-   ============================================================ */
-.glow-accent {
-  position: relative;
-}
-
-.glow-accent::after {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--glass-glow), transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.6s var(--ease-out-expo);
-}
-
-.glow-accent:hover::after {
-  opacity: 1;
-}
-
-/* ============================================================
-   Patrón de puntos animado — para secciones completas
+   Patrón de puntos — para secciones completas
    ============================================================ */
 .bg-dots {
   background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: 32px 32px;
-}
-
-.bg-dots-accent {
-  background-image: radial-gradient(circle, var(--dot-color-accent) 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
 }

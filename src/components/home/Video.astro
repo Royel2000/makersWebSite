@@ -1,10 +1,81 @@
 ---
-const VIDEOS = [
+const CHANNEL_INPUT = "UClpgO6x3-xCI8opTuWcmMUA";
+
+const FALLBACK = [
   { id: "IVYbODWOXFA", title: "Boda - Willbert y Cesia" },
   { id: "A6_jIHEAwTE", title: "Misión Iglesia Bautista Gracia" },
 ];
 
 const thumb = (id: string) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+
+let fromFeed = false;
+
+const decodeXml = (s: string) =>
+  s
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+
+async function resolveChannelId(input: string): Promise<string | null> {
+  const value = input.trim();
+  if (/^UC[\w-]{22}$/.test(value)) return value;
+  if (/^@[^\s/]+$/u.test(value)) {
+    try {
+      const res = await fetch(
+        `https://www.youtube.com/${encodeURIComponent(value)}/videos`,
+        {
+          headers: { "User-Agent": "Mozilla/5.0" },
+        },
+      );
+      if (!res.ok) return null;
+      const html = await res.text();
+      const match =
+        html.match(/"channelId":"(UC[\w-]{22})"/) ||
+        html.match(/"externalId":"(UC[\w-]{22})"/) ||
+        html.match(/"browseId":"(UC[\w-]{22})"/);
+      return match?.[1] ?? null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+async function getVideos() {
+  if (!CHANNEL_INPUT) return FALLBACK;
+  const channelId = await resolveChannelId(CHANNEL_INPUT);
+  if (!channelId) return FALLBACK;
+
+  try {
+    const res = await fetch(
+      `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`,
+    );
+    if (!res.ok) return FALLBACK;
+    const xml = await res.text();
+    const parsed = xml
+      .split("<entry>")
+      .slice(1, 9)
+      .map((entry) => {
+        const id = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)?.[1];
+        const title = entry.match(/<title>([^<]+)<\/title>/)?.[1];
+        if (!id || !title) return null;
+        return { id, title: decodeXml(title).trim() };
+      })
+      .filter((v): v is { id: string; title: string } => v !== null);
+
+    if (!parsed.length) return FALLBACK;
+    fromFeed = true;
+    return parsed;
+  } catch {
+    return FALLBACK;
+  }
+}
+
+const VIDEOS = await getVideos();
 
 const mainVideo = { ...VIDEOS[0], thumb: thumb(VIDEOS[0].id) };
 const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
@@ -93,7 +164,7 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
           <p
             class="text-[11px] font-bold tracking-[0.18em] uppercase text-(--accent) opacity-70 mb-1"
           >
-            Video promocional
+            {fromFeed ? "Último video" : "Video promocional"}
           </p>
           <p id="main-title" class="text-white font-bold text-lg leading-tight">
             {mainVideo.title}
@@ -101,14 +172,56 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
         </div>
       </div>
 
-      <iframe
-        id="main-iframe"
-        class="w-full h-full opacity-0 transition-opacity duration-500"
-        title="Video Makers"
-        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-        allowfullscreen
-        loading="lazy"
-        style="position:absolute;inset:0;"></iframe>
+      <div id="main-player-host" class="absolute inset-0">
+        <div id="main-player"></div>
+      </div>
+
+      <button
+        id="video-sound-btn"
+        type="button"
+        class="video-sound-btn"
+        hidden
+        aria-label="Activar sonido"
+      >
+        <svg
+          data-sound-icon="off"
+          class="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5Zm5 4 5 6m0-6-5 6"></path></svg
+        >
+        <svg
+          data-sound-icon="on"
+          class="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          hidden><path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H3v6h3l5 4V5Zm4.5 3.5a5 5 0 0 1 0 7m2.5-9.5a8.5 8.5 0 0 1 0 12"></path></svg
+        >
+        <span id="video-sound-label">Activar sonido</span>
+      </button>
+
+      <button
+        id="video-controls-btn"
+        type="button"
+        class="video-sound-btn video-controls-btn"
+        hidden
+        aria-label="Mostrar controles de YouTube"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8.4-3a8.4 8.4 0 0 0-.1-1.3l2-1.5-2-3.4-2.3.9a8 8 0 0 0-2.3-1.3L15.3 3H8.7l-.4 2.4a8 8 0 0 0-2.3 1.3l-2.3-.9-2 3.4 2 1.5a8.4 8.4 0 0 0 0 2.6l-2 1.5 2 3.4 2.3-.9a8 8 0 0 0 2.3 1.3l.4 2.4h6.6l.4-2.4a8 8 0 0 0 2.3-1.3l2.3.9 2-3.4-2-1.5c.1-.4.1-.9.1-1.3Z"></path></svg
+        >
+        <span>Controles</span>
+      </button>
     </div>
 
     {
@@ -152,6 +265,57 @@ const carouselVideos = VIDEOS.map((v) => ({ ...v, thumb: thumb(v.id) }));
 </section>
 
 <style is:global>
+  #main-player-host iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  #main-player-wrap.is-playing #main-player-host iframe {
+    opacity: 1;
+  }
+  #main-player-wrap.is-playing #main-poster {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .video-sound-btn {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 9999px;
+    background: rgba(1, 1, 1, 0.82);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-family: "Outfit", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease;
+  }
+  .video-sound-btn:hover {
+    border-color: var(--accent);
+    background: rgba(249, 86, 2, 0.9);
+  }
+  .video-sound-btn[hidden],
+  .video-sound-btn svg[hidden] {
+    display: none;
+  }
+  .video-controls-btn {
+    right: 16px;
+    bottom: 62px;
+  }
   #video-carousel {
     scrollbar-width: thin;
     scrollbar-color: rgba(249, 86, 2, 0.5) transparent;

@@ -1,11 +1,17 @@
 ---
 import "/src/assets/global.css";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 
 const allImages = import.meta.glob("/src/assets/pictures/Posters/*.jpg", {
   eager: true,
 });
 const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
+
+const full = await Promise.all(
+  fotos.map((foto) =>
+    getImage({ src: foto, width: 900, format: "webp", quality: 82 }),
+  ),
+);
 ---
 
 <section class="text-[var(--text-secondary)] my-20" data-nav-label="Diseños">
@@ -55,7 +61,7 @@ const fotos = Object.entries(allImages).map(([_, mod]) => (mod as any).default);
               class="w-full h-full object-cover"
               width={380}
               height={570}
-              data-original={foto.src}
+              data-original={full[i].src}
             />
 
             <!-- Marco plateado interior -->
